@@ -1,0 +1,12 @@
+{
+  "name": "Cafuaçu",
+  "short_name": "Cafuaçu",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "theme_color": "#2E1E17",
+  "background_color": "#2E1E17",
+  "display": "standalone",
+  "start_url": "/"
+}
