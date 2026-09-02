@@ -262,7 +262,7 @@
           </svg>
           <input id="email" name="email" type="email" inputmode="email" autocomplete="email"
                  placeholder="voce@email.com" required>
-          <button id="enviar" type="submit">quero receber ☕</button>
+          <button id="enviar" type="submit">quero receber</button>
         </div>
         <p id="recado" role="status" aria-live="polite"></p>
       </form>
@@ -273,7 +273,7 @@
       </div>
     </div>
 
-    <p style="margin:20px auto 0;font-size:12.5px;line-height:1.5;color:var(--crema-300);max-width:36ch">Sem spam, e dá pra cancelar em um clique. Seu e-mail só serve pra mandar a news.</p>
+    <p style="margin:20px auto 0;font-size:12.5px;color:var(--crema-300)">Sem spam. Cancele quando quiser.</p>
   </div>
 </section>
 
@@ -282,7 +282,7 @@
   <div style="max-width:640px;margin:0 auto;text-align:center;padding:28px 24px;font-size:12.5px;color:var(--cafe-500);display:flex;flex-direction:column;align-items:center;gap:10px">
     <div><a href="mailto:contato@cafuacu.com.br" style="color:var(--cafe-500)">contato@cafuacu.com.br</a></div>
     <div><a href="privacidade.html" style="color:var(--cafe-500)">política de privacidade</a></div>
-    <div style="display:inline-block;padding:4px 12px;border-radius:999px;background:var(--folha-600);color:var(--crema-100);font-size:11px;letter-spacing:.04em">achado pela cafetinha</div>
+    <div style="display:inline-block;padding:4px 12px;border-radius:999px;background:var(--folha-600);color:var(--crema-100);font-size:11px;letter-spacing:.04em">aprovado pela cafetinha</div>
   </div>
 </footer>
 
@@ -302,7 +302,7 @@
     if (!form) return;
 
     const PADRAO = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
-    const TEXTO_BOTAO = "quero receber \u2615";
+    const TEXTO_BOTAO = "quero receber";
 
     function avisar(texto, tipo) {
       recado.textContent = texto || "";
