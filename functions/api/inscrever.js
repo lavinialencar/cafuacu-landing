@@ -61,7 +61,15 @@ export async function onRequestPost({ request, env }) {
       return responder({ erro: "nao deu pra cadastrar agora" }, 502);
     }
 
-    return responder({ ok: true }, 200);
+    // O status vem do beehiiv: "active" é gente que já estava confirmada
+    // (reinscrição de quem já assina, ou reenvio do mesmo e-mail). Só quem
+    // está "pending"/"validating" de verdade recebeu e-mail de confirmação
+    // agora. Sem essa distinção, quem já assina lia "falta um clique" e
+    // ficava esperando um e-mail que nunca chegaria de novo.
+    const dados = await r.json().catch(() => null);
+    const status = dados?.data?.status || null;
+
+    return responder({ ok: true, status }, 200);
   } catch (e) {
     console.error("falha ao chamar o beehiiv", e);
     return responder({ erro: "nao deu pra cadastrar agora" }, 502);
