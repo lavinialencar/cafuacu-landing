@@ -1,0 +1,6 @@
+---
+// Wordmark CAFUAÇU em curvas (arquivo em public/). `versao`: "crema" pra fundo escuro.
+interface Props { largura?: number; }
+const { largura = 148 } = Astro.props;
+---
+<img src="/wordmark-crema-cafuacu.svg" alt="Cafuaçu" width={largura} height={Math.round(largura * 0.207)} style="display:block;height:auto" />

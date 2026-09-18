@@ -1,0 +1,16 @@
+---
+import Pagina from "../layouts/Pagina.astro";
+---
+<Pagina titulo="Página não encontrada · Cafuaçu" noindex>
+  <style is:global>
+    @media (prefers-reduced-motion:no-preference){
+      .marca .cafetinha{animation:pula .9s cubic-bezier(.3,1.5,.5,1) .1s both, nega 2.6s ease-in-out 1.2s infinite}
+    }
+  </style>
+  <Fragment slot="hero">
+    <div class="eyebrow">erro 404</div>
+    <h1>Essa página não existe.</h1>
+    <p>Talvez tenha esfriado. Volta pro começo?</p>
+  </Fragment>
+  <div style="text-align:center"><a class="botao" href="/" style="margin-top:0">voltar pro início</a></div>
+</Pagina>

@@ -1,0 +1,34 @@
+---
+// Moldura das páginas do site (visual da landing): topo escuro, faixa âmbar opcional,
+// corpo claro, fecho escuro opcional e rodapé claro.
+// Slots: "hero" (título e texto do topo), padrão (corpo), "fecho" (faixa escura final).
+import Base from "./Base.astro";
+import Mascote from "../components/Mascote.astro";
+import Logo from "../components/Logo.astro";
+import Rodape from "../components/Rodape.astro";
+import "../styles/pagina.css";
+interface Props { titulo: string; descricao?: string; noindex?: boolean; faixa?: string; }
+const { faixa, ...resto } = Astro.props;
+---
+<Base {...resto}>
+  <section class="hero">
+    <div class="hero-in">
+      <a class="marca" href="/">
+        <Mascote />
+        <Logo largura={170} />
+      </a>
+      <slot name="hero" />
+    </div>
+  </section>
+  {faixa && <div class="faixa"><div>{faixa}</div></div>}
+  <section class="corpo">
+    <div class="corpo-in">
+      <slot />
+    </div>
+  </section>
+  {Astro.slots.has("fecho") && (
+    <section class="fecho"><div class="fecho-in"><slot name="fecho" /></div></section>
+  )}
+  <Rodape />
+  <script>import "../scripts/reveal.js";</script>
+</Base>

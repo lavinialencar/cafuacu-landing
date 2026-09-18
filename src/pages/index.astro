@@ -1,0 +1,50 @@
+---
+// / · o hub: porta de entrada do site (é o link da bio do Instagram). Cartões em src/data/hub.json.
+import Pagina from "../layouts/Pagina.astro";
+import todos from "../data/hub.json";
+const principal = todos.find((i) => i.destaque);
+const itens = todos.filter((i) => !i.destaque);
+---
+<Pagina
+  titulo="Cafuaçu · café conecta, a gente também"
+  descricao="Newsletter quinzenal, guias, canal de ofertas e loja de quem garimpa café especial."
+  faixa="democratizando o acesso ao café especial ☕"
+>
+  <Fragment slot="hero">
+    <div class="eyebrow">tudo da Cafuaçu num lugar só</div>
+    <h1>Café conecta.<br />A gente também.</h1>
+    <p>Newsletter, guias, ofertas e loja, do jeito simples de sempre.</p>
+  </Fragment>
+
+  {principal && (
+    <a class="destaque" href={principal.href}>
+      <span class="selo">comece por aqui</span>
+      <strong>{principal.titulo}</strong>
+      <span class="d">{principal.texto}</span>
+      <span class="botao">quero receber</span>
+    </a>
+  )}
+
+  <div class="cab" style="margin-top:40px">
+    <div class="eyebrow">além da newsletter</div>
+    <h2>Tem mais</h2>
+  </div>
+  <ul class="linhas">
+    {itens.map((i) => (
+      <li>
+        {i.href && i.estado === "no ar" ? (
+          <a class="linha" href={i.href} target={i.href.startsWith("http") ? "_blank" : undefined} rel={i.href.startsWith("http") ? "noopener" : undefined}>
+            <span class="txt"><strong>{i.titulo}</strong><span class="d">{i.texto}</span></span>
+            <span class="etq ir">abrir</span>
+          </a>
+        ) : (
+          <div class="linha inativo">
+            <span class="txt"><strong>{i.titulo}</strong><span class="d">{i.texto}</span></span>
+            <span class="etq breve">em breve</span>
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
+
+</Pagina>

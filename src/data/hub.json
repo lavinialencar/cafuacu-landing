@@ -1,0 +1,39 @@
+[
+  {
+    "titulo": "Newsletter quinzenal",
+    "texto": "Notícia, cotação, dica e achado de café, direto na sua caixa.",
+    "href": "/newsletter",
+    "estado": "no ar",
+    "destaque": true
+  },
+  {
+    "titulo": "Guia de equipamento",
+    "texto": "Quer comprar um moedor e não sabe qual? Aqui tem opção pra cada orçamento.",
+    "href": "/guias/equipamento",
+    "estado": "em breve"
+  },
+  {
+    "titulo": "Começar no café especial",
+    "texto": "O caminho curto pra sair do pó e chegar no grão bom.",
+    "href": "/guias/comecar",
+    "estado": "em breve"
+  },
+  {
+    "titulo": "Canal de ofertas",
+    "texto": "Promoção de café e equipamento, garimpada pela cafetinha.",
+    "href": "",
+    "estado": "em breve"
+  },
+  {
+    "titulo": "Loja Cafuaçu",
+    "texto": "Acessório e café com a cara da marca.",
+    "href": "",
+    "estado": "em breve"
+  },
+  {
+    "titulo": "Instagram",
+    "texto": "@cafuacu",
+    "href": "https://instagram.com/cafuacu",
+    "estado": "no ar"
+  }
+]

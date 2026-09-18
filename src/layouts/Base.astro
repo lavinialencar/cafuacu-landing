@@ -1,0 +1,30 @@
+---
+// Casca comum a todas as páginas: <head>, fonte, ícones e tokens da marca.
+import "../styles/tokens.css";
+interface Props { titulo: string; descricao?: string; noindex?: boolean; }
+const { titulo, descricao, noindex = false } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{titulo}</title>
+  {descricao && <meta name="description" content={descricao} />}
+  {noindex && <meta name="robots" content="noindex" />}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+  <script is:inline>
+    try{ if(!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim"); }catch(e){}
+  </script>
+  <slot name="head" />
+</head>
+<body>
+  <slot />
+</body>
+</html>
