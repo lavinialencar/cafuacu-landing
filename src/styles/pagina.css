@@ -83,3 +83,21 @@ a.linha:hover strong{text-decoration:underline}
 .prosa h2{font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:34px 0 10px}
 .prosa p,.prosa li{margin:0 0 12px;font-size:16.5px;line-height:1.65}
 .prosa ul{padding-left:20px}
+
+/* cartão de destaque do hub (a newsletter) */
+.destaque{
+  position:relative;display:block;text-decoration:none;text-align:center;
+  background:var(--cafe-700);color:var(--crema-200);
+  border:1.5px solid var(--cafe-900);border-radius:0;padding:34px 24px 28px;
+  box-shadow:8px 8px 0 var(--torra-700);margin:14px 8px 0 0;
+}
+.destaque .selo{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  background:var(--torra-500);color:var(--cafe-900);
+  font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 15px;border-radius:999px;box-shadow:0 2px 0 var(--torra-700);
+}
+.destaque strong{display:block;font-size:26px;line-height:1.15;letter-spacing:-.02em;color:var(--crema-100);margin-bottom:8px}
+.destaque .d{display:block;font-size:15px;color:var(--crema-300);max-width:34ch;margin:0 auto}
+.destaque .botao{margin-top:20px}
+.destaque:hover .botao{background:#F2B155;transform:translateY(-1px)}

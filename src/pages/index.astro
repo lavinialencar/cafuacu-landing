@@ -1,7 +1,9 @@
 ---
 // / · o hub: porta de entrada do site (é o link da bio do Instagram). Cartões em src/data/hub.json.
 import Pagina from "../layouts/Pagina.astro";
-import itens from "../data/hub.json";
+import todos from "../data/hub.json";
+const principal = todos.find((i) => i.destaque);
+const itens = todos.filter((i) => !i.destaque);
 ---
 <Pagina
   titulo="Cafuaçu · café conecta, a gente também"
@@ -14,9 +16,18 @@ import itens from "../data/hub.json";
     <p>Newsletter, guias, ofertas e loja, do jeito simples de sempre.</p>
   </Fragment>
 
-  <div class="cab">
-    <div class="eyebrow">clica e vai</div>
-    <h2>Por onde começar</h2>
+  {principal && (
+    <a class="destaque" href={principal.href}>
+      <span class="selo">comece por aqui</span>
+      <strong>{principal.titulo}</strong>
+      <span class="d">{principal.texto}</span>
+      <span class="botao">quero receber</span>
+    </a>
+  )}
+
+  <div class="cab" style="margin-top:38px">
+    <div class="eyebrow">além da newsletter</div>
+    <h2>Tem mais</h2>
   </div>
   <ul class="linhas">
     {itens.map((i) => (
