@@ -1,0 +1,51 @@
+---
+// /confirmado · página em que o beehiiv deixa a pessoa depois do clique de confirmação.
+import Casa from "../layouts/Casa.astro";
+---
+<Casa
+  titulo="Confirmado! Você está na lista do Cafuaçu"
+  descricao="Inscrição confirmada na newsletter quinzenal de café do Cafuaçu."
+  noindex
+>
+  <style is:global>
+    .passo{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--crema-300)}
+    .passo:first-of-type{border-top:0;padding-top:0}
+    .num{
+      flex:none;width:24px;height:24px;border-radius:999px;background:var(--folha-600);
+      color:var(--crema-100);font-size:12.5px;font-weight:700;
+      display:flex;align-items:center;justify-content:center;margin-top:2px;
+    }
+    .passo p{font-size:14.5px;line-height:1.5}
+    .passo strong{font-weight:700;color:var(--cafe-900)}
+    .passo code{
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+      background:var(--crema-200);padding:1px 6px;border-radius:5px;white-space:nowrap;
+    }
+  </style>
+<h1 style="font-size:29px;margin-bottom:10px">Confirmado. Você está na lista.</h1>
+    <p style="color:var(--crema-300);font-size:16px">
+      A primeira edição chega <strong style="color:var(--torra-500)">em breve</strong>, e depois é de quinze em quinze dias.
+    </p>
+
+    <div class="cartao">
+      <h2>enquanto o café passa</h2>
+
+      <div class="passo">
+        <span class="num">1</span>
+        <p><strong>Salva o remetente.</strong> Adiciona <code>newsletter@mail.cafuacu.com.br</code> nos contatos pra news não cair no spam nem na aba Promoções.</p>
+      </div>
+
+      <div class="passo">
+        <span class="num">2</span>
+        <p><strong>Espia uma edição.</strong> Tem uma pronta pra ler agora, sem esperar.</p>
+      </div>
+
+      <div class="passo">
+        <span class="num">3</span>
+        <p><strong>Marca a gente.</strong> Postou café? Marca <a href="https://instagram.com/cafuacu" target="_blank" rel="noopener" style="font-weight:700;color:var(--torra-700);text-decoration:none;border-bottom:1.5px solid var(--torra-500)">@cafuacu</a> no Instagram que a cafetinha vai lá ver.</p>
+      </div>
+    </div>
+
+    <a class="botao" href="https://cafuacu.beehiiv.com/p/caf-tomba-em-nova-york-e-a-saca-sente" target="_blank" rel="noopener">ler uma edição agora ☕</a>
+
+</Casa>

@@ -1,0 +1,16 @@
+---
+// /guias/<slug> · uma página por guia publicado.
+import Leitura from "../../layouts/Leitura.astro";
+import { getCollection, render } from "astro:content";
+export async function getStaticPaths() {
+  const guias = await getCollection("guias", (g) => g.data.estado === "publicado");
+  return guias.map((g) => ({ params: { slug: g.id }, props: { g } }));
+}
+const { g } = Astro.props;
+const { Content } = await render(g);
+---
+<Leitura titulo={`${g.data.titulo} · Cafuaçu`} descricao={g.data.resumo} voltar={{ href: "/guias", texto: "todos os guias" }}>
+  <div class="selo">Guia</div>
+  <h1>{g.data.titulo}</h1>
+  <Content />
+</Leitura>

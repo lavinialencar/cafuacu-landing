@@ -1,0 +1,9 @@
+:root{
+  /* cartela de marca (fonte: Identidade/tokens-cafuacu.css no Drive) */
+  --cafe-900:#1A0F0B; --cafe-700:#2E1E17; --cafe-500:#6B4A38;
+  --crema-100:#FDF7EF; --crema-200:#F6EADA; --crema-300:#EBDAC3;
+  --torra-500:#E8A13A; --torra-700:#96590A;
+  --folha-600:#2F5233; --folha-400:#7FA65C;
+  --ff:"Instrument Sans",-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}

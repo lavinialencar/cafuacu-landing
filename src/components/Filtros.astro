@@ -1,0 +1,19 @@
+---
+// Filtros SVG do traço seco: dão a tremida e o grão às ilustrações. Use uma vez por página.
+---
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="seco" x="-14%" y="-14%" width="128%" height="128%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.020" numOctaves="3" seed="29" result="r1"/>
+    <feDisplacementMap in="SourceGraphic" in2="r1" scale="4.5" xChannelSelector="R" yChannelSelector="G" result="torto"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="4" seed="47" result="grao"/>
+    <feColorMatrix in="grao" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.6 -0.26" result="m"/>
+    <feComposite in="torto" in2="m" operator="in"/>
+  </filter>
+  <filter id="seco-fino" x="-14%" y="-14%" width="128%" height="128%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="3" seed="11" result="r1"/>
+    <feDisplacementMap in="SourceGraphic" in2="r1" scale="3" xChannelSelector="R" yChannelSelector="G" result="torto"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.48" numOctaves="4" seed="53" result="grao"/>
+    <feColorMatrix in="grao" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.35 -0.1" result="m"/>
+    <feComposite in="torto" in2="m" operator="in"/>
+  </filter>
+</defs></svg>

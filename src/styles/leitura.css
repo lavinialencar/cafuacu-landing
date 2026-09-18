@@ -1,0 +1,11 @@
+/* Layout "Leitura": texto longo e claro (privacidade, guias). */
+body{margin:0;background:var(--crema-200);color:var(--cafe-700);font-family:var(--ff);font-size:16.5px;line-height:1.65}
+.env{max-width:640px;margin:0 auto;padding:48px 28px 72px}
+h1{font-size:30px;line-height:1.1;letter-spacing:-.02em;margin:0 0 8px}
+h2{font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:34px 0 10px}
+p,li{margin:0 0 12px}
+ul{padding-left:20px}
+a{color:var(--torra-700)}
+.voltar{display:inline-block;margin-bottom:26px;font-size:14px;font-weight:600;color:var(--torra-700);text-decoration:none}
+.selo{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--folha-600);margin-bottom:6px}
+.fecho{margin-top:44px;padding-top:20px;border-top:1px solid var(--crema-300);font-size:13px;color:var(--cafe-500)}

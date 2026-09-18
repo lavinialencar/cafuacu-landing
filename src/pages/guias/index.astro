@@ -1,0 +1,23 @@
+---
+// /guias · índice dos guias. Só aparece o que estiver com estado "publicado".
+import Casa from "../../layouts/Casa.astro";
+import { getCollection } from "astro:content";
+const todos = (await getCollection("guias")).sort((a, b) => a.data.ordem - b.data.ordem);
+const publicados = todos.filter((g) => g.data.estado === "publicado");
+---
+<Casa titulo="Guias · Cafuaçu" descricao="Guias de café pra quem está começando.">
+  <h1 style="font-size:29px;margin-bottom:10px">Guias</h1>
+  <p style="color:var(--crema-300);font-size:16px">Café sem enrolação, do começo.</p>
+  <div class="cartao">
+    <h2>{publicados.length ? "pra ler agora" : "chegando"}</h2>
+    {publicados.length ? (
+      <ul style="list-style:none;margin:0;padding:0">
+        {publicados.map((g) => (
+          <li style="padding:10px 0"><a href={`/guias/${g.id}`}><strong>{g.data.titulo}</strong></a><br /><span style="font-size:14px;color:var(--cafe-500)">{g.data.resumo}</span></li>
+        ))}
+      </ul>
+    ) : (
+      <p style="font-size:14.5px">Os primeiros guias estão a caminho. Assine a <a href="/newsletter" style="font-weight:700">newsletter</a> pra saber quando saírem.</p>
+    )}
+  </div>
+</Casa>

@@ -1,0 +1,49 @@
+---
+// / · o hub: a porta de entrada do site. Os cartões vêm de src/data/hub.json.
+import Casa from "../layouts/Casa.astro";
+import itens from "../data/hub.json";
+---
+<Casa
+  titulo="Cafuaçu · café conecta, a gente também"
+  descricao="Newsletter quinzenal, guias, canal de ofertas e loja de quem garimpa café especial."
+>
+  <style is:global>
+    .lema{font-size:29px;margin-bottom:10px}
+    .sub{color:var(--crema-300);font-size:16px}
+    .lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+    .item{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--crema-300);color:inherit;text-decoration:none}
+    .lista li:first-child .item{border-top:0;padding-top:0}
+    .item .txt{flex:1;min-width:0}
+    .item strong{display:block;font-size:15.5px;color:var(--cafe-900)}
+    .item span.d{display:block;font-size:13.5px;color:var(--cafe-500);line-height:1.4}
+    .etq{flex:none;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+    .etq.breve{background:var(--crema-200);color:var(--cafe-500)}
+    .etq.ir{background:var(--torra-500);color:var(--cafe-900)}
+    a.item:hover strong{text-decoration:underline}
+    .item.inativo{opacity:.72}
+  </style>
+
+  <h1 class="lema">Café conecta.<br />A gente também.</h1>
+  <p class="sub">Tudo da Cafuaçu num lugar só.</p>
+
+  <div class="cartao">
+    <h2>por onde começar</h2>
+    <ul class="lista">
+      {itens.map((i) => (
+        <li>
+          {i.href && i.estado === "no ar" ? (
+            <a class="item" href={i.href} target={i.href.startsWith("http") ? "_blank" : undefined} rel={i.href.startsWith("http") ? "noopener" : undefined}>
+              <span class="txt"><strong>{i.titulo}</strong><span class="d">{i.texto}</span></span>
+              <span class="etq ir">abrir</span>
+            </a>
+          ) : (
+            <div class="item inativo">
+              <span class="txt"><strong>{i.titulo}</strong><span class="d">{i.texto}</span></span>
+              <span class="etq breve">em breve</span>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</Casa>
