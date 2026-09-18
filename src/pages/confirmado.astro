@@ -1,6 +1,8 @@
 ---
 // /confirmado · página em que o beehiiv deixa a pessoa depois do clique de confirmação.
 import Pagina from "../layouts/Pagina.astro";
+import Filtros from "../components/Filtros.astro";
+import Ilustracao from "../components/Ilustracao.astro";
 ---
 <Pagina
   titulo="Confirmado! Você está na lista do Cafuaçu"
@@ -13,28 +15,87 @@ import Pagina from "../layouts/Pagina.astro";
     <p>A primeira edição chega <strong style="color:var(--torra-500)">em breve</strong>, e depois é de quinze em quinze dias.</p>
   </Fragment>
 
+  <Filtros />
+
   <div class="cab">
-    <div class="eyebrow">enquanto o café passa</div>
-    <h2>Três coisas pra fazer agora</h2>
+    <div class="eyebrow">primeiro, uma coisa importante</div>
+    <h2>Salva a gente nos contatos</h2>
   </div>
-  <div class="passo">
-        <span class="num">1</span>
-        <p><strong>Salva o remetente.</strong> Adiciona <code>newsletter@mail.cafuacu.com.br</code> nos contatos pra news não cair no spam nem na aba Promoções.</p>
-      </div>
+  <div class="salvar">
+    <code id="remetente">newsletter@mail.cafuacu.com.br</code>
+    <button class="copiar" type="button" id="copiar">copiar</button>
+    <p>Assim a newsletter não cai no spam nem na aba Promoções.</p>
+  </div>
 
-      <div class="passo">
-        <span class="num">2</span>
-        <p><strong>Espia uma edição.</strong> Tem uma pronta pra ler agora, sem esperar.</p>
-      </div>
+  <div class="cab" style="margin-top:44px">
+    <div class="eyebrow">enquanto a 1ª edição não chega</div>
+    <h2>Tem mais vindo por aí</h2>
+  </div>
+  <div class="tiles">
+    <div class="tile">
+      <span class="etq">em breve</span>
+      <div class="ilu"><Ilustracao nome="maos" /></div>
+      <strong>Canal de ofertas</strong>
+      <p>Promoção de café e equipamento, garimpada pela cafetinha.</p>
+    </div>
+    <div class="tile">
+      <span class="etq">em breve</span>
+      <div class="ilu"><Ilustracao nome="coador" /></div>
+      <strong>Guia de equipamento</strong>
+      <p>Moedor, filtro e por onde começar, sem gastar à toa.</p>
+    </div>
+    <div class="tile">
+      <span class="etq">em breve</span>
+      <div class="ilu"><Ilustracao nome="ramo" /></div>
+      <strong>Começar no café especial</strong>
+      <p>O caminho curto pra sair do pó e chegar no grão bom.</p>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:14px;color:var(--cafe-500);margin-top:26px">Quando cada um sair, a gente avisa aqui na newsletter.</p>
 
-      <div class="passo">
-        <span class="num">3</span>
-        <p><strong>Marca a gente.</strong> Postou café? Marca <a href="https://instagram.com/cafuacu" target="_blank" rel="noopener" style="font-weight:700;color:var(--torra-700);text-decoration:none;border-bottom:1.5px solid var(--torra-500)">@cafuacu</a> no Instagram que a cafetinha vai lá ver.</p>
-      </div>
+  <div class="cab" style="margin-top:44px">
+    <div class="eyebrow">e já que está aqui</div>
+    <h2>Marca a gente</h2>
+  </div>
+  <ul class="linhas">
+    <li>
+      <a class="linha" href="https://instagram.com/cafuacu" target="_blank" rel="noopener">
+        <span class="txt"><strong>Instagram, @cafuacu</strong><span class="d">Postou café? Marca a gente que a cafetinha vai lá ver.</span></span>
+        <span class="etq ir">abrir</span>
+      </a>
+    </li>
+  </ul>
 
   <Fragment slot="fecho">
     <h2>Quer ler uma edição?</h2>
     <p>Tem uma pronta, sem esperar.</p>
     <a class="botao" href="https://cafuacu.beehiiv.com/p/caf-tomba-em-nova-york-e-a-saca-sente" target="_blank" rel="noopener">ler uma edição agora ☕</a>
   </Fragment>
+
+  <div class="chuva" id="chuva" aria-hidden="true" slot="hero"></div>
+  <script>
+    // Grãozinhos caem uma vez quando a página abre. Sem "reduzir movimento".
+    const chuva = document.getElementById("chuva");
+    if (chuva && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      for (let i = 0; i < 16; i++) {
+        const g = document.createElement("i");
+        g.style.left = 4 + Math.random() * 92 + "%";
+        g.style.animationDelay = (Math.random() * 0.7).toFixed(2) + "s";
+        g.style.animationDuration = (1.5 + Math.random() * 1.0).toFixed(2) + "s";
+        chuva.appendChild(g);
+      }
+      setTimeout(() => (chuva.innerHTML = ""), 3600);
+    }
+  </script>
+  <script>
+    const btn = document.getElementById("copiar");
+    const alvo = document.getElementById("remetente");
+    if (btn && alvo) {
+      btn.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(alvo.textContent.trim()); btn.textContent = "copiado"; }
+        catch { const r = document.createRange(); r.selectNodeContents(alvo); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "selecionado"; }
+        setTimeout(() => (btn.textContent = "copiar"), 2000);
+      });
+    }
+  </script>
 </Pagina>

@@ -66,7 +66,7 @@ a:hover{color:var(--cafe-900)}
 .linha strong{display:block;font-size:15.5px;color:var(--folha-600);letter-spacing:.01em}
 .linha .d{display:block;font-size:13.5px;color:var(--cafe-500);line-height:1.45;margin-top:2px}
 a.linha:hover strong{text-decoration:underline}
-.linha.inativo{opacity:.7}
+.linha.inativo .txt,.linha.inativo .etq{opacity:.7}
 .etq{flex:none;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
 .etq.breve{background:var(--crema-300);color:var(--cafe-500)}
 .etq.ir{background:var(--torra-500);color:var(--cafe-900)}
@@ -87,7 +87,7 @@ a.linha:hover strong{text-decoration:underline}
 /* cartão de destaque do hub (a newsletter): mesmo estilo do cartão do formulário da landing */
 .destaque{
   position:relative;display:block;text-decoration:none;text-align:center;
-  width:calc(100% - 8px);max-width:490px;margin:12px auto 0;transform:translateX(-4px);padding:38px 24px 30px;
+  width:calc(100% - 8px);max-width:490px;margin:12px auto 0;left:-4px;padding:38px 24px 30px;
   background:var(--crema-200);color:var(--cafe-700);
   border:1.5px solid var(--cafe-900);border-radius:0;
   box-shadow:8px 8px 0 var(--torra-700);
@@ -102,3 +102,88 @@ a.linha:hover strong{text-decoration:underline}
 .destaque .d{display:block;font-size:15px;color:var(--cafe-500);max-width:34ch;margin:0 auto}
 .destaque .botao{margin-top:20px}
 .destaque:hover .botao{background:#F2B155;transform:translateY(-1px)}
+
+/* ---------- movimento (tudo desligado em "reduzir movimento") ---------- */
+@keyframes sobe-suave{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes faixa-abre{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes pulso-botao{0%,72%,100%{box-shadow:0 2px 0 var(--torra-700),0 0 0 0 rgba(232,161,58,0)}86%{box-shadow:0 2px 0 var(--torra-700),0 0 0 9px rgba(232,161,58,.32)}}
+@keyframes cai{
+  0%{opacity:0;transform:translateY(-14px) rotate(0)}
+  15%{opacity:.9}
+  100%{opacity:0;transform:translateY(300px) rotate(300deg)}
+}
+@keyframes nega{0%,100%{transform:rotate(0)}20%{transform:rotate(-9deg)}45%{transform:rotate(8deg)}70%{transform:rotate(-5deg)}}
+
+@media (prefers-reduced-motion:no-preference){
+  /* topo: mascote já pula; o resto entra em cascata */
+  .marca img{animation:sobe-suave .8s ease-out .3s backwards}
+  .hero-in > :not(.marca){animation:sobe-suave .8s ease-out backwards}
+  .hero-in > :nth-child(2){animation-delay:.5s}
+  .hero-in > :nth-child(3){animation-delay:.65s}
+  .hero-in > :nth-child(4){animation-delay:.8s}
+  .faixa > div{animation:faixa-abre .9s cubic-bezier(.3,.8,.3,1) .5s backwards}
+
+  /* corpo: aparece ao rolar */
+  .anim :is(.cab,.linha,.passo,.destaque,.salvar,.tile,.prosa > *,.fecho-in > *){
+    opacity:0;transform:translateY(16px);
+    transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.3,1), translate .25s ease, box-shadow .25s ease;
+    transition-delay:calc(var(--i,0) * 80ms);
+  }
+  .anim .vis{opacity:1!important;transform:none!important}
+  .anim .vis.destaque, .anim .vis.linha, .anim .vis.passo, .anim .vis.tile{transition-delay:0s}
+
+  /* hover */
+  .linha .etq{transition:transform .2s ease, background .2s ease}
+  a.linha:hover .etq{transform:translateX(3px)}
+  .destaque{transition:translate .25s ease, box-shadow .25s ease}
+  .destaque:hover{translate:-2px -2px;box-shadow:11px 11px 0 var(--torra-700)}
+  .destaque .botao{animation:pulso-botao 4.5s ease-in-out 2.5s infinite}
+  .passo .num{transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+  .passo:hover .num{transform:scale(1.15) rotate(-6deg)}
+}
+
+/* chuva de grãos (página Confirmado) */
+.chuva{position:absolute;inset:0 0 auto;height:0;pointer-events:none;overflow:visible;z-index:2}
+.chuva i{
+  position:absolute;top:0;width:9px;height:13px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  background:var(--torra-500);opacity:0;
+}
+.chuva i::after{content:"";position:absolute;inset:2px 4px;border-left:1.4px solid var(--cafe-700);border-radius:50%;transform:rotate(8deg)}
+@media (prefers-reduced-motion:no-preference){.chuva i{animation:cai 1.9s ease-in forwards}}
+.hero{position:relative}
+
+/* ---------- página Confirmado ---------- */
+.salvar{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 14px;
+  background:var(--crema-200);border:1.5px solid var(--cafe-900);box-shadow:6px 6px 0 var(--torra-700);
+  padding:20px 18px;margin:0 6px 0 0;text-align:center;
+}
+.salvar code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;font-weight:600;
+  background:var(--crema-100);border:1px solid var(--crema-300);padding:8px 12px;border-radius:8px;color:var(--cafe-700);word-break:break-all;
+}
+.salvar .copiar{
+  border:0;border-radius:9px;padding:9px 16px;background:var(--torra-500);color:var(--cafe-900);
+  font-family:var(--ff);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 2px 0 var(--torra-700);
+  transition:transform .12s ease, background .15s ease;
+}
+.salvar .copiar:hover{background:#F2B155;transform:translateY(-1px)}
+.salvar .copiar:active{transform:translateY(1px)}
+.salvar p{flex-basis:100%;font-size:13.5px;color:var(--cafe-500);line-height:1.5}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:26px 22px;padding:0 6px 6px 0}
+.tile{
+  position:relative;background:var(--crema-100);border:1.5px solid var(--cafe-900);
+  box-shadow:6px 6px 0 var(--torra-700);padding:22px 16px 18px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.tile .ilu{width:88px;height:88px;margin-bottom:4px}
+.tile .ilu svg{width:100%!important;height:100%!important}
+.tile strong{font-size:16px;line-height:1.2;letter-spacing:-.01em;color:var(--cafe-900)}
+.tile p{font-size:13.5px;color:var(--cafe-500);line-height:1.45}
+.tile .etq{position:absolute;top:-11px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--torra-500);color:var(--cafe-900);box-shadow:0 2px 0 var(--torra-700)}
+@media (prefers-reduced-motion:no-preference){
+  .tile{transition:translate .25s ease, box-shadow .25s ease}
+  .tile:hover{translate:-2px -2px;box-shadow:9px 9px 0 var(--torra-700)}
+  .tile .ilu{transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+  .tile:hover .ilu{transform:rotate(-5deg) scale(1.08)}
+}
