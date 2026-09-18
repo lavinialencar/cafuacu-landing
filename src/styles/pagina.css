@@ -87,8 +87,8 @@ a.linha:hover strong{text-decoration:underline}
 /* cartão de destaque do hub (a newsletter): mesmo estilo do cartão do formulário da landing */
 .destaque{
   position:relative;display:block;text-decoration:none;text-align:center;
-  width:100%;max-width:460px;margin:40px 8px 0 0;padding:36px 24px 28px;
-  background:var(--crema-100);color:var(--cafe-700);
+  margin:12px 8px 0 0;padding:38px 24px 30px;
+  background:var(--crema-200);color:var(--cafe-700);
   border:1.5px solid var(--cafe-900);border-radius:0;
   box-shadow:8px 8px 0 var(--torra-700);
 }
