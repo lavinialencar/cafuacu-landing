@@ -163,20 +163,17 @@
     }
     .cafetinha{display:block}
     @media (prefers-reduced-motion:no-preference){
-      .cafetinha{animation:corre-e-chega 1.1s cubic-bezier(.2,.9,.3,1) backwards, respira 5s ease-in-out 1.1s infinite}
+      .cafetinha{animation:pula .9s cubic-bezier(.3,1.5,.5,1) .1s both, respira 5s ease-in-out 1.1s infinite}
       .hero-a{animation:sobe-suave .8s ease-out backwards}
-      .hero-a.h1{animation-delay:.55s}
-      .hero-a.h2{animation-delay:.7s}
-      .hero-a.h3{animation-delay:.85s}
-      .hero-a.h4{animation-delay:1s}
+      .hero-a.h1{animation-delay:.4s}
+      .hero-a.h2{animation-delay:.55s}
+      .hero-a.h3{animation-delay:.7s}
+      .hero-a.h4{animation-delay:.85s}
     }
-    @keyframes corre-e-chega{
-      0%{transform:translateX(-90px) rotate(-14deg);opacity:0}
-      35%{opacity:1}
-      55%{transform:translateX(-24px) translateY(-14px) rotate(-5deg)}
-      75%{transform:translateX(6px) translateY(0) rotate(2deg)}
-      88%{transform:translateX(0) translateY(-5px) rotate(0)}
-      100%{transform:translateX(0) translateY(0) rotate(0)}
+    @keyframes pula{
+      0%{transform:translateY(18px) scale(.7);opacity:0}
+      60%{transform:translateY(-8px) scale(1.06);opacity:1}
+      100%{transform:translateY(0) scale(1);opacity:1}
     }
     @keyframes sobe-suave{
       0%{opacity:0;transform:translateY(14px)}
@@ -198,7 +195,7 @@
     .anim .previa circle{transition:opacity .3s ease 1.7s, transform .5s cubic-bezier(.3,1.8,.5,1) 1.7s}
     @keyframes respira{
       0%,100%{transform:translateY(0) rotate(0deg)}
-      50%{transform:translateY(-4px) rotate(-1.5deg)}
+      50%{transform:translateY(-5px) rotate(-2deg)}
     }
     @media (prefers-reduced-motion:reduce){#enviar{transition:none}}
   </style>
