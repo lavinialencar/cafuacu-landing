@@ -14,18 +14,17 @@ const itens = todos.filter((i) => !i.destaque);
     <div class="eyebrow">tudo da Cafuaçu num lugar só</div>
     <h1>Café conecta.<br />A gente também.</h1>
     <p>Newsletter, guias, ofertas e loja, do jeito simples de sempre.</p>
+    {principal && (
+      <a class="destaque" href={principal.href}>
+        <span class="selo">comece por aqui</span>
+        <strong>{principal.titulo}</strong>
+        <span class="d">{principal.texto}</span>
+        <span class="botao">quero receber</span>
+      </a>
+    )}
   </Fragment>
 
-  {principal && (
-    <a class="destaque" href={principal.href}>
-      <span class="selo">comece por aqui</span>
-      <strong>{principal.titulo}</strong>
-      <span class="d">{principal.texto}</span>
-      <span class="botao">quero receber</span>
-    </a>
-  )}
-
-  <div class="cab" style="margin-top:38px">
+  <div class="cab">
     <div class="eyebrow">além da newsletter</div>
     <h2>Tem mais</h2>
   </div>
