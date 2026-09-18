@@ -19,13 +19,19 @@ Decisão dela (18/09, noite): todo o site usa o visual da landing, que começa e
 
 `public/_redirects` mantém `/obrigado` e `/privacidade.html` apontando pros novos. O beehiiv ainda tem `assine.cafuacu.com.br/obrigado` como destino pós-confirmação; trocar pra `https://cafuacu.com.br/confirmado` quando a raiz estiver no Cloudflare Pages.
 
-## Pra colocar no ar (checklist)
+## No ar desde 18/09/2026
 
-1. Cloudflare Pages > o projeto > Settings > Build: comando `npm run build`, saída `dist`, variável `NODE_VERSION=22`.
-2. Conferir o preview da branch antes de mesclar na `main`.
-3. Domínio `cafuacu.com.br` como domínio personalizado do projeto (hoje a raiz está numa página "domínio estacionado" da Hostinger).
-4. Regra de redirecionamento no Cloudflare: `assine.cafuacu.com.br/*` → `https://cafuacu.com.br/newsletter` (301).
-5. Beehiiv: Settings > Emails > Opt in redirect URL → `cafuacu.com.br/confirmado`.
+Feito nessa data, na ordem:
+
+1. Cloudflare Pages (`cafuacu-landing`) > Settings > Build: comando `npm run build`, saída `dist`. O Node vem do `.node-version`.
+2. Branch `site-raiz` mesclada na `main` (commit cfc711f). O site antigo ficou no ar até o novo compilar.
+3. Domínio `cafuacu.com.br` ligado ao projeto (o Cloudflare trocou o registro A `2.57.91.91`, da página estacionada da Hostinger, por um CNAME pro projeto).
+4. Duas regras em Cloudflare > `cafuacu.com.br` > Rules > Redirect Rules:
+   - `www.*` vai pra a raiz (301, mantém os parâmetros da URL).
+   - Só a raiz de `assine.cafuacu.com.br` vai pra `https://cafuacu.com.br/newsletter` (301, mantém os parâmetros). Os outros caminhos de `assine.` seguem funcionando, como `/obrigado`.
+5. Beehiiv > Settings > Emails > Opt in redirect URL: `cafuacu.com.br/confirmado`.
+
+Endereços de sempre: `cafuacu.com.br` (hub), `/newsletter`, `/confirmado`, `/guias`, `/privacidade`. Preview de branch: `https://<branch>.cafuacu-landing.pages.dev`, sem as chaves do beehiiv (a inscrição responde erro 500 ali de propósito).
 
 ## Revisão do site (decisão dela, 18/09/2026)
 
