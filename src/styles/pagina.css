@@ -105,7 +105,6 @@ a.linha:hover strong{text-decoration:underline}
 
 /* ---------- movimento (tudo desligado em "reduzir movimento") ---------- */
 @keyframes sobe-suave{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
-@keyframes faixa-abre{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
 @keyframes pulso-botao{0%,72%,100%{box-shadow:0 2px 0 var(--torra-700),0 0 0 0 rgba(232,161,58,0)}86%{box-shadow:0 2px 0 var(--torra-700),0 0 0 9px rgba(232,161,58,.32)}}
 @keyframes cai{
   0%{opacity:0;transform:translateY(-14px) rotate(0)}
@@ -121,7 +120,6 @@ a.linha:hover strong{text-decoration:underline}
   .hero-in > :nth-child(2){animation-delay:.5s}
   .hero-in > :nth-child(3){animation-delay:.65s}
   .hero-in > :nth-child(4){animation-delay:.8s}
-  .faixa > div{animation:faixa-abre .9s cubic-bezier(.3,.8,.3,1) .5s backwards}
 
   /* corpo: aparece ao rolar */
   .anim :is(.cab,.linha,.passo,.destaque,.salvar,.tile,.prosa > *,.fecho-in > *){
