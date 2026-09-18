@@ -1,6 +1,6 @@
 ---
 // /guias/<slug> · uma página por guia publicado.
-import Leitura from "../../layouts/Leitura.astro";
+import Pagina from "../../layouts/Pagina.astro";
 import { getCollection, render } from "astro:content";
 export async function getStaticPaths() {
   const guias = await getCollection("guias", (g) => g.data.estado === "publicado");
@@ -9,8 +9,16 @@ export async function getStaticPaths() {
 const { g } = Astro.props;
 const { Content } = await render(g);
 ---
-<Leitura titulo={`${g.data.titulo} · Cafuaçu`} descricao={g.data.resumo} voltar={{ href: "/guias", texto: "todos os guias" }}>
-  <div class="selo">Guia</div>
-  <h1>{g.data.titulo}</h1>
-  <Content />
-</Leitura>
+<Pagina titulo={`${g.data.titulo} · Cafuaçu`} descricao={g.data.resumo}>
+  <Fragment slot="hero">
+    <div class="eyebrow">guia</div>
+    <h1>{g.data.titulo}</h1>
+    <p>{g.data.resumo}</p>
+  </Fragment>
+  <div class="prosa"><Content /></div>
+  <Fragment slot="fecho">
+    <h2>Gostou?</h2>
+    <p>Todo mês tem mais, na newsletter.</p>
+    <a class="botao" href="/newsletter">quero receber</a>
+  </Fragment>
+</Pagina>

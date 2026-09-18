@@ -1,23 +1,48 @@
 ---
 // /guias · índice dos guias. Só aparece o que estiver com estado "publicado".
-import Casa from "../../layouts/Casa.astro";
+import Pagina from "../../layouts/Pagina.astro";
 import { getCollection } from "astro:content";
 const todos = (await getCollection("guias")).sort((a, b) => a.data.ordem - b.data.ordem);
 const publicados = todos.filter((g) => g.data.estado === "publicado");
 ---
-<Casa titulo="Guias · Cafuaçu" descricao="Guias de café pra quem está começando.">
-  <h1 style="font-size:29px;margin-bottom:10px">Guias</h1>
-  <p style="color:var(--crema-300);font-size:16px">Café sem enrolação, do começo.</p>
-  <div class="cartao">
-    <h2>{publicados.length ? "pra ler agora" : "chegando"}</h2>
-    {publicados.length ? (
-      <ul style="list-style:none;margin:0;padding:0">
-        {publicados.map((g) => (
-          <li style="padding:10px 0"><a href={`/guias/${g.id}`}><strong>{g.data.titulo}</strong></a><br /><span style="font-size:14px;color:var(--cafe-500)">{g.data.resumo}</span></li>
-        ))}
-      </ul>
-    ) : (
-      <p style="font-size:14.5px">Os primeiros guias estão a caminho. Assine a <a href="/newsletter" style="font-weight:700">newsletter</a> pra saber quando saírem.</p>
-    )}
+<Pagina titulo="Guias · Cafuaçu" descricao="Guias de café pra quem está começando." faixa="democratizando o acesso ao café especial ☕">
+  <Fragment slot="hero">
+    <div class="eyebrow">pra quem está começando</div>
+    <h1>Guias</h1>
+    <p>Café sem enrolação, do começo.</p>
+  </Fragment>
+
+  <div class="cab">
+    <div class="eyebrow">{publicados.length ? "pra ler agora" : "chegando"}</div>
+    <h2>{publicados.length ? "Escolhe um guia" : "Os primeiros guias estão a caminho"}</h2>
   </div>
-</Casa>
+  {publicados.length ? (
+    <ul class="linhas">
+      {publicados.map((g) => (
+        <li>
+          <a class="linha" href={`/guias/${g.id}`}>
+            <span class="txt"><strong>{g.data.titulo}</strong><span class="d">{g.data.resumo}</span></span>
+            <span class="etq ir">ler</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <ul class="linhas">
+      {todos.map((g) => (
+        <li>
+          <div class="linha inativo">
+            <span class="txt"><strong>{g.data.titulo}</strong><span class="d">{g.data.resumo}</span></span>
+            <span class="etq breve">em breve</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <Fragment slot="fecho">
+    <h2>Quer saber quando saírem?</h2>
+    <p>Assine a newsletter, toda quinzena, sem enrolação.</p>
+    <a class="botao" href="/newsletter">quero receber</a>
+  </Fragment>
+</Pagina>

@@ -28,9 +28,9 @@ cafuacu-site/
   public/                   arquivos servidos como estão: ícones, og.png, logo, _redirects
   src/
     pages/                  uma página por endereço (o nome do arquivo é o endereço)
-    layouts/                as três "molduras": Base, Casa (escura), Leitura (clara)
+    layouts/                as duas "molduras": Base (head) e Pagina (visual da landing)
     components/             peças reutilizáveis: Mascote, Logo, Rodape, Filtros
-    styles/                 tokens.css (marca), casa.css, leitura.css, paginas/ (CSS de página)
+    styles/                 tokens.css (marca), pagina.css (visual das páginas), paginas/ (CSS da landing)
     scripts/                JavaScript de página (hoje só newsletter.js)
     content/guias/          um .md por guia
     data/hub.json           os cartões do hub

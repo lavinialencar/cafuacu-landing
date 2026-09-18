@@ -4,17 +4,16 @@ Decisões de 18/09/2026.
 
 ## Por que um site só, na raiz
 
-A landing sozinha em `assine.cafuacu.com.br` não comporta hub, guias, loja e canal. Tudo passa a morar em `cafuacu.com.br`, com um template só. A landing continua sendo uma página dentro do site (`/newsletter`) e **não** vira o hub: o hub é a página inicial (`/`), com o visual das páginas Casa.
+A landing sozinha em `assine.cafuacu.com.br` não comporta hub, guias, loja e canal. Tudo passa a morar em `cafuacu.com.br`, com um template só. A landing continua sendo uma página dentro do site (`/newsletter`) e **não** vira o hub: o hub é a página inicial (`/`), com o visual da landing.
 
-## Três molduras (layouts)
+## Duas molduras (layouts)
 
-| Layout | Visual | Usada em |
+| Layout | O que é | Usada em |
 |---|---|---|
 | `Base` | só o `<head>`, ícones, fonte e tokens | por todas |
-| `Casa` | escura, mascote no topo, conteúdo centralizado, rodapé escuro | `/`, `/confirmado`, `/guias`, 404 |
-| `Leitura` | clara, texto longo | `/privacidade`, `/guias/<guia>` |
+| `Pagina` | o visual da landing: topo escuro com mascote, faixa âmbar opcional, corpo claro, fecho escuro opcional, rodapé claro | `/`, `/confirmado`, `/guias`, `/guias/<guia>`, `/privacidade`, 404 |
 
-A landing `/newsletter` usa só a `Base` e tem visual próprio, de propósito.
+Decisão dela (18/09, noite): todo o site usa o visual da landing, que começa escuro e vira claro. A landing `/newsletter` tem CSS próprio (`src/styles/paginas/newsletter.css`) porque tem seções e o formulário que as outras não têm, mas parte dos mesmos tokens e do mesmo topo.
 
 ## Endereços antigos
 

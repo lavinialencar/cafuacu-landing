@@ -1,0 +1,85 @@
+/* Layout "Pagina": o visual da landing. Topo escuro, faixa âmbar, corpo claro, fecho escuro, rodapé claro. */
+body{
+  margin:0;background:var(--crema-200);color:var(--cafe-700);
+  font-family:var(--ff);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-weight:600;line-height:1.08;letter-spacing:-.02em;margin:0}
+p{margin:0}
+a{color:var(--torra-700)}
+a:hover{color:var(--cafe-900)}
+
+/* topo escuro */
+.hero{background:var(--cafe-700);width:100%}
+.hero-in{max-width:640px;margin:0 auto;color:var(--crema-200);padding:56px 32px 48px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.marca{display:flex;flex-direction:column;align-items:center;gap:0;text-decoration:none;margin-bottom:22px}
+.marca .cafetinha{display:block;width:88px;height:auto;margin-bottom:12px}
+@media (prefers-reduced-motion:no-preference){
+  .marca .cafetinha{animation:pula .9s cubic-bezier(.3,1.5,.5,1) .1s both, respira 5s ease-in-out 1.1s infinite}
+}
+@keyframes pula{
+  0%{transform:translateY(18px) scale(.7);opacity:0}
+  60%{transform:translateY(-8px) scale(1.06);opacity:1}
+  100%{transform:translateY(0) scale(1);opacity:1}
+}
+@keyframes respira{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-5px) rotate(-2deg)}
+}
+.hero .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--torra-500);margin-bottom:14px}
+.hero h1{font-size:clamp(30px,7vw,42px);margin-bottom:16px;color:var(--crema-200)}
+.hero p{font-size:16.5px;color:var(--crema-300);max-width:46ch}
+
+/* faixa âmbar */
+.faixa{background:var(--torra-500);width:100%}
+.faixa div{max-width:640px;margin:0 auto;color:var(--cafe-900);text-align:center;padding:12px 24px;font-size:14px;font-weight:600}
+
+/* corpo claro */
+.corpo{background:var(--crema-100);width:100%}
+.corpo-in{max-width:640px;margin:0 auto;padding:44px 28px}
+.corpo .cab{text-align:center;margin-bottom:26px;display:flex;flex-direction:column;gap:8px}
+.corpo .cab .eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--folha-600)}
+.corpo .cab h2{font-size:22px}
+
+/* fecho escuro */
+.fecho{background:var(--cafe-700);width:100%}
+.fecho-in{max-width:640px;margin:0 auto;color:var(--crema-200);padding:44px 24px 46px;text-align:center}
+.fecho h2{font-size:25px;line-height:1.24;margin:0 0 8px}
+.fecho p{color:var(--crema-300);font-size:15px;margin:0}
+
+.botao{
+  display:inline-block;margin-top:24px;background:var(--torra-500);color:var(--cafe-900);
+  font-size:15px;font-weight:700;text-decoration:none;padding:13px 22px;border-radius:10px;
+  box-shadow:0 2px 0 var(--torra-700);transition:transform .12s ease, background .15s ease;
+}
+.botao:hover{background:#F2B155;color:var(--cafe-900);transform:translateY(-1px)}
+
+/* rodapé claro */
+.rodape{background:var(--crema-200);width:100%}
+.rodape-in{max-width:640px;margin:0 auto;text-align:center;padding:28px 24px;font-size:12.5px;color:var(--cafe-500);display:flex;flex-direction:column;align-items:center;gap:10px}
+.rodape a{color:var(--cafe-500)}
+
+/* lista de linhas (hub, guias) */
+.linhas{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.linha{display:flex;align-items:center;gap:14px;padding:18px 2px;border-top:1px solid var(--crema-300);color:inherit;text-decoration:none}
+.linhas li:last-child .linha{border-bottom:1px solid var(--crema-300)}
+.linha .txt{flex:1;min-width:0}
+.linha strong{display:block;font-size:15.5px;color:var(--folha-600);letter-spacing:.01em}
+.linha .d{display:block;font-size:13.5px;color:var(--cafe-500);line-height:1.45;margin-top:2px}
+a.linha:hover strong{text-decoration:underline}
+.linha.inativo{opacity:.7}
+.etq{flex:none;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.etq.breve{background:var(--crema-300);color:var(--cafe-500)}
+.etq.ir{background:var(--torra-500);color:var(--cafe-900)}
+
+/* passos numerados (confirmado) */
+.passo{display:flex;gap:14px;align-items:flex-start;padding:16px 2px;border-top:1px solid var(--crema-300)}
+.passo:last-child{border-bottom:1px solid var(--crema-300)}
+.num{flex:none;width:26px;height:26px;border-radius:999px;background:var(--folha-600);color:var(--crema-100);font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.passo p{font-size:14.5px;line-height:1.55;color:var(--cafe-500)}
+.passo strong{font-weight:700;color:var(--cafe-700)}
+.passo code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--crema-200);padding:1px 6px;border-radius:5px;white-space:nowrap;color:var(--cafe-700)}
+
+/* texto corrido (privacidade, guias) */
+.prosa h2{font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:34px 0 10px}
+.prosa p,.prosa li{margin:0 0 12px;font-size:16.5px;line-height:1.65}
+.prosa ul{padding-left:20px}

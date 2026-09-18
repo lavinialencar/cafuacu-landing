@@ -1,8 +1,11 @@
 ---
-import Casa from "../layouts/Casa.astro";
+import Pagina from "../layouts/Pagina.astro";
 ---
-<Casa titulo="Página não encontrada · Cafuaçu" noindex>
-  <h1 style="font-size:29px;margin-bottom:10px">Essa página não existe.</h1>
-  <p style="color:var(--crema-300);font-size:16px">Talvez tenha esfriado. Volta pro começo?</p>
-  <a class="botao" href="/">voltar pro início</a>
-</Casa>
+<Pagina titulo="Página não encontrada · Cafuaçu" noindex>
+  <Fragment slot="hero">
+    <div class="eyebrow">erro 404</div>
+    <h1>Essa página não existe.</h1>
+    <p>Talvez tenha esfriado. Volta pro começo?</p>
+  </Fragment>
+  <div style="text-align:center"><a class="botao" href="/" style="margin-top:0">voltar pro início</a></div>
+</Pagina>
