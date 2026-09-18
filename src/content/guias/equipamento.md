@@ -1,8 +1,8 @@
 ---
 titulo: "Guia de equipamento"
-resumo: "Moedor em 3 níveis, filtros e por onde começar, sem gastar à toa."
+resumo: "Quer comprar um moedor e não sabe qual? Aqui tem opção pra cada orçamento."
 estado: rascunho
 ordem: 1
 ---
 
-Em construção. Aqui entra o guia de equipamento pra quem está começando.
+Em construção. Guia de equipamento pra quem vai comprar no começo: moedor, filtro e o resto, com três faixas de orçamento.

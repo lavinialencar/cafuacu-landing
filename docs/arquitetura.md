@@ -26,3 +26,11 @@ Decisão dela (18/09, noite): todo o site usa o visual da landing, que começa e
 3. Domínio `cafuacu.com.br` como domínio personalizado do projeto (hoje a raiz está numa página "domínio estacionado" da Hostinger).
 4. Regra de redirecionamento no Cloudflare: `assine.cafuacu.com.br/*` → `https://cafuacu.com.br/newsletter` (301).
 5. Beehiiv: Settings > Emails > Opt in redirect URL → `cafuacu.com.br/confirmado`.
+
+## Revisão do site (decisão dela, 18/09/2026)
+
+Quando a 1ª edição sair, e depois todo mês, revisar o site inteiro:
+
+- **Textos que dependem de fase**: tudo que diz "em breve" ou "enquanto a 1ª edição não chega" (`src/data/hub.json`, `src/pages/confirmado.astro`, `src/pages/guias/index.astro`, selo de `/newsletter`). Quando o canal ou um guia sair, o cartão vira link de verdade.
+- **Links**: afiliados, beehiiv, Instagram, Telegram. Conferir se algum caiu ou se o produto saiu de estoque.
+- **Páginas**: abrir todas no celular e no desktop, e testar a inscrição de ponta a ponta.
