@@ -29,6 +29,14 @@ a:hover{color:var(--cafe-900)}
 .hero h1{font-size:clamp(30px,7vw,42px);margin-bottom:16px;color:var(--crema-200)}
 .hero p{font-size:16.5px;color:var(--crema-300);max-width:46ch}
 
+/* topo compacto (guias longos) */
+.hero.compacto .hero-in{padding:30px 32px 28px}
+.hero.compacto .marca{margin-bottom:14px}
+.hero.compacto .marca .cafetinha{width:58px;margin-bottom:8px}
+.hero.compacto .eyebrow{margin-bottom:8px}
+.hero.compacto h1{font-size:clamp(26px,4vw,34px);margin-bottom:10px}
+.hero.compacto p{font-size:15.5px}
+
 /* faixa âmbar */
 .faixa{background:var(--torra-500);width:100%}
 .faixa div{max-width:640px;margin:0 auto;color:var(--cafe-900);text-align:center;padding:12px 24px;font-size:14px;font-weight:600}
@@ -36,6 +44,7 @@ a:hover{color:var(--cafe-900)}
 /* corpo claro */
 .corpo{background:var(--crema-100);width:100%}
 .corpo-in{max-width:640px;margin:0 auto;padding:44px 28px}
+.corpo-in.largo{max-width:1180px;padding:44px 28px 64px}
 .corpo .cab{text-align:center;margin-bottom:26px;display:flex;flex-direction:column;gap:8px}
 .corpo .cab .eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--folha-600)}
 .corpo .cab h2{font-size:22px}
@@ -83,6 +92,10 @@ a.linha:hover strong{text-decoration:underline}
 .prosa h2{font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:34px 0 10px}
 .prosa p,.prosa li{margin:0 0 12px;font-size:16.5px;line-height:1.65}
 .prosa ul{padding-left:20px}
+.prosa h3{font-size:16.5px;line-height:1.25;margin:24px 0 8px}
+.prosa blockquote{margin:14px 0 18px;padding:12px 16px;border-left:3px solid var(--torra-700);background:var(--crema-200)}
+.prosa blockquote p{margin:0}
+.prosa a{color:inherit;text-decoration-color:var(--torra-700);text-underline-offset:3px}
 
 /* cartão de destaque do hub (a newsletter): mesmo estilo do cartão do formulário da landing */
 .destaque{
@@ -174,6 +187,8 @@ a.linha:hover strong{text-decoration:underline}
   box-shadow:6px 6px 0 var(--torra-700);padding:22px 16px 18px;text-align:center;
   display:flex;flex-direction:column;align-items:center;gap:6px;
 }
+a.tile{text-decoration:none;color:inherit}
+a.tile:focus-visible{outline:3px solid var(--torra-700);outline-offset:3px}
 .tile .ilu{width:88px;height:88px;margin-bottom:4px}
 .tile .ilu svg{width:100%!important;height:100%!important}
 .tile strong{font-size:16px;line-height:1.2;letter-spacing:-.01em;color:var(--cafe-900)}

@@ -8,24 +8,24 @@ import Logo from "../components/Logo.astro";
 import Rodape from "../components/Rodape.astro";
 import VoltarHub from "../components/VoltarHub.astro";
 import "../styles/pagina.css";
-interface Props { titulo: string; descricao?: string; noindex?: boolean; faixa?: string; semVoltar?: boolean; }
-const { faixa, semVoltar = false, ...resto } = Astro.props;
+interface Props { titulo: string; descricao?: string; noindex?: boolean; faixa?: string; semVoltar?: boolean; largo?: boolean; compacto?: boolean; }
+const { faixa, semVoltar = false, largo = false, compacto = false, ...resto } = Astro.props;
 const naoEHub = !["", "/", "/index.html", "/index"].includes(Astro.url.pathname);
 ---
 <Base {...resto}>
-  <section class="hero">
+  <section class={compacto ? "hero compacto" : "hero"}>
     {naoEHub && !semVoltar && <VoltarHub />}
     <div class="hero-in">
       <a class="marca" href="/">
         <Mascote />
-        <Logo largura={170} />
+        <Logo largura={compacto ? 132 : 170} />
       </a>
       <slot name="hero" />
     </div>
   </section>
   {faixa && <div class="faixa"><div>{faixa}</div></div>}
   <section class="corpo">
-    <div class="corpo-in">
+    <div class={largo ? "corpo-in largo" : "corpo-in"}>
       <slot />
     </div>
   </section>

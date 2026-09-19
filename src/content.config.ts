@@ -10,6 +10,7 @@ const guias = defineCollection({
     resumo: z.string(),
     estado: z.enum(["rascunho", "publicado"]).default("rascunho"),
     ordem: z.number().default(99),
+    propria: z.boolean().default(false), // true = a página é um .astro próprio em src/pages/guias/, não gerada daqui
   }),
 });
 
