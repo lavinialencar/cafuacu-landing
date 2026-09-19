@@ -226,7 +226,6 @@ const apps = [
 ];
 
 const botoes = (it: Item) => (it.links ? it.links : it.sem || !it.busca ? [] : lojas(it.busca).filter((l) => !it.so || it.so.includes(l.id)));
-const dev = import.meta.env.DEV;
 const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.length;
 ---
 <Pagina
@@ -242,7 +241,6 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
     <div class="hero-stats"><span>{categorias.length} categorias</span><span>{nOpcoes} opções</span></div>
   </Fragment>
 
-  {dev && <div class="simula">Prévia: os botões de compra abrem a busca do produto na loja. Viram links de afiliado quando as contas existirem.</div>}
 
   <nav class="topo-sum" id="topo-sum" aria-label="Neste guia">
     <div class="ts-in">
@@ -521,7 +519,6 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   a:focus-visible,button:focus-visible{outline:3px solid var(--torra-700);outline-offset:2px;border-radius:6px}
   .hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
   .hero-stats span{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--crema-300);border:1px solid rgba(253,247,239,.28);border-radius:999px;padding:4px 12px}
-  .simula{max-width:1180px;margin:0 auto;padding:10px 28px;background:var(--torra-500);color:var(--cafe-900);font-size:13px;font-weight:600;text-align:center}
   .guia{display:block}
 
   /* textura de grão nos blocos escuros */
@@ -714,7 +711,8 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
     .deg{padding:16px 13px}
     .deg p{font-size:13.5px}
     .ts-chips,.ts-sub ul{justify-content:flex-start}
-    .canal-final{grid-template-columns:1fr;gap:24px;padding:38px 28px}
+    .canal-final{grid-template-columns:1fr;gap:22px;padding:38px 28px}
+    .canal-final .botao{justify-self:start;padding:13px 22px;font-size:15px}
   }
   @media (max-width:760px){
     .escada{grid-template-columns:repeat(2,1fr);align-items:stretch}
@@ -722,8 +720,8 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   }
   @media (max-width:640px){
     .passos,.pula,.apps,.escada{grid-template-columns:1fr}
-    .master{flex-direction:column;gap:12px;padding:24px 22px}
-    .simula{padding:10px 16px}
+    .master{flex-direction:column;align-items:flex-start;gap:12px;padding:24px 22px}
+    .master .ico{width:34px;height:34px}
     .formula{grid-template-columns:1fr;gap:6px}
     .formula .op{font-size:26px}
     .receita{padding:22px 18px}
