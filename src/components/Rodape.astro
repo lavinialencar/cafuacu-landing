@@ -1,8 +1,11 @@
 ---
-// Rodapé claro, igual ao da landing.
+// Rodapé claro, igual ao da landing. `hub`: mostra "voltar pro início" (todas as páginas menos o hub).
+interface Props { hub?: boolean; }
+const { hub = false } = Astro.props;
 ---
 <footer class="rodape">
   <div class="rodape-in">
+    {hub && <div><a href="/">← voltar pro início</a></div>}
     <div><a href="mailto:contato@cafuacu.com.br">contato@cafuacu.com.br</a></div>
     <div><a href="/privacidade">política de privacidade</a></div>
   </div>

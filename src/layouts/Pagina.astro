@@ -6,12 +6,15 @@ import Base from "./Base.astro";
 import Mascote from "../components/Mascote.astro";
 import Logo from "../components/Logo.astro";
 import Rodape from "../components/Rodape.astro";
+import VoltarHub from "../components/VoltarHub.astro";
 import "../styles/pagina.css";
 interface Props { titulo: string; descricao?: string; noindex?: boolean; faixa?: string; }
 const { faixa, ...resto } = Astro.props;
+const naoEHub = !["", "/", "/index.html", "/index"].includes(Astro.url.pathname);
 ---
 <Base {...resto}>
   <section class="hero">
+    {naoEHub && <VoltarHub />}
     <div class="hero-in">
       <a class="marca" href="/">
         <Mascote />
@@ -29,6 +32,6 @@ const { faixa, ...resto } = Astro.props;
   {Astro.slots.has("fecho") && (
     <section class="fecho"><div class="fecho-in"><slot name="fecho" /></div></section>
   )}
-  <Rodape />
+  <Rodape hub={naoEHub} />
   <script>import "../scripts/reveal.js";</script>
 </Base>

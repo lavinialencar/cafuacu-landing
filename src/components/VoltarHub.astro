@@ -1,0 +1,13 @@
+---
+// Link discreto "← início", no canto superior esquerdo do topo escuro. Não aparece no hub.
+---
+<a class="voltar-hub" href="/">← início</a>
+<style>
+  .voltar-hub{
+    position:absolute;top:18px;left:20px;z-index:3;
+    font-size:13px;font-weight:600;letter-spacing:.02em;
+    color:var(--crema-300);text-decoration:none;opacity:.85;
+    padding:6px 10px;border-radius:999px;transition:opacity .15s ease, background .15s ease;
+  }
+  .voltar-hub:hover{opacity:1;background:rgba(246,234,218,.12);color:var(--crema-100)}
+</style>
