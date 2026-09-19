@@ -511,6 +511,28 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   atualiza();
 </script>
 
+<script>
+  // Aparece ao rolar: só quando o site ligou "anim" (sem "reduzir movimento"). O que já está na tela abre direto.
+  (function () {
+    if (!document.documentElement.classList.contains("anim")) return;
+    if (!("IntersectionObserver" in window)) return;
+    const alvos = document.querySelectorAll(".cab-sec, .passos li, .cartao, .prod, .master, .pula > *, .receita, .app, .canal-final, .deg");
+    const cont = new Map();
+    const obs = new IntersectionObserver((itens) => {
+      itens.forEach((it) => { if (it.isIntersecting) { it.target.classList.add("vis"); obs.unobserve(it.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    alvos.forEach((a) => {
+      const i = cont.get(a.parentElement) || 0;
+      cont.set(a.parentElement, i + 1);
+      a.style.setProperty("--i", String(Math.min(i, 5)));
+      const r = a.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) { a.classList.add("vis"); return; }
+      a.classList.add("rv");
+      obs.observe(a);
+    });
+    setTimeout(() => alvos.forEach((a) => a.classList.add("vis")), 8000);
+  })();
+</script>
 <style>
   :global(html),:global(body){overflow-x:clip}
   :global(.corpo){background:#fff}
@@ -726,5 +748,20 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
     .formula .op{font-size:26px}
     .receita{padding:22px 18px}
     .canal-final{padding:32px 22px}
+  }
+
+  /* movimento: pouco, e só onde ajuda a ler */
+  .rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease, transform .55s cubic-bezier(.2,.8,.3,1);transition-delay:calc(var(--i,0) * 70ms)}
+  .rv.vis{opacity:1;transform:none}
+  .deg.rv{opacity:1;transform:none;clip-path:inset(100% 0 0 0 round 12px);transition:clip-path .8s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0) * 130ms)}
+  .deg.rv.vis{clip-path:inset(0 0 0 0 round 12px)}
+  .master.vis .ico{animation:grao-gira .9s cubic-bezier(.3,1.4,.5,1) .25s backwards}
+  @keyframes grao-gira{from{transform:rotate(-40deg) scale(.6);opacity:0}to{transform:none;opacity:1}}
+  @media (prefers-reduced-motion:no-preference){
+    .prod,.passos li,.cartao,.app{transition:translate .2s ease, box-shadow .2s ease, opacity .55s ease, transform .55s cubic-bezier(.2,.8,.3,1)}
+    .prod:hover,.passos li:hover,.app:hover{translate:0 -3px;box-shadow:0 8px 20px -10px rgba(58,36,25,.35)}
+    .bts a{transition:translate .15s ease, filter .15s ease}
+    .bts a:hover{translate:0 -1px;filter:brightness(1.06)}
+    .bts a:active{translate:0 1px}
   }
 </style>
