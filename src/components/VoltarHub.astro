@@ -1,13 +1,24 @@
 ---
-// Link discreto "← início", no canto superior esquerdo do topo escuro. Não aparece no hub.
+// Botão "início" no canto superior esquerdo do topo escuro. Não aparece no hub.
+// Mesmo estilo do botão de Instagram da landing: contorno âmbar, texto crema.
 ---
-<a class="voltar-hub" href="/">← início</a>
+<a class="voltar-hub" href="/" aria-label="Voltar pro início">
+  <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+  <span>início</span>
+</a>
 <style>
   .voltar-hub{
-    position:absolute;top:18px;left:20px;z-index:3;
-    font-size:13px;font-weight:600;letter-spacing:.02em;
-    color:var(--crema-300);text-decoration:none;opacity:.85;
-    padding:6px 10px;border-radius:999px;transition:opacity .15s ease, background .15s ease;
+    position:absolute;top:16px;left:18px;z-index:3;
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 16px 8px 10px;border:1.5px solid var(--torra-500);border-radius:999px;
+    color:var(--crema-100);text-decoration:none;
+    font-family:var(--ff);font-size:13.5px;font-weight:600;letter-spacing:.01em;line-height:1;
+    transition:background .15s ease, color .15s ease, transform .12s ease;
   }
-  .voltar-hub:hover{opacity:1;background:rgba(246,234,218,.12);color:var(--crema-100)}
+  .voltar-hub svg{color:var(--torra-500);flex:none;transition:transform .18s ease, color .15s ease}
+  .voltar-hub:hover{background:var(--torra-500);color:var(--cafe-900)}
+  .voltar-hub:hover svg{color:var(--cafe-900);transform:translateX(-2px)}
+  .voltar-hub:focus-visible{outline:2px solid var(--crema-100);outline-offset:2px}
 </style>
