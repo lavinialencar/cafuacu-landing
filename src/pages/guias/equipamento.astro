@@ -516,23 +516,12 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   (function () {
     if (!document.documentElement.classList.contains("anim")) return;
     if (!("IntersectionObserver" in window)) return;
-    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .cat-cab, .passos li, .cartao, .prod, .master, .escolha, .pula > *, .receita, .formula, .rec-cols > *, .app, .transp, .canal-final, .escada");
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .cat-cab, .passos li, .cartao, .prod, .master, .escolha, .pula > *, .receita, .formula, .rec-cols > *, .app, .transp, .canal-final");
     const cont = new Map();
-    const esc = document.querySelector(".escada");
-    if (esc && matchMedia("(min-width:1021px)").matches) {
-      esc.style.minHeight = esc.offsetHeight + "px";
-      esc.querySelectorAll(".deg").forEach((d) => d.style.setProperty("--h", d.offsetHeight + "px"));
-      esc.classList.add("cresce");
-    }
     let disparou = false;
     const obs = new IntersectionObserver((itens) => {
       disparou = true;
-      itens.forEach((it) => {
-        if (!it.isIntersecting) return;
-        it.target.classList.add("vis");
-        obs.unobserve(it.target);
-        if (it.target === esc) setTimeout(() => { esc.classList.remove("rv", "cresce"); esc.style.minHeight = ""; }, 2000);
-      });
+      itens.forEach((it) => { if (it.isIntersecting) { it.target.classList.add("vis"); obs.unobserve(it.target); } });
     }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
     alvos.forEach((a) => {
       const i = cont.get(a.parentElement) || 0;
@@ -766,16 +755,6 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   /* movimento: pouco, e só onde ajuda a ler */
   .rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease, transform .55s cubic-bezier(.2,.8,.3,1);transition-delay:calc(var(--i,0) * 70ms)}
   .rv.vis{opacity:1;transform:none}
-  .escada.rv{opacity:1;transform:none}
-  .escada.rv .deg{clip-path:inset(100% 0 0 0 round 12px);transition:clip-path .8s cubic-bezier(.2,.8,.2,1)}
-  .escada.rv .d2{transition-delay:.13s}.escada.rv .d3{transition-delay:.26s}.escada.rv .d4{transition-delay:.39s}
-  .escada.rv.vis .deg{clip-path:inset(0 0 0 0 round 12px)}
-  .escada.cresce.rv .deg{align-self:end;clip-path:none;height:56px;min-height:0;overflow:hidden;transition:height .95s cubic-bezier(.16,1,.3,1)}
-  .escada.cresce.rv .deg > *{opacity:0;transition:opacity .5s ease}
-  .escada.cresce.rv.vis .deg{height:var(--h)}
-  .escada.cresce.rv.vis .deg > *{opacity:1}
-  .escada.cresce.rv .d2{transition-delay:.16s}.escada.cresce.rv .d3{transition-delay:.32s}.escada.cresce.rv .d4{transition-delay:.48s}
-  .escada.cresce.rv.vis .d1 > *{transition-delay:.5s}.escada.cresce.rv.vis .d2 > *{transition-delay:.66s}.escada.cresce.rv.vis .d3 > *{transition-delay:.82s}.escada.cresce.rv.vis .d4 > *{transition-delay:.98s}
   .master.vis .ico{animation:grao-gira .9s cubic-bezier(.3,1.4,.5,1) .25s backwards}
   @keyframes grao-gira{from{transform:rotate(-40deg) scale(.6);opacity:0}to{transform:none;opacity:1}}
   @media (prefers-reduced-motion:no-preference){
