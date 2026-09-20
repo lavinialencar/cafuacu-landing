@@ -2,6 +2,7 @@
 // /newsletter · a landing de assinatura (visual próprio, diferente das páginas Casa).
 import Base from "../../layouts/Base.astro";
 import Filtros from "../../components/Filtros.astro";
+import Ilustracao from "../../components/Ilustracao.astro";
 import VoltarHub from "../../components/VoltarHub.astro";
 import "../../styles/paginas/newsletter.css";
 ---
@@ -45,7 +46,7 @@ import "../../styles/paginas/newsletter.css";
   <div style="max-width:640px;margin:0 auto;padding:44px 28px">
     <div style="text-align:center;margin-bottom:26px;display:flex;flex-direction:column;gap:8px">
       <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--folha-600)">o que vem em cada edição</div>
-      <h2 style="font-size:22px">Quatro coisas, sempre</h2>
+      <h2 style="font-size:22px">Cinco coisas, sempre</h2>
     </div>
     <div style="display:flex;flex-direction:column">
 
@@ -73,11 +74,19 @@ import "../../styles/paginas/newsletter.css";
         </div>
       </div>
 
-      <div class="item" data-rev style="--i:3;display:flex;align-items:flex-start;gap:18px;padding:18px 2px 4px;border-top:1px solid var(--crema-300);border-bottom:1px solid var(--crema-300)">
-        <svg style="width:70px;height:auto;flex:none;margin-top:-24px;transform:rotate(-3deg)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 470" width="520" height="470" role="img"><title>mãos com xícara</title><rect width="520" height="470" fill="#FDF7EF"/><g filter="url(#seco)" fill="none" stroke="#2E1E17" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="326" cy="148" rx="90" ry="22"/><path d="M236 150c0 60 6 120 20 148 9 18 30 26 70 26s61-8 70-26c14-28 20-88 20-148"/><path d="M414 190c40-7 64 13 64 42s-24 49-64 42"/></g><g filter="url(#seco)" fill="none" stroke="#2E1E17" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M56 452c32-52 62-102 96-142 21-25 43-46 70-56 31-12 68-12 94-2"/><path d="M312 256c10 26 10 62 0 88"/><path d="M312 346c-26 10-62 12-92 4-27-8-48 13-69 38-25 31-46 64-65 96"/><path d="M220 268c22-24 54-32 84-22"/></g></svg>
+      <div class="item" data-rev style="--i:3;display:flex;align-items:flex-start;gap:18px;padding:18px 2px;border-top:1px solid var(--crema-300)">
+        <svg style="width:56px;height:auto;flex:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 470" width="520" height="470" role="img"><title>mãos com xícara</title><rect width="520" height="470" fill="#FDF7EF"/><g filter="url(#seco)" fill="none" stroke="#2E1E17" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="326" cy="148" rx="90" ry="22"/><path d="M236 150c0 60 6 120 20 148 9 18 30 26 70 26s61-8 70-26c14-28 20-88 20-148"/><path d="M414 190c40-7 64 13 64 42s-24 49-64 42"/></g><g filter="url(#seco)" fill="none" stroke="#2E1E17" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M56 452c32-52 62-102 96-142 21-25 43-46 70-56 31-12 68-12 94-2"/><path d="M312 256c10 26 10 62 0 88"/><path d="M312 346c-26 10-62 12-92 4-27-8-48 13-69 38-25 31-46 64-65 96"/><path d="M220 268c22-24 54-32 84-22"/></g></svg>
         <div>
-          <h3 style="font-size:14.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--folha-600);margin-bottom:4px">Garimpo e agenda</h3>
-          <p style="font-size:13.5px;color:var(--cafe-500)">Achados da cafetinha com preço conferido (café, filtro, equipamento) e os eventos de café dos próximos 15 dias.</p>
+          <h3 style="font-size:14.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--folha-600);margin-bottom:4px">Garimpo</h3>
+          <p style="font-size:13.5px;color:var(--cafe-500)">Achados da cafetinha com preço conferido: café, filtro e equipamento.</p>
+        </div>
+      </div>
+
+      <div class="item" data-rev style="--i:4;display:flex;align-items:flex-start;gap:18px;padding:18px 2px;border-top:1px solid var(--crema-300);border-bottom:1px solid var(--crema-300)">
+        <div style="width:56px;flex:none"><Ilustracao nome="agenda" /></div>
+        <div>
+          <h3 style="font-size:14.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--folha-600);margin-bottom:4px">Agenda</h3>
+          <p style="font-size:13.5px;color:var(--cafe-500)">Os eventos de café que vão rolar nas próximas semanas, pra você se conectar com quem ama café.</p>
         </div>
       </div>
 
@@ -118,7 +127,7 @@ import "../../styles/paginas/newsletter.css";
 
       <div style="border-top:1px solid var(--crema-300);padding-top:16px">
         <div style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--folha-600);margin-bottom:8px">📅 Agenda do café</div>
-        <p style="font-size:13px;color:var(--cafe-500)">Os eventos dos próximos 15 dias, com data e link.</p>
+        <p style="font-size:13px;color:var(--cafe-500)">Os eventos que vão rolar nas próximas semanas, com data e link.</p>
       </div>
 
     </div>
