@@ -1,11 +1,12 @@
 [
   {
     "num": 1,
-    "titulo": "Edição #1",
+    "titulo": "Edição de exemplo",
     "etiqueta": "exemplo",
     "data": "19/09/2026",
+    "data_iso": "2026-09-19",
     "assunto": "O arábica caiu 11%. E o seu café?",
-    "resumo": "Arábica em queda, campeões do Brasil, lançamentos, garimpo com preço conferido e a agenda das próximas semanas.",
-    "href": "/edicoes/ed01/"
+    "resumo": "Saca em queda, campeões do Brasil, lançamentos e um garimpo com preço conferido.",
+    "href": "/edicoes/2026-09-19/"
   }
 ]
