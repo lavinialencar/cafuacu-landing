@@ -1,12 +1,11 @@
 ---
-// /edicoes · espiada nas edições da news. A edição de exemplo mostra como a news chega; as reais entram aqui quando saírem.
+// /edicoes · histórico das edições da news. Cada edição entra aqui pelo montar_email.py --site (src/data/edicoes.json).
 import Pagina from "../../layouts/Pagina.astro";
 import edicoes from "../../data/edicoes.json";
-const soExemplos = edicoes.every((e) => e.etiqueta === "exemplo");   // enquanto só houver edição de exemplo, a página não é indexada
 ---
-<Pagina titulo="Edições · Cafuaçu News" descricao="Espie como é a newsletter quinzenal da Cafuaçu." faixa="democratizando o acesso ao café especial ☕" noindex={soExemplos}>
+<Pagina titulo="Edições · Cafuaçu News" descricao="Todas as edições da newsletter quinzenal da Cafuaçu." faixa="democratizando o acesso ao café especial ☕">
   <Fragment slot="hero">
-    <div class="eyebrow">espia como é</div>
+    <div class="eyebrow">arquivo</div>
     <h1>Edições da news</h1>
     <p>Notícia, cotação, lançamentos, garimpo e agenda, a cada duas semanas.</p>
   </Fragment>
@@ -19,8 +18,8 @@ const soExemplos = edicoes.every((e) => e.etiqueta === "exemplo");   // enquanto
     {edicoes.map((e) => (
       <li>
         <a class="linha" href={e.href}>
-          <span class="txt"><strong>{e.titulo}{e.etiqueta === "exemplo" ? "" : ""} · {e.data}</strong><span class="d">{e.assunto} {e.resumo}</span></span>
-          <span class="etq ir">{e.etiqueta === "exemplo" ? "ver exemplo" : "ler"}</span>
+          <span class="txt"><strong>{e.titulo} · {e.data}</strong><span class="d">{e.assunto} {e.resumo}</span></span>
+          <span class="etq ir">ler</span>
         </a>
       </li>
     ))}
