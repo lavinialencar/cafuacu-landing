@@ -1,4 +1,5 @@
 ---
+import proxima from "../data/proxima-edicao.json";
 // /confirmado · página em que o beehiiv deixa a pessoa depois do clique de confirmação.
 import Pagina from "../layouts/Pagina.astro";
 import Filtros from "../components/Filtros.astro";
@@ -12,7 +13,7 @@ import Ilustracao from "../components/Ilustracao.astro";
   <Fragment slot="hero">
     <div class="eyebrow">inscrição confirmada</div>
     <h1>Confirmado.<br />Você está na lista.</h1>
-    <p>A próxima edição chega <strong style="color:var(--torra-500)">em breve</strong>, e depois é de quinze em quinze dias.</p>
+    <p>A próxima edição chega <strong style="color:var(--torra-500)">{proxima.texto}</strong>, e depois é de quinze em quinze dias.</p>
   </Fragment>
 
   <Filtros />
