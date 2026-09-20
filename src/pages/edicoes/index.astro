@@ -1,0 +1,33 @@
+---
+// /edicoes · espiada nas edições da news. A edição de exemplo mostra como a news chega; as reais entram aqui quando saírem.
+import Pagina from "../../layouts/Pagina.astro";
+import edicoes from "../../data/edicoes.json";
+---
+<Pagina titulo="Edições · Cafuaçu News" descricao="Espie como é a newsletter quinzenal da Cafuaçu." faixa="democratizando o acesso ao café especial ☕" noindex>
+  <Fragment slot="hero">
+    <div class="eyebrow">espia como é</div>
+    <h1>Edições da news</h1>
+    <p>Notícia, cotação, lançamentos, garimpo e agenda, a cada duas semanas.</p>
+  </Fragment>
+
+  <div class="cab">
+    <div class="eyebrow">pra ler agora</div>
+    <h2>Escolhe uma edição</h2>
+  </div>
+  <ul class="linhas">
+    {edicoes.map((e) => (
+      <li>
+        <a class="linha" href={e.href}>
+          <span class="txt"><strong>{e.titulo} · {e.data}</strong><span class="d">{e.assunto} {e.resumo}</span></span>
+          <span class="etq ir">{e.etiqueta === "exemplo" ? "ver exemplo" : "ler"}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <Fragment slot="fecho">
+    <h2>Gostou do jeito?</h2>
+    <p>Assine a news e receba a próxima direto na sua caixa.</p>
+    <a class="botao" href="/newsletter#assine">quero receber</a>
+  </Fragment>
+</Pagina>
