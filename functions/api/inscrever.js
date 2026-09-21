@@ -1,25 +1,21 @@
 /**
- * Cafuaçu · inscrição na newsletter
- * Cloudflare Pages Function. Vira o endereço /api/inscrever no mesmo domínio
- * do site, porque o caminho do arquivo é functions/api/inscrever.js.
+ * Cafuaçu · inscrição na newsletter, versão EMAILOCTOPUS (para o dia da virada; ainda NÃO está ativa no site).
+ * Substitui o conteúdo de functions/api/inscrever.js no repositório cafuacu-landing (mesmo endereço /api/inscrever).
  *
- * POR QUE ELE EXISTE: a chave da API do beehiiv não pode ficar no HTML.
- * Qualquer pessoa abriria o código-fonte da página e copiaria. Esta função
- * roda no servidor da Cloudflare e guarda a chave lá.
+ * Fluxo: o site manda o e-mail para cá; esta função cadastra o contato na lista do EmailOctopus com status "pending"
+ * (API v2: POST /lists/{id}/contacts). Com o opt-in duplo ligado na lista, o EmailOctopus manda o e-mail de confirmação;
+ * ao clicar, a pessoa vira "subscribed" e cai na página de sucesso.
  *
- * DUAS VARIÁVEIS PRECISAM SER CADASTRADAS NO PAINEL DO PAGES,
- * em Settings > Variables and Secrets, tipo "Secret":
- *   BEEHIIV_API_KEY   a chave da API, em Settings > API do beehiiv
- *   BEEHIIV_PUB_ID    o ID da publicação, começa com "pub_"
+ * VARIÁVEIS no painel do Cloudflare Pages (Settings > Variables and Secrets):
+ *   EMAILOCTOPUS_API_KEY   tipo "Secret". A chave é criada e colada por ELA; nunca vai pro código nem pro repositório.
+ *   EMAILOCTOPUS_LIST_ID   texto: 51b00f02-b52b-11f1-bc17-d3e0a308e6cd
+ * Resposta 409 (contato já existe) é tratada como "já assina". A confirmar no envio de teste.
  */
-
 export async function onRequestPost({ request, env }) {
-  if (!env.BEEHIIV_API_KEY || !env.BEEHIIV_PUB_ID) {
-    console.error("faltam as variáveis BEEHIIV_API_KEY ou BEEHIIV_PUB_ID");
+  if (!env.EMAILOCTOPUS_API_KEY || !env.EMAILOCTOPUS_LIST_ID) {
+    console.error("faltam EMAILOCTOPUS_API_KEY ou EMAILOCTOPUS_LIST_ID");
     return responder({ erro: "servico indisponivel" }, 500);
   }
-
-  // ---- lê e valida o e-mail ----
   let email = "";
   try {
     const corpo = await request.json();
@@ -27,58 +23,25 @@ export async function onRequestPost({ request, env }) {
   } catch {
     return responder({ erro: "pedido invalido" }, 400);
   }
-
-  const pareceEmail = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email);
-  if (!pareceEmail || email.length > 200) {
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email) || email.length > 200) {
     return responder({ erro: "esse e-mail parece incompleto" }, 400);
   }
-
-  // ---- cadastra no beehiiv ----
-  // O double opt-in fica ligado na configuração da publicação, então a
-  // pessoa ainda recebe o e-mail de confirmação antes de entrar na lista.
   try {
-    const r = await fetch(
-      `https://api.beehiiv.com/v2/publications/${env.BEEHIIV_PUB_ID}/subscriptions`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${env.BEEHIIV_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          reactivate_existing: false,
-          send_welcome_email: true,
-          utm_source: "landing",
-          utm_medium: "site",
-          utm_campaign: "cafuacu-org",
-        }),
-      }
-    );
-
-    if (!r.ok) {
-      console.error("beehiiv respondeu", r.status, await r.text());
-      return responder({ erro: "nao deu pra cadastrar agora" }, 502);
-    }
-
-    // O status vem do beehiiv: "active" é gente que já estava confirmada
-    // (reinscrição de quem já assina, ou reenvio do mesmo e-mail). Só quem
-    // está "pending"/"validating" de verdade recebeu e-mail de confirmação
-    // agora. Sem essa distinção, quem já assina lia "falta um clique" e
-    // ficava esperando um e-mail que nunca chegaria de novo.
-    const dados = await r.json().catch(() => null);
-    const status = dados?.data?.status || null;
-
-    return responder({ ok: true, status }, 200);
+    const r = await fetch(`https://api.emailoctopus.com/lists/${env.EMAILOCTOPUS_LIST_ID}/contacts`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.EMAILOCTOPUS_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ email_address: email, status: "pending" }),
+    });
+    if (r.status === 201 || r.status === 200) return responder({ ok: true, status: "pending" }, 200);
+    if (r.status === 409) return responder({ ok: true, status: "active" }, 200);
+    console.error("emailoctopus respondeu", r.status, await r.text());
+    return responder({ erro: "nao deu pra cadastrar agora" }, 502);
   } catch (e) {
-    console.error("falha ao chamar o beehiiv", e);
+    console.error("falha ao chamar o emailoctopus", e);
     return responder({ erro: "nao deu pra cadastrar agora" }, 502);
   }
 }
 
 function responder(objeto, status) {
-  return new Response(JSON.stringify(objeto), {
-    status,
-    headers: { "Content-Type": "application/json; charset=utf-8" },
-  });
+  return new Response(JSON.stringify(objeto), { status, headers: { "Content-Type": "application/json; charset=utf-8" } });
 }

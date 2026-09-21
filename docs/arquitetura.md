@@ -17,7 +17,7 @@ Decisão dela (18/09, noite): todo o site usa o visual da landing, que começa e
 
 ## Endereços antigos
 
-`public/_redirects` mantém `/obrigado` e `/privacidade.html` apontando pros novos. O beehiiv ainda tem `assine.cafuacu.com.br/obrigado` como destino pós-confirmação; trocar pra `https://cafuacu.com.br/confirmado` quando a raiz estiver no Cloudflare Pages.
+`public/_redirects` mantém `/obrigado` e `/privacidade.html` apontando pros novos. (Histórico: o beehiiv tinha `assine.cafuacu.com.br/obrigado` como destino pós-confirmação; desde 20/09/2026 a lista é do EmailOctopus.)
 
 ## No ar desde 18/09/2026
 
@@ -29,14 +29,14 @@ Feito nessa data, na ordem:
 4. Duas regras em Cloudflare > `cafuacu.com.br` > Rules > Redirect Rules:
    - `www.*` vai pra a raiz (301, mantém os parâmetros da URL).
    - Só a raiz de `assine.cafuacu.com.br` vai pra `https://cafuacu.com.br/newsletter` (301, mantém os parâmetros). Os outros caminhos de `assine.` seguem funcionando, como `/obrigado`.
-5. Beehiiv > Settings > Emails > Opt in redirect URL: `cafuacu.com.br/confirmado`.
+5. EmailOctopus > lista > Consent & customisation > Double opt-in > Success page: o texto leva a `cafuacu.com.br/confirmado` (o EmailOctopus não redireciona sozinho).
 
-Endereços de sempre: `cafuacu.com.br` (hub), `/newsletter`, `/confirmado`, `/guias`, `/privacidade`. Preview de branch: `https://<branch>.cafuacu-landing.pages.dev`, sem as chaves do beehiiv (a inscrição responde erro 500 ali de propósito).
+Endereços de sempre: `cafuacu.com.br` (hub), `/newsletter`, `/confirmado`, `/guias`, `/privacidade`. Preview de branch: `https://<branch>.cafuacu-landing.pages.dev`, sem as variáveis do EmailOctopus (a inscrição responde erro 500 ali de propósito).
 
 ## Revisão do site (decisão dela, 18/09/2026)
 
 Quando a 1ª edição sair, e depois todo mês, revisar o site inteiro:
 
 - **Textos que dependem de fase**: tudo que diz "em breve" ou "enquanto a 1ª edição não chega" (`src/data/hub.json`, `src/pages/confirmado.astro`, `src/pages/guias/index.astro`, selo de `/newsletter`). Quando o canal ou um guia sair, o cartão vira link de verdade.
-- **Links**: afiliados, beehiiv, Instagram, Telegram. Conferir se algum caiu ou se o produto saiu de estoque.
+- **Links**: afiliados, EmailOctopus, Instagram, Telegram. Conferir se algum caiu ou se o produto saiu de estoque.
 - **Páginas**: abrir todas no celular e no desktop, e testar a inscrição de ponta a ponta.

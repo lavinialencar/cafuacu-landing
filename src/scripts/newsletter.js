@@ -16,7 +16,7 @@
   })();
 
 
-  // Endereço da função que fala com o beehiiv.
+  // Endereço da função que fala com o EmailOctopus.
   // Mesma origem do site: o arquivo functions/api/inscrever.js do repositório.
   const ENDERECO_INSCRICAO = "/api/inscrever";
 
