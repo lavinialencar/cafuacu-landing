@@ -12,9 +12,10 @@
  * Resposta 409 (contato já existe) é tratada como "já assina". A confirmar no envio de teste.
  */
 export async function onRequestPost({ request, env }) {
-  if (!env.EMAILOCTOPUS_API_KEY || !env.EMAILOCTOPUS_LIST_ID) {
-    console.error("faltam EMAILOCTOPUS_API_KEY ou EMAILOCTOPUS_LIST_ID");
-    return responder({ erro: "servico indisponivel" }, 500);
+  const faltando = ["EMAILOCTOPUS_API_KEY", "EMAILOCTOPUS_LIST_ID"].filter((n) => !env[n]);
+  if (faltando.length) {
+    console.error("faltam as variáveis:", faltando.join(", "));
+    return responder({ erro: "servico indisponivel", faltando }, 500);
   }
   let email = "";
   try {
