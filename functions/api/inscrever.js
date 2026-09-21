@@ -43,7 +43,7 @@ export async function onRequestPost({ request, env }) {
     const texto = await r.text();
     if (r.status === 400 && /contact.{0,20}already|already.{0,20}exist|duplicate_parameter/i.test(texto) && !/template|list/i.test(texto)) return responder({ ok: true, status: "active" }, 200);
     console.error("brevo respondeu", r.status, texto);
-    return responder({ erro: "nao deu pra cadastrar agora", brevo: { status: r.status, detalhe: texto.slice(0, 300) } }, 502);
+    return responder({ erro: "nao deu pra cadastrar agora", brevo: { status: r.status, detalhe: texto.slice(0, 300) } }, 424);
   } catch (e) {
     console.error("falha ao chamar o brevo", e);
     return responder({ erro: "nao deu pra cadastrar agora" }, 502);
