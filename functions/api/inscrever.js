@@ -1,18 +1,19 @@
 /**
- * Cafuaçu · inscrição na newsletter, versão EMAILOCTOPUS (para o dia da virada; ainda NÃO está ativa no site).
+ * Cafuaçu · inscrição na newsletter, versão BREVO (reserva; NÃO está ativa. O site usa o EmailOctopus até o Brevo reativar).
  * Substitui o conteúdo de functions/api/inscrever.js no repositório cafuacu-landing (mesmo endereço /api/inscrever).
  *
- * Fluxo: o site manda o e-mail para cá; esta função cadastra o contato na lista do EmailOctopus com status "pending"
- * (API v2: POST /lists/{id}/contacts). Com o opt-in duplo ligado na lista, o EmailOctopus manda o e-mail de confirmação;
- * ao clicar, a pessoa vira "subscribed" e cai na página de sucesso.
+ * Fluxo: o site manda o e-mail pra cá; esta função chama POST /v3/contacts/doubleOptinConfirmation do Brevo, que
+ * manda o e-mail de confirmação (modelo #2, nosso HTML com {{ params.DOIurl }}). Ao clicar, a pessoa entra na lista
+ * "Cafuaçu News" (#3) e é levada DIRETO pra https://cafuacu.com.br/confirmado (redirectionUrl).
  *
- * VARIÁVEIS no painel do Cloudflare Pages (Settings > Variables and Secrets):
- *   EMAILOCTOPUS_API_KEY   tipo "Secret". A chave é criada e colada por ELA; nunca vai pro código nem pro repositório.
- *   EMAILOCTOPUS_LIST_ID   texto: 51b00f02-b52b-11f1-bc17-d3e0a308e6cd
- * Resposta 409 (contato já existe) é tratada como "já assina". A confirmar no envio de teste.
+ * VARIÁVEL no Cloudflare Pages (Settings > Variables and Secrets): só BREVO_API_KEY, tipo "Secret" (criada e colada por ELA).
+ * Os números da lista (3, "Cafuaçu News") e do modelo de confirmação (2) ficam fixos aqui: não são segredo.
  */
+const LISTA_ID = 3;
+const MODELO_CONFIRMACAO_ID = 2;
+
 export async function onRequestPost({ request, env }) {
-  const faltando = ["EMAILOCTOPUS_API_KEY", "EMAILOCTOPUS_LIST_ID"].filter((n) => !env[n]);
+  const faltando = ["BREVO_API_KEY"].filter((n) => !env[n]);
   if (faltando.length) {
     console.error("faltam as variáveis:", faltando.join(", "));
     return responder({ erro: "servico indisponivel", faltando }, 500);
@@ -28,17 +29,23 @@ export async function onRequestPost({ request, env }) {
     return responder({ erro: "esse e-mail parece incompleto" }, 400);
   }
   try {
-    const r = await fetch(`https://api.emailoctopus.com/lists/${env.EMAILOCTOPUS_LIST_ID}/contacts`, {
+    const r = await fetch("https://api.brevo.com/v3/contacts/doubleOptinConfirmation", {
       method: "POST",
-      headers: { Authorization: `Bearer ${env.EMAILOCTOPUS_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ email_address: email, status: "pending" }),
+      headers: { "api-key": env.BREVO_API_KEY, "content-type": "application/json", accept: "application/json" },
+      body: JSON.stringify({
+        email,
+        includeListIds: [LISTA_ID],
+        templateId: MODELO_CONFIRMACAO_ID,
+        redirectionUrl: "https://cafuacu.com.br/confirmado",
+      }),
     });
-    if (r.status === 201 || r.status === 200) return responder({ ok: true, status: "pending" }, 200);
-    if (r.status === 409) return responder({ ok: true, status: "active" }, 200);
-    console.error("emailoctopus respondeu", r.status, await r.text());
+    if (r.status === 201 || r.status === 204) return responder({ ok: true, status: "pending" }, 200);
+    const texto = await r.text();
+    if (r.status === 400 && /already|exist|duplicate/i.test(texto)) return responder({ ok: true, status: "active" }, 200);
+    console.error("brevo respondeu", r.status, texto);
     return responder({ erro: "nao deu pra cadastrar agora" }, 502);
   } catch (e) {
-    console.error("falha ao chamar o emailoctopus", e);
+    console.error("falha ao chamar o brevo", e);
     return responder({ erro: "nao deu pra cadastrar agora" }, 502);
   }
 }

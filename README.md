@@ -9,10 +9,10 @@ A leitura é do macro pro micro: **páginas → layouts → componentes → esti
 |---|---|---|
 | `/` | hub: porta de entrada, com os cartões de tudo | `src/pages/index.astro` |
 | `/newsletter` | a landing de assinatura (visual próprio) | `src/pages/newsletter/index.astro` |
-| `/confirmado` | depois do clique de confirmação do EmailOctopus | `src/pages/confirmado.astro` |
+| `/confirmado` | depois do clique de confirmação do Brevo | `src/pages/confirmado.astro` |
 | `/guias` e `/guias/<guia>` | os guias | `src/pages/guias/`, conteúdo em `src/content/guias/` |
 | `/privacidade` | política de privacidade | `src/pages/privacidade.astro` |
-| `/api/inscrever` | inscrição no EmailOctopus (função no servidor) | `functions/api/inscrever.js` |
+| `/api/inscrever` | inscrição no Brevo (função no servidor) | `functions/api/inscrever.js` |
 
 ## Estrutura de pastas (micro)
 
@@ -45,4 +45,4 @@ cafuacu-site/
 
 ## Publicação
 
-Cada push na `main` publica no Cloudflare Pages. Configuração do projeto lá: build command `npm run build`, diretório de saída `dist`. As variáveis `EMAILOCTOPUS_API_KEY` (Secret) e `EMAILOCTOPUS_LIST_ID` ficam em Settings > Variables and Secrets. Detalhes e histórico das decisões em `docs/arquitetura.md`.
+Cada push na `main` publica no Cloudflare Pages. Configuração do projeto lá: build command `npm run build`, diretório de saída `dist`. A variável `BREVO_API_KEY` (Secret) fica em Settings > Variables and Secrets. Detalhes e histórico das decisões em `docs/arquitetura.md`.

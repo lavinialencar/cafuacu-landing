@@ -16,7 +16,7 @@
   })();
 
 
-  // Endereço da função que fala com o EmailOctopus.
+  // Endereço da função que fala com o Brevo.
   // Mesma origem do site: o arquivo functions/api/inscrever.js do repositório.
   const ENDERECO_INSCRICAO = "/api/inscrever";
 
