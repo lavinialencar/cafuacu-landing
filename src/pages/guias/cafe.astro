@@ -33,6 +33,7 @@ const ic: Record<string, string> = {
   x: svg('<circle cx="24" cy="24" r="16"/><path d="M18 18l12 12M30 18L18 30"/>'),
   livro: svg('<path d="M8 10h12a6 6 0 0 1 4 1.6A6 6 0 0 1 28 10h12v26H28a4 4 0 0 0-4 4 4 4 0 0 0-4-4H8z"/><path d="M24 11.6V40"/>'),
   seta: svg('<path d="M12 24h24M28 16l8 8-8 8"/>'),
+  chaleira: svg('<path d="M12 40h20V26a10 10 0 0 0-20 0z"/><path d="M32 33c7-1 9-9 5-17"/><path d="M12 31H8"/><path d="M17 16h10M22 16v-4"/>'),
   coador: svg('<path d="M9 12h30L30 30H18z"/><path d="M18 30v6h12v-6"/><path d="M13 42h22"/><path d="M15 18l3 12"/>'),
   acucar: svg('<path d="M10 18h22v16H10z"/><path d="M10 18l6-6h22l-6 6"/><path d="M32 18l6-6v16l-6 6"/>'),
 };
@@ -53,6 +54,7 @@ const secoes = [
   { id: "frescor", curto: "Frescor" },
   { id: "moer", curto: "Moer na hora" },
   { id: "agua", curto: "Água" },
+  { id: "receita", curto: "A receita" },
   { id: "extracao", curto: "Azedo ou amargo" },
   { id: "guardar", curto: "Guardar" },
   { id: "provar", curto: "Provar" },
@@ -152,12 +154,12 @@ const rotulo = [
 ];
 
 const familias = [
-  ["Frutado", "#B4341F", "fruta vermelha, uva, maracujá, laranja"],
-  ["Floral", "#C98BB4", "jasmim, flor de laranjeira, mel de flor"],
-  ["Doce", "#E8A13A", "caramelo, rapadura, baunilha, melaço"],
-  ["Castanhas e cacau", "#96590A", "amendoim, nozes, chocolate ao leite"],
-  ["Especiarias", "#7A4A2B", "canela, cravo, pimenta, tabaco"],
-  ["Torrado", "#2E1E17", "cacau amargo, pão torrado, fumaça"],
+  ["Frutado", "#B4341F", "fruta vermelha, uva, maracujá, laranja", "vem de processo natural ou fermentado, e de torra clara"],
+  ["Floral", "#C98BB4", "jasmim, flor de laranjeira, mel de flor", "vem de altitude alta, processo lavado e torra clara"],
+  ["Doce", "#E8A13A", "caramelo, rapadura, baunilha, melaço", "vem de cereja colhida madura, e aparece na torra média"],
+  ["Castanhas e cacau", "#96590A", "amendoim, nozes, chocolate ao leite", "vem da torra média: é a cara do café brasileiro"],
+  ["Especiarias", "#7A4A2B", "canela, cravo, pimenta, tabaco", "vem da torra média escura e de fermentação induzida"],
+  ["Torrado", "#2E1E17", "cacau amargo, pão torrado, fumaça", "vem da torra escura, e passa por cima de tudo que veio antes"],
 ];
 
 const moagens: [string, number, string[]][] = [
@@ -167,6 +169,19 @@ const moagens: [string, number, string[]][] = [
   ["Média", 9, ["Melitta, Clever,", "Chemex"]],
   ["Grossa", 13, ["Prensa", "francesa"]],
   ["Bem grossa", 17, ["Cold brew"]],
+];
+
+const proporcoes = [
+  ["200 ml", "13 g", "uma xícara cheia"],
+  ["300 ml", "20 g", "uma grande ou duas pequenas"],
+  ["500 ml", "33 g", "duas a três xícaras"],
+  ["1 litro", "66 g", "a jarra da casa, quatro a cinco"],
+];
+
+const temperaturas = [
+  ["Torra clara", "94 a 96 ºC", "quente", "O grão é mais duro e mais fechado. Precisa de mais energia pra entregar o que tem, senão fica azedo."],
+  ["Torra média", "92 a 94 ºC", "o padrão", "O meio do caminho. Se você só for decorar um número, decore 93."],
+  ["Torra escura", "88 a 91 ºC", "mais fria", "O grão já está poroso e frágil. Água muito quente puxa o amargor na hora."],
 ];
 
 const sintomas = [
@@ -367,7 +382,7 @@ const glossario = [
       <section id="variedade">
         <header class="cab-sec"><h2>Variedade é a casta do café</h2></header>
         <p class="sub">Dentro do arábica existem dezenas de variedades, do mesmo jeito que existem Cabernet e Malbec dentro da uva. Ela aparece no pacote e é um bom sinal: quem escreve a variedade sabe o que plantou.</p>
-        <div class="prods">
+        <div class="prods tres">
           {variedades.map(([n, t, d]) => (
             <article class="prod semcompra">
               <span class="tg">{t}</span>
@@ -493,41 +508,41 @@ const glossario = [
         <p class="sub">"Especial" não é adjetivo de marketing: é <strong>nota</strong>. Só que o Brasil convive com duas réguas diferentes ao mesmo tempo, e é aí que quase todo mundo se perde.</p>
 
         <div class="desenho reguas">
-          <svg viewBox="0 0 640 250" role="img" aria-label="Comparação entre a escala ABIC de 0 a 10 e a escala SCA de 0 a 100">
-            <text class="rg-t" x="40" y="28">Régua da ABIC, o selo do café de supermercado, de 0 a 10</text>
-            <rect x="40" y="40" width="252" height="34" fill="var(--crema-300)"/>
-            <rect x="293" y="40" width="77" height="34" fill="var(--cafe-500)"/>
-            <rect x="371" y="40" width="72" height="34" fill="var(--torra-700)"/>
-            <rect x="444" y="40" width="156" height="34" fill="var(--torra-500)"/>
+          <svg viewBox="0 0 1160 270" role="img" aria-label="Comparação entre a escala ABIC de 0 a 10 e a escala SCA de 0 a 100">
+            <text class="rg-t" x="0" y="26">Régua da ABIC, o selo do café de supermercado, de 0 a 10</text>
+            <rect x="0" y="42" width="522" height="38" fill="var(--crema-300)"/>
+            <rect x="524" y="42" width="160" height="38" fill="var(--cafe-500)"/>
+            <rect x="686" y="42" width="149" height="38" fill="var(--torra-700)"/>
+            <rect x="837" y="42" width="323" height="38" fill="var(--torra-500)"/>
             <g class="rg-l">
-              <text x="166" y="62" text-anchor="middle" fill="var(--cafe-500)">fora do programa</text>
-              <text x="331" y="62" text-anchor="middle" fill="var(--crema-100)">tradicional</text>
-              <text x="407" y="62" text-anchor="middle" fill="var(--crema-100)">superior</text>
-              <text x="522" y="62" text-anchor="middle" fill="var(--cafe-900)">gourmet</text>
+              <text x="261" y="66" text-anchor="middle" fill="var(--cafe-500)">fora do programa</text>
+              <text x="604" y="66" text-anchor="middle" fill="var(--crema-100)">tradicional</text>
+              <text x="760" y="66" text-anchor="middle" fill="var(--crema-100)">superior</text>
+              <text x="998" y="66" text-anchor="middle" fill="var(--cafe-900)">gourmet</text>
             </g>
             <g class="rg-n">
-              <text x="293" y="92" text-anchor="middle">4,5</text>
-              <text x="371" y="92" text-anchor="middle">6,0</text>
-              <text x="444" y="92" text-anchor="middle">7,3</text>
-              <text x="600" y="92" text-anchor="middle">10</text>
+              <text x="524" y="100" text-anchor="middle">4,5</text>
+              <text x="686" y="100" text-anchor="middle">6,0</text>
+              <text x="837" y="100" text-anchor="middle">7,3</text>
+              <text x="1160" y="100" text-anchor="end">10</text>
             </g>
-            <text class="rg-t" x="40" y="150">Régua da SCA, a do café especial, de 0 a 100</text>
-            <rect x="40" y="162" width="448" height="34" fill="var(--crema-300)"/>
-            <rect x="489" y="162" width="27" height="34" fill="var(--folha-400)"/>
-            <rect x="517" y="162" width="27" height="34" fill="var(--folha-600)"/>
-            <rect x="545" y="162" width="55" height="34" fill="var(--cafe-900)"/>
+            <text class="rg-t" x="0" y="158">Régua da SCA, a do café especial, de 0 a 100</text>
+            <rect x="0" y="174" width="928" height="38" fill="var(--crema-300)"/>
+            <rect x="930" y="174" width="56" height="38" fill="var(--folha-400)"/>
+            <rect x="988" y="174" width="56" height="38" fill="var(--folha-600)"/>
+            <rect x="1046" y="174" width="114" height="38" fill="var(--cafe-900)"/>
             <g class="rg-l">
-              <text x="264" y="184" text-anchor="middle" fill="var(--cafe-500)">café comercial</text>
+              <text x="464" y="198" text-anchor="middle" fill="var(--cafe-500)">café comercial</text>
             </g>
             <g class="rg-n">
-              <text x="489" y="214" text-anchor="middle">80</text>
-              <text x="517" y="214" text-anchor="middle">85</text>
-              <text x="545" y="214" text-anchor="middle">90</text>
-              <text x="600" y="214" text-anchor="middle">100</text>
+              <text x="930" y="232" text-anchor="middle">80</text>
+              <text x="988" y="232" text-anchor="middle">85</text>
+              <text x="1046" y="232" text-anchor="middle">90</text>
+              <text x="1160" y="232" text-anchor="end">100</text>
             </g>
             <g class="rg-s">
-              <text x="489" y="236" text-anchor="middle">especial</text>
-              <text x="604" y="236" text-anchor="end">excepcional</text>
+              <text x="958" y="256" text-anchor="middle">especial</text>
+              <text x="1160" y="256" text-anchor="end">excepcional</text>
             </g>
           </svg>
         </div>
@@ -648,34 +663,36 @@ const glossario = [
 
       <section id="sabor">
         <header class="cab-sec"><h2>"Notas de chocolate" não é chocolate</h2></header>
-        <p class="sub">Ninguém coloca nada no café. As notas são <strong>lembranças de aroma</strong>: seu cérebro reconhece no café moléculas que também existem na fruta, na castanha, na flor. É associação, não ingrediente.</p>
+        <p class="sub">Ninguém coloca nada no café. As notas são <strong>lembranças de aroma</strong>: seu cérebro reconhece no café moléculas que também existem na fruta, na castanha, na flor. É associação, não ingrediente. E é <strong>subjetivo</strong>: a nota no pacote é o que aquele provador sentiu, com a memória e o repertório dele.</p>
 
         <div class="roda">
           <svg viewBox="0 0 300 300" role="img" aria-label="Roda simplificada de sabores do café, com seis famílias">
             {familias.map(([n, cor], i) => {
               const r = (d: number) => (d * Math.PI) / 180;
               const a0 = i * 60 - 90 + 1.5, a1 = a0 + 57;
-              const R = 116, ri = 62, cx = 150, cy = 150;
+              const R = 130, ri = 54, cx = 150, cy = 150;
               const p = (a: number, rr: number) => `${(cx + rr * Math.cos(r(a))).toFixed(1)} ${(cy + rr * Math.sin(r(a))).toFixed(1)}`;
               const am = (a0 + a1) / 2;
               return (
                 <g>
                   <path d={`M${p(a0, R)} A${R} ${R} 0 0 1 ${p(a1, R)} L${p(a1, ri)} A${ri} ${ri} 0 0 0 ${p(a0, ri)} Z`} fill={cor as string}/>
-                  <text class="rd-l" x={cx + 89 * Math.cos(r(am))} y={cy + 89 * Math.sin(r(am))} text-anchor="middle" fill={i === 2 ? "var(--cafe-900)" : "var(--crema-100)"}>{(n as string).split(" e ")[0]}</text>
+                  <text class="rd-l" x={cx + 92 * Math.cos(r(am))} y={cy + 92 * Math.sin(r(am)) + 4} text-anchor="middle" fill={i === 2 ? "var(--cafe-900)" : "var(--crema-100)"}>{(n as string).split(" e ")[0]}</text>
                 </g>
               );
             })}
-            <circle cx="150" cy="150" r="54" fill="var(--crema-200)"/>
+            <circle cx="150" cy="150" r="52" fill="var(--crema-200)"/>
             <text class="rd-c" x="150" y="145" text-anchor="middle">o que</text>
             <text class="rd-c" x="150" y="166" text-anchor="middle">você sente</text>
           </svg>
-          <ul class="roda-l">
-            {familias.map(([n, cor, ex]) => (<li><i style={`background:${cor}`}></i><span><strong>{n}.</strong> {ex}</span></li>))}
+          <ul class="roda-l" aria-describedby="roda-nota">
+            {familias.map(([n, cor, ex, vem]) => (<li><i style={`background:${cor}`}></i><span><strong>{n}.</strong> {ex}<em>{vem}</em></span></li>))}
           </ul>
         </div>
 
-        <p class="sub sub2">E os cinco eixos que um provador usa, em português de gente:</p>
-        <div class="prods">
+        <p class="nota" id="roda-nota">As famílias são um mapa grosso, não uma regra: café de fermentação induzida pode puxar pra frutado e pra especiaria ao mesmo tempo, e nada impede você de sentir uma coisa que não está escrita no pacote.</p>
+
+        <p class="sub sub2">E os seis eixos que um provador usa, em português de gente:</p>
+        <div class="prods tres">
           <article class="prod semcompra"><span class="tg">antes de beber</span><div class="prod-head"><h4>Aroma</h4></div><p>O que sobe do pó seco e depois da bebida. É onde mora a maior parte do que a gente chama de sabor.</p></article>
           <article class="prod semcompra"><span class="tg">a mais confundida</span><div class="prod-head"><h4>Acidez</h4></div><p>A vivacidade que faz a boca salivar, como numa laranja ou numa maçã. Acidez boa refresca. O que você conhece como "azedo" é outra coisa.</p></article>
           <article class="prod semcompra"><span class="tg tg-bom">a que importa</span><div class="prod-head"><h4>Doçura</h4></div><p>Não é açúcar: é a percepção doce de fruta madura. É o atributo que mais separa café especial de café comum.</p></article>
@@ -690,6 +707,7 @@ const glossario = [
             <span class="sel">desmontando o medo</span>
             <h3>Você não precisa sentir "maracujá"</h3>
             <p>Ninguém começa sentindo nota nenhuma, e tudo bem. Comece com três palavras só: <strong>é doce ou seco? é leve ou pesado? eu tomaria de novo?</strong> Depois de uns dez cafés diferentes, o vocabulário chega sozinho, porque você passa a ter com o que comparar.</p>
+            <p>E não existe gabarito. <strong>Sabor é subjetivo por definição</strong>: depende da sua genética, do que você comeu hoje, do que você comia na infância e até do seu humor. Duas pessoas provando a mesma xícara vão descrever coisas diferentes, e as duas estão certas. A roda aí de cima é um <strong>vocabulário comum</strong> pra gente conseguir conversar, não uma verdade sobre o café.</p>
           </div>
         </div>
       </section>
@@ -831,10 +849,92 @@ const glossario = [
         <ul class="pula">
           <li><span class="ico" set:html={ic.gota} /><div><strong>Água filtrada ou mineral</strong><p>Cloro na água é o assassino silencioso do aroma. Filtro de barro, de torneira ou galão, qualquer um resolve.</p></div></li>
           <li><span class="ico" set:html={ic.gota} /><div><strong>Nem água destilada, nem água durona</strong><p>Água sem mineral nenhum extrai mal e dá xícara chata. Água muito dura deixa tudo achatado. O meio-termo de uma mineral leve é o ideal.</p></div></li>
-          <li><span class="ico" set:html={ic.balanca} /><div><strong>Proporção de partida: 1 pra 15</strong><p>20 g de café pra 300 ml de água. A faixa que se usa vai de 1:12 (bem forte) a 1:17 (bem leve). Comece no meio e ajuste ao seu gosto.</p></div></li>
           <li><span class="ico" set:html={ic.coador} /><div><strong>Lave o filtro de papel antes</strong><p>Um jorro de água quente no papel tira o gosto de papelão e ainda esquenta o coador e a jarra. Jogue essa água fora antes de pôr o café.</p></div></li>
           <li><span class="ico" set:html={ic.xicara} /><div><strong>Aqueça a xícara</strong><p>Xícara fria rouba uns graus do café na hora de servir. Um gole de água quente dentro dela antes resolve.</p></div></li>
         </ul>
+      </section>
+
+      <section id="receita">
+        <header class="cab-sec"><h2>A receita: peso, água e relógio</h2></header>
+        <p class="sub">Aqui não tem mistério nenhum, tem três números. Depois que você acerta uma vez e <strong>anota</strong>, consegue repetir todo dia, e só então dá pra saber se o café mudou ou se foi você.</p>
+
+        <div class="receita">
+          <div class="formula" role="img" aria-label="20 gramas de café mais 300 mililitros de água dá proporção de 1 pra 15">
+            <div><strong>20 g</strong><span>de café</span></div>
+            <div class="op">+</div>
+            <div><strong>300 ml</strong><span>de água</span></div>
+            <div class="op">=</div>
+            <div class="res"><strong>1 : 15</strong><span>a proporção</span></div>
+          </div>
+          <div class="rec-cols">
+            <div>
+              <h3>Mais forte ou mais leve</h3>
+              <ul class="dicas">
+                <li><span class="ico" set:html={ic.balanca} /><p><strong>1:12 a 1:14 é encorpado.</strong> Bom pra quem vem do café tradicional e acha o especial "fraco".</p></li>
+                <li><span class="ico" set:html={ic.balanca} /><p><strong>1:16 a 1:17 é leve e limpo.</strong> Bom pra torra clara e pra sentir fruta e flor.</p></li>
+              </ul>
+            </div>
+            <div>
+              <h3>Por que pesar muda tudo</h3>
+              <ul class="ajustes">
+                <li><span class="ico" set:html={ic.seta} /><p>A <strong>mesma colher de sopa</strong> pesa de 7 a 10 g, dependendo da torra e da moagem. É uma variação de 40%.</p></li>
+                <li><span class="ico" set:html={ic.seta} /><p>Sem pesar, você nunca sabe se o café ficou diferente por causa do grão ou da sua mão.</p></li>
+              </ul>
+              <p class="rec-nota">Uma balança de cozinha de R$ 25 resolve. <a href="/guias/equipamento#balancas">As opções estão no guia de equipamento</a>.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="sub sub2">Quanto de café pra quanta água</p>
+        <div class="tabela">
+          <div class="th"><span>Água</span><span>Café, na proporção 1:15</span><span>Dá quanto</span></div>
+          {proporcoes.map(([a, c, d]) => (<div class="tr"><span><strong>{a}</strong></span><span>{c}</span><span>{d}</span></div>))}
+        </div>
+
+        <p class="sub sub2">E o relógio: um coado de 300 ml, do começo ao fim</p>
+        <div class="desenho">
+          <svg viewBox="0 0 1160 130" role="img" aria-label="Linha do tempo de um café coado, do primeiro molhar aos três minutos e meio">
+            <rect x="0" y="16" width="246" height="42" rx="8" fill="var(--torra-500)"/>
+            <rect x="249" y="16" width="246" height="42" rx="8" fill="var(--folha-400)"/>
+            <rect x="498" y="16" width="328" height="42" rx="8" fill="var(--folha-600)"/>
+            <rect x="829" y="16" width="331" height="42" rx="8" fill="var(--crema-300)"/>
+            <g class="tl-l">
+              <text x="123" y="43" text-anchor="middle" fill="var(--cafe-900)">molha e espera</text>
+              <text x="372" y="43" text-anchor="middle" fill="var(--cafe-900)">primeiro despejo</text>
+              <text x="662" y="43" text-anchor="middle" fill="var(--crema-100)">completa a água</text>
+              <text x="994" y="43" text-anchor="middle" fill="var(--cafe-500)">só escorrendo</text>
+            </g>
+            <g class="tl-n">
+              <text x="0" y="86">0:00</text>
+              <text x="249" y="86" text-anchor="middle">0:45</text>
+              <text x="498" y="86" text-anchor="middle">1:30</text>
+              <text x="829" y="86" text-anchor="middle">2:30</text>
+              <text x="1160" y="86" text-anchor="end">3:30</text>
+            </g>
+            <text class="tl-d" x="0" y="116">passou muito de 3:30, a moagem está fina demais; acabou antes de 2:00, está grossa demais</text>
+          </svg>
+        </div>
+
+        <ol class="passos quatro">
+          <li><span class="ico" set:html={ic.gota} /><span class="n">1</span><h3>Molha e espera</h3><p>Despeje o <strong>dobro do peso do café</strong> em água (40 g pra 20 g de pó), só pra molhar tudo. O pó incha e solta bolha: é o CO2 saindo. Espere 30 a 45 segundos.</p></li>
+          <li><span class="ico" set:html={ic.chaleira} /><span class="n">2</span><h3>Primeiro despejo</h3><p>Em círculos, do centro pra fora, sem encostar no papel. Vá até uns <strong>180 g</strong> no total e deixe baixar.</p></li>
+          <li><span class="ico" set:html={ic.balanca} /><span class="n">3</span><h3>Completa</h3><p>Suba até os <strong>300 g</strong> de água. Daqui pra frente você pode despejar com mais folga, a cama de café já está formada.</p></li>
+          <li><span class="ico" set:html={ic.relogio} /><span class="n">4</span><h3>Deixa escorrer</h3><p>Tire o coador quando parar de pingar, por volta de <strong>3:00 a 3:30</strong>. Não espere a última gota: ela é a mais amarga.</p></li>
+        </ol>
+        <p class="nota">Aquela bolha toda do passo 1 tem nome: <strong>bloom</strong>, ou florada. Quanto mais fresco o café, mais ele infla. Se o seu não inflar nada, o café provavelmente já está velho, e aí o problema não é a receita. <a href="#frescor">Ver a linha do tempo do frescor</a>.</p>
+
+        <p class="sub sub2">E a temperatura muda com a torra</p>
+        <div class="prods tres">
+          {temperaturas.map(([n, t, tag, d], i) => (
+            <article class="prod semcompra">
+              <span class={i === 1 ? "tg tg-bom" : "tg"}>{tag}</span>
+              <div class="prod-head"><h4>{n}</h4></div>
+              <p class="grau">{t}</p>
+              <p>{d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="nota">Sem termômetro: ferva, desligue e espere. A água perde mais ou menos 1 ºC a cada 10 segundos dentro da chaleira aberta, então um minuto de espera já te deixa perto dos 93 ºC.</p>
       </section>
 
       <section id="extracao">
@@ -911,7 +1011,7 @@ const glossario = [
       <section id="comprar">
         <header class="cab-sec"><h2>Onde comprar o seu primeiro pacote</h2></header>
         <p class="sub">Você não precisa achar o melhor café do Brasil. Precisa achar <strong>um café bom, fresco e fácil de repetir</strong>. Estes são os caminhos, do mais fácil ao mais garimpo.</p>
-        <div class="prods">
+        <div class="prods tres">
           {ondeComprar.map((o) => (
             <article class="prod semcompra">
               <span class={o.tag.startsWith("o melhor") ? "tg tg-bom" : "tg"}>{o.tag}</span>
@@ -1050,7 +1150,6 @@ const glossario = [
   .desenho svg{display:block;width:100%;height:auto}
   .desenho.rot,.desenho:has(.legenda){display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:40px;align-items:center}
   .desenho.alt svg{max-width:760px;margin:0 auto}
-  .desenho.reguas svg{max-width:820px}
 
   /* legenda numerada ao lado do desenho */
   .legenda{list-style:none;margin:0;padding:0;counter-reset:leg;display:flex;flex-direction:column;gap:12px}
@@ -1089,7 +1188,7 @@ const glossario = [
   .rot-min{font-size:10.5px;fill:var(--cafe-500)}
   .rot-pin circle{fill:var(--torra-500)}
   .rot-pin text{fill:var(--cafe-900);font-size:12px;font-weight:700;text-anchor:middle}
-  .rd-l{font-size:11.5px;font-weight:700;letter-spacing:.01em}
+  .rd-l{font-size:10.5px;font-weight:700;letter-spacing:.005em}
   .rd-c{font-size:14px;font-weight:600;fill:var(--cafe-500)}
 
   /* espécies */
@@ -1139,6 +1238,7 @@ const glossario = [
   .barras li{display:grid;grid-template-columns:104px 1fr;align-items:center;gap:10px;font-size:12px;color:var(--cafe-500)}
   .barras i{display:block;height:7px;border-radius:999px;background:var(--crema-300);overflow:hidden}
   .barras b{display:block;height:100%;background:var(--torra-700);border-radius:999px}
+  .prod .grau{font-size:26px;font-weight:600;color:var(--torra-700);letter-spacing:-.02em;margin-bottom:10px;font-variant-numeric:tabular-nums}
   .prod .quando{font-size:13.5px;font-weight:600;color:var(--cafe-900);margin-bottom:0}
   .bolinha{flex:none;width:26px;height:26px;border-radius:999px;border:2px solid var(--crema-300)}
   .prods.quatro{grid-template-columns:repeat(4,1fr)}
@@ -1151,6 +1251,7 @@ const glossario = [
   .roda-l li{display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--cafe-500)}
   .roda-l i{flex:none;width:22px;height:22px;border-radius:6px;margin-top:2px}
   .roda-l strong{color:var(--cafe-900)}
+  .roda-l em{display:block;font-style:normal;font-size:13.5px;color:var(--torra-700);margin-top:2px}
 
   /* tabela de sintomas */
   .tabela{margin-top:22px;border:1px solid var(--crema-300);border-radius:12px;overflow:hidden}
