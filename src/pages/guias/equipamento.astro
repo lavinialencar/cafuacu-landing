@@ -39,7 +39,7 @@ const ic: Record<string, string> = {
 const enc = encodeURIComponent;
 const lojas = (q: string) => [
   { id: "ali", nome: "AliExpress", href: `https://pt.aliexpress.com/wholesale?SearchText=${enc(q)}` },
-  { id: "amz", nome: "Amazon", href: `https://www.amazon.com.br/s?k=${enc(q)}` },
+  { id: "amz", nome: "Amazon", href: `https://www.amazon.com.br/s?k=${enc(q)}&tag=cafuacu-20` },
   { id: "ml", nome: "Mercado Livre", href: `https://lista.mercadolivre.com.br/${q.trim().toLowerCase().replace(/\s+/g, "-")}` },
 ];
 
