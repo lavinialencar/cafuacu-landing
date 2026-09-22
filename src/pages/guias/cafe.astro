@@ -1,0 +1,1187 @@
+---
+// /guias/cafe · o guia de conhecimento, em jornada: do pé de café até a xícara.
+// Par do /guias/equipamento (mão de via dupla): este cuida do CAFÉ, o outro do EQUIPAMENTO,
+// e cada um manda pro outro no ponto exato em que o assunto deixa de ser dele.
+// O estilo compartilhado dos guias mora em src/styles/paginas/guia.css.
+// TRAVA: enquanto PUBLICADO for false, o build de produção redireciona pra /guias.
+import Pagina from "../../layouts/Pagina.astro";
+import "../../styles/paginas/guia.css";
+
+const PUBLICADO = true;
+if (!PUBLICADO && import.meta.env.PROD) return Astro.redirect("/guias");
+
+const svg = (d: string) =>
+  `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ic: Record<string, string> = {
+  grao: svg('<ellipse cx="24" cy="24" rx="12" ry="17" transform="rotate(30 24 24)"/><path d="M17 12c4 6 2 12 6 16s6 6 8 8"/>'),
+  cereja: svg('<circle cx="21" cy="29" r="11"/><path d="M21 18c1-6 5-9 11-10"/><path d="M26 10c3-2 7-2 9 0-2 3-6 4-9 0z"/>'),
+  pe: svg('<path d="M24 42V12"/><path d="M24 20c-5-6-11-6-15-4 2 6 8 9 15 7z"/><path d="M24 30c5-6 11-6 15-4-2 6-8 9-15 7z"/><path d="M18 42h12"/>'),
+  sol: svg('<circle cx="24" cy="24" r="9"/><path d="M24 6v4M24 38v4M6 24h4M38 24h4M11 11l3 3M34 34l3 3M37 11l-3 3M14 34l-3 3"/>'),
+  mao: svg('<path d="M18 26V11a3 3 0 0 1 6 0v12"/><path d="M24 20a3 3 0 0 1 6 0v4"/><path d="M30 22a3 3 0 0 1 6 0v10a10 10 0 0 1-10 10h-4c-4 0-6-2-8-6l-5-9a3 3 0 0 1 5-3l4 5"/>'),
+  sol2: svg('<path d="M6 34h36"/><path d="M12 34V22M20 34V17M28 34V20M36 34V15"/>'),
+  medalha: svg('<circle cx="24" cy="28" r="11"/><path d="M24 23l2 4 4 .6-3 3 .7 4-3.7-2-3.7 2 .7-4-3-3 4-.6z"/><path d="M17 17L13 6h22l-4 11"/>'),
+  fogo: svg('<path d="M24 42c7 0 12-5 12-11 0-8-8-10-7-19-6 3-9 8-9 13 0-2-2-4-4-5-2 3-4 6-4 11 0 6 5 11 12 11z"/>'),
+  pacote: svg('<path d="M12 14h24v28H12z"/><path d="M12 14l3-8h18l3 8"/><path d="M18 22h12"/><circle cx="24" cy="32" r="4"/>'),
+  lingua: svg('<path d="M14 10h20v14a14 14 0 0 1-14 14h-.5A5.5 5.5 0 0 1 14 32.5z"/><path d="M24 10v22"/>'),
+  relogio: svg('<circle cx="24" cy="26" r="15"/><path d="M24 17v9l6 4"/><path d="M18 6h12"/>'),
+  moedor: svg('<rect x="17" y="19" width="14" height="21" rx="2"/><path d="M17 27h14M17 34h14"/><path d="M24 19v-9M24 10h11"/><circle cx="37" cy="10" r="2.6"/><path d="M14 40h20"/>'),
+  gota: svg('<path d="M24 7c8 10 12 15 12 22a12 12 0 0 1-24 0c0-7 4-12 12-22z"/>'),
+  balanca: svg('<path d="M9 23h30l3 17H6z"/><path d="M14 23c0-6 4-9 10-9s10 3 10 9"/><path d="M24 23l3-6"/><path d="M14 32h6M28 32h6"/>'),
+  pote: svg('<rect x="13" y="16" width="22" height="24" rx="3"/><path d="M11 16h26v-5H11z"/><path d="M13 27h22"/>'),
+  xicara: svg('<path d="M10 21h24v9a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z"/><path d="M34 23h3a4 4 0 0 1 0 8h-3"/><path d="M18 8c-2 3 2 5 0 8M25 8c-2 3 2 5 0 8"/>'),
+  loja: svg('<path d="M9 20h30v20H9z"/><path d="M7 20l3-10h28l3 10"/><path d="M19 40V29h10v11"/>'),
+  x: svg('<circle cx="24" cy="24" r="16"/><path d="M18 18l12 12M30 18L18 30"/>'),
+  livro: svg('<path d="M8 10h12a6 6 0 0 1 4 1.6A6 6 0 0 1 28 10h12v26H28a4 4 0 0 0-4 4 4 4 0 0 0-4-4H8z"/><path d="M24 11.6V40"/>'),
+  seta: svg('<path d="M12 24h24M28 16l8 8-8 8"/>'),
+  coador: svg('<path d="M9 12h30L30 30H18z"/><path d="M18 30v6h12v-6"/><path d="M13 42h22"/><path d="M15 18l3 12"/>'),
+  acucar: svg('<path d="M10 18h22v16H10z"/><path d="M10 18l6-6h22l-6 6"/><path d="M32 18l6-6v16l-6 6"/>'),
+};
+
+// ---------------------------------------------------------------- sumário
+const secoes = [
+  { id: "comecar", curto: "Por onde começar" },
+  { id: "fruta", curto: "É fruta" },
+  { id: "especies", curto: "Espécies" },
+  { id: "variedade", curto: "Variedade" },
+  { id: "terroir", curto: "Terroir" },
+  { id: "colheita", curto: "Colheita" },
+  { id: "processo", curto: "Processo" },
+  { id: "especial", curto: "Por que especial" },
+  { id: "torra", curto: "Torra" },
+  { id: "rotulo", curto: "O rótulo" },
+  { id: "sabor", curto: "Sabor" },
+  { id: "frescor", curto: "Frescor" },
+  { id: "moer", curto: "Moer na hora" },
+  { id: "agua", curto: "Água" },
+  { id: "extracao", curto: "Azedo ou amargo" },
+  { id: "guardar", curto: "Guardar" },
+  { id: "provar", curto: "Provar" },
+  { id: "acucar", curto: "Açúcar" },
+  { id: "comprar", curto: "Onde comprar" },
+  { id: "erros", curto: "Erros" },
+  { id: "alem", curto: "Pra ir além" },
+  { id: "par", curto: "O guia de equipamento" },
+];
+
+// ---------------------------------------------------------------- dados
+const especies = [
+  {
+    nome: "Arábica", cientifico: "Coffea arabica", tag: "quase todo café especial",
+    altitude: "800 a 1.400 m", cafeina: "cerca de metade da do robusta",
+    copo: "Mais açúcar natural, acidez viva, aroma complexo. É onde aparecem fruta, flor, caramelo e chocolate.",
+    contra: "Planta frágil: sofre com calor, seca, geada e praga. Por isso custa mais.",
+  },
+  {
+    nome: "Canéfora", cientifico: "Coffea canephora (robusta e conilon)", tag: "corpo e cafeína",
+    altitude: "0 a 800 m", cafeina: "quase o dobro da do arábica",
+    copo: "Menos açúcar e menos acidez, mais corpo, mais amargor e uma nota que lembra cereal e castanha.",
+    contra: "Resistente e barato: é a base do café de supermercado e do café solúvel. Mas tem versão fina, ver abaixo.",
+  },
+  {
+    nome: "Libérica e excelsa", cientifico: "Coffea liberica", tag: "raridade",
+    altitude: "baixa", cafeina: "intermediária",
+    copo: "Grão enorme, perfil esquisito e marcante, entre defumado e jaca. Quase não chega ao Brasil.",
+    contra: "Menos de 2% do café do mundo. Aparece como curiosidade, não como opção de compra.",
+  },
+];
+
+const variedades = [
+  ["Bourbon", "a clássica", "Doçura alta e acidez elegante. Amarelo, vermelho ou rosa. É a variedade que deu origem a meia lavoura brasileira."],
+  ["Catuaí", "a mais plantada", "Cruzamento de Caturra com Mundo Novo, planta baixa e produtiva. Xícara equilibrada, achocolatada, de acidez média."],
+  ["Mundo Novo", "a resistente", "Bourbon com Typica. Corpo cheio e doçura de caramelo, muito comum em café de fazenda."],
+  ["Acaiá e Topázio", "as brasileiras", "Seleções feitas no Brasil a partir do Mundo Novo. Grão graúdo e doçura marcada."],
+  ["Arara e Catucaí", "as novas", "Resistentes a doença e com bom potencial de doçura. Aparecem cada vez mais no café especial nacional."],
+  ["Geisha", "a cara", "Floral, de jasmim e bergamota, com acidez de chá. Rende as pontuações mais altas do mundo, e os preços também."],
+];
+
+const regioes = [
+  ["Cerrado Mineiro", "IG e denominação de origem", "Chuva e seca bem separadas, colheita madura. Corpo médio a alto, doçura alta, achocolatado com um toque cítrico."],
+  ["Sul de Minas", "a maior produção do país", "Entre 900 e 1.300 m. Acidez equilibrada, nota de fruta e corpo médio. É o café que mais chega à sua xícara."],
+  ["Mantiqueira de Minas", "altitude e IG", "Serra alta e noite fria. Doçura, acidez cítrica e finalização longa. Muita medalha de concurso sai daqui."],
+  ["Matas de Minas", "clima úmido", "Lavoura de montanha e agricultura familiar. Cafés mais delicados, florais, de acidez marcante."],
+  ["Alta Mogiana", "São Paulo", "Solo argiloso, 900 a 1.200 m. Doçura de chocolate ao leite e corpo cremoso."],
+  ["Chapada Diamantina", "Bahia", "Encorpado e aveludado, doce, com acidez cítrica e nota de nozes e cacau."],
+  ["Caparaó", "Minas e Espírito Santo", "Serra alta na divisa. Cafés muito pontuados, de acidez brilhante e aroma floral."],
+  ["Matas de Rondônia", "Robusta Amazônico, IG", "Canéfora fino da Amazônia. Corpo grande, cafeína alta, chocolate e castanha, sem o amargor do robusta comum."],
+];
+
+const processos = [
+  {
+    id: "natural", nome: "Natural", quanto: "a fruta inteira fica", secagem: "15 a 30 dias no terreiro ou no suspenso",
+    copo: "Doce, encorpado, frutado. Lembra fruta madura, às vezes fruta em calda.",
+    quem: "Quem vem do café tradicional e quer doçura óbvia.",
+    cuidado: "Se a secagem é mal feita, dá gosto de fermentado velho e de mofo.",
+  },
+  {
+    id: "cd", nome: "Cereja descascado", quanto: "sai a casca, parte da polpa fica", secagem: "8 a 15 dias",
+    copo: "Meio-termo brasileiro: doce e limpo ao mesmo tempo, corpo médio, acidez domada.",
+    quem: "O melhor primeiro café especial. Quase ninguém desgosta.",
+    cuidado: "Nenhum grande. É o processo mais seguro pra começar.",
+  },
+  {
+    id: "lavado", nome: "Lavado", quanto: "casca e polpa saem antes de secar", secagem: "5 a 10 dias",
+    copo: "Limpo e transparente. Acidez brilhante, corpo mais leve, nota de flor, cítrico e chá.",
+    quem: "Quem já gostou de acidez e quer sentir a origem sem a fruta por cima.",
+    cuidado: "Se você acha café ácido estranho, não comece por aqui.",
+  },
+  {
+    id: "ferment", nome: "Fermentado", quanto: "a fruta fica e ainda fermenta de propósito", secagem: "varia muito",
+    copo: "Intenso e fora da curva: morango, cachaça, canela, vinho. Divide opinião.",
+    quem: "Curiosidade, depois que você já tem repertório.",
+    cuidado: "É o processo mais fácil de errar, e o mais fácil de achar caro por moda.",
+  },
+];
+
+const torras = [
+  { id: "clara", nome: "Clara", tag: "pra sentir a origem", cor: "#A9754B", oq: "Para logo depois do primeiro estalo.", copo: "Acidez alta, corpo leve, muita nota de origem: fruta, flor, cítrico.", quando: "Coado, pra quem quer saber de onde o café veio." },
+  { id: "media", nome: "Média", tag: "comece por aqui", cor: "#7A4A2B", oq: "O ponto de equilíbrio, e o mais comum no café especial brasileiro.", copo: "Doçura no auge, acidez domada, corpo médio, caramelo e chocolate.", quando: "Serve em tudo, do coado ao espresso." },
+  { id: "mediaesc", nome: "Média escura", tag: "corpo e leite", cor: "#4E2C18", oq: "Já com óleo aparecendo na superfície do grão.", copo: "Corpo grande, amargor presente, chocolate amargo e noz tostada.", quando: "Espresso, moka e café com leite." },
+  { id: "escura", nome: "Escura", tag: "a do supermercado", cor: "#241209", oq: "Perto do segundo estalo, grão brilhando de óleo.", copo: "Sabor de torra por cima de tudo. Amargor e fumaça, quase nada da origem.", quando: "É a torra que serve pra esconder defeito do grão." },
+];
+
+const rotulo = [
+  ["Espécie e variedade", "Arábica ou canéfora, e a casta: Bourbon, Catuaí, Arara. É o DNA do grão."],
+  ["Região, fazenda e produtor", "Quanto mais específico, mais rastreável. Fazenda com nome é um bom sinal."],
+  ["Altitude", "Acima de uns 1.000 m o grão amadurece devagar e fica mais doce e mais ácido."],
+  ["Processo", "Natural, cereja descascado, lavado, fermentado. É o que mais muda o gosto."],
+  ["Torra", "Clara, média ou escura. Café especial quase sempre é média ou média clara."],
+  ["Pontuação", "80 ou mais na escala da SCA já é especial. 85 é excelente, 90 é excepcional."],
+  ["Data de torra", "A informação mais importante do pacote inteiro. Se só tem validade, desconfie."],
+  ["Notas sensoriais", "O que o provador sentiu. Não é ingrediente, é lembrança de sabor."],
+  ["Peso e moagem", "250 g dura de duas a quatro semanas em casa. Prefira em grão."],
+];
+
+const familias = [
+  ["Frutado", "#B4341F", "fruta vermelha, uva, maracujá, laranja"],
+  ["Floral", "#C98BB4", "jasmim, flor de laranjeira, mel de flor"],
+  ["Doce", "#E8A13A", "caramelo, rapadura, baunilha, melaço"],
+  ["Castanhas e cacau", "#96590A", "amendoim, nozes, chocolate ao leite"],
+  ["Especiarias", "#7A4A2B", "canela, cravo, pimenta, tabaco"],
+  ["Torrado", "#2E1E17", "cacau amargo, pão torrado, fumaça"],
+];
+
+const moagens: [string, number, string[]][] = [
+  ["Bem fina", 3, ["Espresso"]],
+  ["Fina", 5, ["Moka,", "AeroPress"]],
+  ["Média fina", 7, ["V60, Origami,", "Kalita"]],
+  ["Média", 9, ["Melitta, Clever,", "Chemex"]],
+  ["Grossa", 13, ["Prensa", "francesa"]],
+  ["Bem grossa", 17, ["Cold brew"]],
+];
+
+const sintomas = [
+  ["Azedo, raso, some rápido", "Subextraído: faltou extrair", "Moa mais fino, aumente o tempo, use água um pouco mais quente."],
+  ["Amargo, seco, adstringente", "Superextraído: extraiu demais", "Moa mais grosso, diminua o tempo, baixe a temperatura."],
+  ["Aguado, sem nada", "Café de menos pra tanta água", "Use mais café: vá de 1:15 em vez de 1:17."],
+  ["Forte demais, pesado", "Café demais pra pouca água", "Vá de 1:16 ou 1:17, ou mude pra uma torra mais clara."],
+];
+
+const erros = [
+  ["Comprar moído pro mês inteiro", "O grão é uma cápsula lacrada de aroma. Moído, ele começa a perder isso em minutos, não em semanas."],
+  ["Guardar na geladeira", "Café puxa umidade e cheiro de tudo que está por perto. Geladeira é o pior lugar da casa pra ele."],
+  ["Jogar água fervendo no pó", "Acima de uns 96 ºC você extrai o amargo junto. Ferva, desligue e espere um ou dois minutos."],
+  ["Escolher pelo pacote bonito", "Vire o pacote e procure a data de torra, o processo e a região. Sem isso, é só embalagem."],
+  ["Achar que acidez é defeito", "Acidez boa é a mesma da laranja e da maçã: refresca e dá vida. Azedume é outra coisa, e vem de erro de preparo."],
+  ["Julgar o café fervendo", "O sabor só aparece quando esfria um pouco. Prove de novo aos poucos, até quase morno."],
+  ["Medir com colher de sopa", "A mesma colher pesa de 7 a 10 g dependendo da torra. É por isso que o café muda de um dia pro outro."],
+  ["Achar que torra escura é café forte", "Torra escura é sabor de torra, não de café. Força de verdade vem de proporção e de espécie."],
+];
+
+const ondeComprar = [
+  { nome: "Torrefação local", tag: "o melhor custo por qualidade", txt: "Toda cidade média já tem uma. Compra direto de quem torrou, data de torra fresca e alguém pra te explicar o pacote.", dica: "Peça um cereja descascado de torra média pra começar." },
+  { nome: "Cafeteria de bairro", tag: "prova antes de levar", txt: "Você toma primeiro e leva o pacote depois. É a forma mais barata de errar pouco.", dica: "Pergunte qual café está saindo mais e por quê." },
+  { nome: "Clube de assinatura", tag: "pra descobrir gosto", txt: "Chega café diferente todo mês, com ficha explicando origem e notas. Ótimo pra achar o que você gosta sem escolher no escuro.", dica: "Kit degustação é a versão curta e mais barata disso." },
+  { nome: "Loja online de café especial", tag: "mais variedade", txt: "Dá pra filtrar por região, processo e pontuação. Confira sempre a data de torra e o prazo de entrega.", dica: "Compre 250 g de dois cafés diferentes, não 1 kg de um só." },
+  { nome: "Direto do produtor", tag: "história junto", txt: "Feira, site da fazenda, marketplace de produtor. Preço bom e rastreabilidade total.", dica: "Pergunte a variedade e o processo: quem produz sempre sabe." },
+  { nome: "Supermercado", tag: "dá, com cuidado", txt: "Já existe café especial em gôndola. A maioria, porém, é gourmet ABIC, que é outro degrau.", dica: "Procure data de torra no pacote. Se não tiver, não é especial." },
+];
+
+const alem = [
+  ["The World Atlas of Coffee", "https://www.amazon.com.br/s?k=the+world+atlas+of+coffee+james+hoffmann&tag=cafuacu-20", ["livro", "em inglês"], "James Hoffmann. O mapa do café do mundo, país por país, com preparo e história. Ainda sem edição em português."],
+  ["James Hoffmann", "https://www.youtube.com/@jameshoffmann", ["canal", "em inglês"], "O canal que ensinou preparo pra metade do planeta. Tem legenda automática em português."],
+  ["Perfect Daily Grind Brasil", "https://perfectdailygrind.com/pt/", ["site", "em português"], "Jornalismo de café sério e traduzido. Quando você quiser a parte técnica de verdade, é aqui."],
+  ["Coffee & Joy", "https://blog.coffeeandjoy.com.br/", ["blog e canal", "em português"], "Conteúdo didático pra quem está começando, sem esnobismo. De onde saiu boa parte da conversa sobre adoçar café."],
+  ["Não Sou Barista", "https://www.youtube.com/@naosoubarista", ["canal", "em português"], "Teste de equipamento e de café com método. Bom pra decidir compra."],
+  ["BSCA", "https://bsca.com.br/", ["associação"], "Associação Brasileira de Cafés Especiais. Lista produtor certificado e explica a pontuação."],
+];
+
+const glossario = [
+  ["Cereja", "O fruto maduro do cafeeiro. Dentro dele estão os dois grãos."],
+  ["Pergaminho", "A casquinha dura que envolve o grão. Sai antes da torra, no beneficiamento."],
+  ["Terroir", "A soma de solo, altitude, clima e mão de obra de um lugar. É o que faz o café de uma região ter cara própria."],
+  ["Q-Grader", "Provador com certificação internacional. É quem dá a nota de 0 a 100."],
+  ["Cupping", "A prova padronizada, com pó, água quente e colher. É como a nota é dada."],
+  ["Defeito", "Grão preto, verde, quebrado, brocado ou fermentado. Café especial praticamente não tem."],
+  ["Desgaseificação", "O CO2 saindo do grão depois da torra. É por isso que o café novo 'floresce' na água."],
+  ["Blend", "Mistura de cafés. Nem sempre é ruim: blend bom é receita, blend ruim é disfarce."],
+  ["Single origin", "Café de uma origem só, às vezes de um talhão só. É onde o terroir aparece inteiro."],
+  ["Extração", "Quanto do café saiu do pó e foi pra água. Pouca dá azedo, muita dá amargo."],
+];
+---
+<Pagina
+  titulo="Guia do café · Cafuaçu"
+  descricao="Do pé de café até a sua xícara: o que é café especial, por que ele é diferente, e como escolher o seu sem decorar jargão."
+  largo
+  compacto
+>
+  <Fragment slot="hero">
+    <div class="eyebrow">guia</div>
+    <h1>Guia do café</h1>
+    <p>Do pé de café até a sua xícara. O que é café especial, por que ele é diferente, e como achar o seu sem decorar jargão.</p>
+    <div class="hero-stats"><span>3 atos</span><span>{secoes.length} paradas</span><span>ilustrado</span></div>
+  </Fragment>
+
+  <nav class="topo-sum" id="topo-sum" aria-label="Neste guia">
+    <div class="ts-in">
+      <ol class="ts-chips">
+        {secoes.map((s) => (<li><a href={`#${s.id}`} data-alvo={s.id}>{s.curto}</a></li>))}
+      </ol>
+    </div>
+    <div class="progresso" aria-hidden="true"><i></i></div>
+  </nav>
+
+  <div class="guia">
+    <div class="conteudo">
+
+      <div class="inicio">
+        <div class="abre">
+          <p>Oi, aqui é a cafetinha. O outro guia te diz o que comprar. Este aqui te diz <strong>o que tem dentro do pacote</strong>, e por que dois cafés do mesmo tamanho custam R$ 18 e R$ 85.</p>
+          <p>Você não precisa virar barista. Precisa de umas poucas ideias que, depois que entram, não saem mais: café é fruta, torra escura esconde coisa, e a data que importa é a da torra.</p>
+          <ul>
+            <li><strong>Ato 1, a origem.</strong> De onde vem o sabor, antes de alguém torrar qualquer coisa.</li>
+            <li><strong>Ato 2, a qualidade.</strong> O que separa o café de R$ 18 do de R$ 85, e como ler o pacote.</li>
+            <li><strong>Ato 3, na sua casa.</strong> Frescor, moagem, água, e o que fazer quando fica ruim.</li>
+          </ul>
+        </div>
+        <nav class="escolha-orc" aria-label="Pular pra um ato">
+          <h2 class="eo-t">Com pressa? Pule pra cá</h2>
+          <a href="#especial"><span><strong>Por que especial é melhor</strong><em>a resposta curta</em></span><i aria-hidden="true">→</i></a>
+          <a href="#rotulo"><span><strong>Como ler o pacote</strong><em>a parte mais prática</em></span><i aria-hidden="true">→</i></a>
+          <a href="#moer"><span><strong>Por que moer na hora</strong><em>a dúvida de todo mundo</em></span><i aria-hidden="true">→</i></a>
+          <a href="#comprar"><span><strong>Onde comprar o primeiro</strong><em>e o que pedir</em></span><i aria-hidden="true">→</i></a>
+        </nav>
+      </div>
+
+      <section id="comecar">
+        <header class="cab-sec"><h2>Por onde começar de verdade</h2></header>
+        <p class="sub">Antes de qualquer teoria: ninguém precisa comprar nada hoje. A entrada no café especial tem quatro degraus, e os dois primeiros são de graça ou quase.</p>
+        <ol class="passos quatro">
+          <li><span class="ico" set:html={ic.loja} /><span class="n">1</span><h3>Tome numa cafeteria</h3><p>Vá numa cafeteria de café especial e peça um coado. Você ganha a referência de como a coisa deve ser antes de gastar um real em casa.</p></li>
+          <li><span class="ico" set:html={ic.pacote} /><span class="n">2</span><h3>Troque o café do mercado</h3><p>Ainda sem equipamento novo: troque o tradicional por um superior, um gourmet ou um especial já moído. Só isso já muda a xícara.</p><a class="ver" href="#especial">as duas réguas</a></li>
+          <li><span class="ico" set:html={ic.grao} /><span class="n">3</span><h3>Compre em grão</h3><p>Compre em grão numa torrefação e peça pra moerem na hora da compra. Guarde bem fechado e tome em poucas semanas.</p><a class="ver" href="#frescor">por que o frescor conta</a></li>
+          <li><span class="ico" set:html={ic.moedor} /><span class="n">4</span><h3>Aí sim, um moedor</h3><p>Só aqui entra equipamento. É a compra que mais muda o seu café, e é o começo do outro guia.</p><a class="ver" href="/guias/equipamento#moedores">ver moedores</a></li>
+        </ol>
+        <p class="nota">Dá pra pular degraus, claro. Mas quem pula direto pro quatro costuma comprar o moedor errado, e quem fica no um nunca faz café bom em casa.</p>
+      </section>
+
+      <div class="ato">
+        <span class="ato-n">Ato 1</span>
+        <h2 class="ato-t">A origem</h2>
+        <p class="ato-d">Quase tudo que você vai sentir na xícara já estava decidido antes de o café chegar perto de uma torradeira. Esta parte é a história do grão antes de ele virar pó.</p>
+      </div>
+
+      <section id="fruta">
+        <header class="cab-sec"><h2>Antes de tudo: café é fruta</h2></header>
+        <p class="sub">Essa é a ideia que muda todas as outras. O que a gente chama de grão é a <strong>semente de uma fruta</strong>, a cereja do cafeeiro. E é a fruta que guarda o açúcar.</p>
+
+        <div class="desenho">
+          <svg viewBox="0 0 300 300" role="img" aria-label="Corte de uma cereja de café mostrando casca, polpa, mucilagem, pergaminho, película prateada e as duas sementes">
+            <circle cx="150" cy="150" r="112" fill="var(--cereja-esc)"/>
+            <circle cx="150" cy="150" r="104" fill="var(--cereja)"/>
+            <circle cx="150" cy="150" r="86" fill="var(--torra-500)"/>
+            <circle cx="150" cy="150" r="78" fill="var(--crema-300)"/>
+            <circle cx="150" cy="150" r="72" fill="var(--crema-100)"/>
+            <path d="M144 82 A69 69 0 0 0 144 218 L144 82 Z" fill="var(--folha-400)"/>
+            <path d="M156 82 A69 69 0 0 1 156 218 L156 82 Z" fill="var(--folha-400)"/>
+            <path d="M144 90 C130 120 158 152 144 210" fill="none" stroke="var(--folha-600)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M156 90 C170 120 142 152 156 210" fill="none" stroke="var(--folha-600)" stroke-width="3" stroke-linecap="round"/>
+            <g class="pino">
+              <circle cx="150" cy="43" r="14"/><text x="150" y="48">1</text>
+              <circle cx="217" cy="83" r="14"/><text x="217" y="88">2</text>
+              <circle cx="208" cy="208" r="14"/><text x="208" y="213">3</text>
+              <circle cx="150" cy="225" r="14"/><text x="150" y="230">4</text>
+              <circle cx="150" cy="150" r="14"/><text x="150" y="155">5</text>
+              <circle cx="110" cy="150" r="14"/><text x="110" y="155">6</text>
+            </g>
+          </svg>
+          <ol class="legenda">
+            <li><b></b><span><strong>Casca.</strong> Verde quando a fruta está imatura, vermelha ou amarela quando está no ponto.</span></li>
+            <li><b></b><span><strong>Polpa.</strong> Doce, suculenta, comestível. É o açúcar que vai virar sabor lá na frente.</span></li>
+            <li><b></b><span><strong>Mucilagem.</strong> A camada grudenta e melosa colada no grão. O processo decide quanto dela fica.</span></li>
+            <li><b></b><span><strong>Pergaminho.</strong> A casquinha dura que protege a semente. Sai no beneficiamento, antes da torra.</span></li>
+            <li><b></b><span><strong>Película prateada.</strong> Um véu finíssimo em volta do grão. Solta na torra e vira aquela palhinha no fundo do saco.</span></li>
+            <li><b></b><span><strong>As sementes.</strong> Duas por fruta, uma de frente pra outra. Verdes, sem cheiro de café nenhum. Isso é o seu café.</span></li>
+          </ol>
+        </div>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.cereja} />
+          <div>
+            <span class="sel">guarde isso</span>
+            <h3>Café é comida, não é combustível</h3>
+            <p>Um pé de café leva de três a quatro anos pra dar a primeira safra e dá <strong>uma colheita por ano</strong>. Cada cereja é colhida, seca, descascada, classificada e torrada por gente com nome. Quando você paga R$ 60 num pacote de 250 g, é isso que está no preço.</p>
+            <p>E como é fruta, ela pode estar madura ou verde, inteira ou machucada, bem seca ou mofada. <strong>Quase todo defeito do café já aconteceu antes da torra.</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="especies">
+        <header class="cab-sec"><h2>Arábica, robusta, e os outros</h2></header>
+        <p class="sub">Existem mais de cem espécies de café no mundo. Duas respondem por quase tudo que se bebe, e elas são <strong>plantas diferentes</strong>, com gosto diferente e preço diferente.</p>
+
+        <div class="esp">
+          {especies.map((e, i) => (
+            <article class={i === 0 ? "esp-c esp-d" : "esp-c"}>
+              <span class={i === 0 ? "tg tg-bom" : "tg"}>{e.tag}</span>
+              <svg class="graozinho" viewBox="0 0 120 120" aria-hidden="true">
+                {i === 0 && <ellipse cx="60" cy="60" rx="34" ry="52" fill="var(--crema-300)" stroke="var(--cafe-500)" stroke-width="3"/>}
+                {i === 0 && <path d="M60 14 C48 40 72 62 60 106" fill="none" stroke="var(--cafe-500)" stroke-width="3.4" stroke-linecap="round"/>}
+                {i === 1 && <ellipse cx="60" cy="60" rx="44" ry="44" fill="var(--crema-300)" stroke="var(--cafe-500)" stroke-width="3"/>}
+                {i === 1 && <path d="M60 18 L60 102" fill="none" stroke="var(--cafe-500)" stroke-width="3.4" stroke-linecap="round"/>}
+                {i === 2 && <ellipse cx="60" cy="60" rx="30" ry="54" transform="rotate(-12 60 60)" fill="var(--crema-300)" stroke="var(--cafe-500)" stroke-width="3"/>}
+                {i === 2 && <path d="M56 12 C42 44 76 64 62 108" fill="none" stroke="var(--cafe-500)" stroke-width="3.4" stroke-linecap="round"/>}
+              </svg>
+              <h3>{e.nome}</h3>
+              <p class="cient">{e.cientifico}</p>
+              <dl>
+                <div><dt>Altitude</dt><dd>{e.altitude}</dd></div>
+                <div><dt>Cafeína</dt><dd>{e.cafeina}</dd></div>
+              </dl>
+              <p><strong>Na xícara.</strong> {e.copo}</p>
+              <p class="contra">{e.contra}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.grao} />
+          <div>
+            <span class="sel">o degrau que ninguém conta</span>
+            <h3>Robusta fino é outra coisa</h3>
+            <p>O robusta que deu má fama ao robusta é o de supermercado: colhido de qualquer jeito, torrado escuro, feito pra ser barato. Só que existe <strong>canéfora fino</strong>, também chamado de conilon especial, colhido maduro e processado com o mesmo cuidado de um arábica.</p>
+            <p>O <strong>Robusta Amazônico de Rondônia</strong> tem indicação geográfica própria, corpo grande e nota de chocolate e castanha. É o melhor degrau pra quem acha o café especial "fraco" demais: tem a força do café tradicional sem o amargor de torra queimada.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="variedade">
+        <header class="cab-sec"><h2>Variedade é a casta do café</h2></header>
+        <p class="sub">Dentro do arábica existem dezenas de variedades, do mesmo jeito que existem Cabernet e Malbec dentro da uva. Ela aparece no pacote e é um bom sinal: quem escreve a variedade sabe o que plantou.</p>
+        <div class="prods">
+          {variedades.map(([n, t, d]) => (
+            <article class="prod semcompra">
+              <span class="tg">{t}</span>
+              <div class="prod-head"><h4>{n}</h4></div>
+              <p>{d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="nota">Não precisa decorar nenhuma. Serve só pra você reparar que dois cafés da mesma fazenda podem ter gosto diferente, e que isso tem nome.</p>
+      </section>
+
+      <section id="terroir">
+        <header class="cab-sec"><h2>Altitude, solo e a paciência do grão</h2></header>
+        <p class="sub">Quanto mais alto e mais frio, mais devagar a cereja amadurece. Mais tempo na planta quer dizer <strong>mais açúcar e mais acidez</strong> dentro da semente, e um grão mais denso.</p>
+
+        <div class="desenho alt">
+          <svg viewBox="0 0 520 260" role="img" aria-label="Diagrama de altitude: quanto mais alto, mais doce e mais ácido o café">
+            <path d="M10 240 L200 60 L330 140 L510 40 L510 240 Z" fill="var(--crema-200)"/>
+            <path d="M10 240 L200 60 L330 140 L510 40" fill="none" stroke="var(--cafe-500)" stroke-width="3" stroke-linejoin="round"/>
+            <g class="faixa">
+              <line x1="10" y1="196" x2="510" y2="196"/><text x="16" y="190">600 m</text>
+              <line x1="10" y1="140" x2="510" y2="140"/><text x="16" y="134">900 m</text>
+              <line x1="10" y1="84" x2="510" y2="84"/><text x="16" y="78">1.200 m</text>
+            </g>
+            <g class="rotulo-alt">
+              <text x="505" y="222" text-anchor="end">canéfora, corpo e cafeína</text>
+              <text x="505" y="176" text-anchor="end">arábica de corpo, chocolate</text>
+              <text x="505" y="120" text-anchor="end">doçura alta, acidez viva</text>
+              <text x="505" y="66" text-anchor="end">acidez brilhante, floral</text>
+            </g>
+            <g class="graos-alt">
+              <ellipse cx="110" cy="216" rx="11" ry="15"/><ellipse cx="150" cy="168" rx="11" ry="15"/><ellipse cx="205" cy="112" rx="11" ry="15"/><ellipse cx="255" cy="60" rx="11" ry="15"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="cat-cab"><span class="ico grande" set:html={ic.pe} /><div><h3>Onde nasce o café brasileiro</h3><p>O Brasil é o maior produtor do mundo, e cada região tem cara própria. As que têm <strong>IG</strong> (indicação geográfica registrada no INPI) juram por escrito de onde o café veio.</p></div></div>
+        <div class="prods">
+          {regioes.map(([n, t, d]) => (
+            <article class="prod semcompra">
+              <span class={String(t).includes("IG") ? "tg tg-bom" : "tg"}>{t}</span>
+              <div class="prod-head"><h4>{n}</h4></div>
+              <p>{d}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="colheita">
+        <header class="cab-sec"><h2>Colheita: o primeiro corte de qualidade</h2></header>
+        <p class="sub">Numa mesma planta tem fruta verde, madura e passada ao mesmo tempo. O que separa café bom de café ruim é, literalmente, <strong>o que foi colhido junto</strong>.</p>
+
+        <div class="colheita">
+          <div class="cer">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="56" r="34" fill="var(--folha-400)"/><path d="M50 22c2-9 8-13 17-15-2 9-8 14-17 15z" fill="var(--folha-600)"/></svg>
+            <strong>Verde</strong><p>Imatura. Não tem açúcar. Dá xícara azeda, adstringente e vazia.</p><span class="nao">fora</span>
+          </div>
+          <div class="cer">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="56" r="34" fill="var(--cereja)"/><path d="M50 22c2-9 8-13 17-15-2 9-8 14-17 15z" fill="var(--folha-600)"/></svg>
+            <strong>Cereja</strong><p>O ponto. Açúcar no máximo, casca vermelha ou amarela. É o que o café especial quer.</p><span class="sim">é esta</span>
+          </div>
+          <div class="cer">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="56" r="34" fill="var(--torra-700)"/><path d="M50 22c2-9 8-13 17-15-2 9-8 14-17 15z" fill="var(--folha-600)"/></svg>
+            <strong>Passa</strong><p>Começou a secar na planta. Ainda serve, e até adiciona doçura, se estiver sã.</p><span class="talvez">depende</span>
+          </div>
+          <div class="cer">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="56" r="34" fill="var(--cafe-500)"/><path d="M28 40c14 10 30 10 44 0" fill="none" stroke="var(--crema-100)" stroke-width="5" stroke-linecap="round"/></svg>
+            <strong>Boia e caída</strong><p>Fruta seca que caiu no chão, ou que boia na água por estar oca. É a matéria-prima do café barato.</p><span class="nao">fora</span>
+          </div>
+        </div>
+
+        <p class="nota"><strong>Derriça</strong> é colher tudo de uma vez, verde junto com maduro: rápido, barato, e é o que enche o café de supermercado. <strong>Colheita seletiva</strong> pega só a cereja no ponto, passando várias vezes na mesma planta. Custa muito mais, e é por isso que o pacote custa mais.</p>
+      </section>
+
+      <section id="processo">
+        <header class="cab-sec"><h2>O processo: onde o sabor é decidido</h2></header>
+        <p class="sub">Depois de colhida, a cereja precisa secar até virar grão guardável. <strong>Quanta fruta continua colada no grão durante a secagem</strong> é a escolha que mais muda o gosto do seu café. Mais do que a variedade, mais do que a fazenda.</p>
+
+        <div class="proc">
+          {processos.map((p) => (
+            <article class="proc-c" id={`proc-${p.id}`}>
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                {(p.id === "natural" || p.id === "ferment") && <circle cx="60" cy="60" r="56" fill="var(--cereja)"/>}
+                {(p.id === "natural" || p.id === "ferment" || p.id === "cd") && <circle cx="60" cy="60" r="44" fill="var(--torra-500)"/>}
+                <circle cx="60" cy="60" r="34" fill="var(--crema-300)"/>
+                <circle cx="60" cy="60" r="28" fill="var(--crema-100)"/>
+                <path d="M57 34 A26 26 0 0 0 57 86 L57 34 Z" fill="var(--folha-400)"/>
+                <path d="M63 34 A26 26 0 0 1 63 86 L63 34 Z" fill="var(--folha-400)"/>
+                {p.id === "ferment" && <g fill="none" stroke="var(--crema-100)" stroke-width="3"><circle cx="86" cy="30" r="7"/><circle cx="30" cy="84" r="5"/><circle cx="92" cy="74" r="4"/></g>}
+              </svg>
+              <div class="proc-t">
+                <h3>{p.nome}</h3>
+                <span class="quanto">{p.quanto}</span>
+              </div>
+              <dl>
+                <div><dt>Secagem</dt><dd>{p.secagem}</dd></div>
+              </dl>
+              <p><strong>Na xícara.</strong> {p.copo}</p>
+              <p><strong>Pra quem.</strong> {p.quem}</p>
+              <p class="contra">{p.cuidado}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.sol2} />
+          <div>
+            <span class="sel">atalho</span>
+            <h3>Se for escolher no escuro, escolha cereja descascado</h3>
+            <p>É o processo brasileiro por excelência e o de menor risco: doce o bastante pra agradar quem vem do café tradicional, limpo o bastante pra você começar a sentir origem. Natural vem logo depois. Deixe lavado e fermentado pro terceiro e o quarto pacote.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="ato">
+        <span class="ato-n">Ato 2</span>
+        <h2 class="ato-t">A qualidade</h2>
+        <p class="ato-d">Agora que o grão existe, alguém precisa medir, torrar e escrever num pacote. Aqui estão as duas réguas que o Brasil usa, o que a torra faz, e como ler tudo isso em dez segundos na prateleira.</p>
+      </div>
+
+      <section id="especial">
+        <header class="cab-sec"><h2>Por que o especial é outra coisa</h2></header>
+        <p class="sub">"Especial" não é adjetivo de marketing: é <strong>nota</strong>. Só que o Brasil convive com duas réguas diferentes ao mesmo tempo, e é aí que quase todo mundo se perde.</p>
+
+        <div class="desenho reguas">
+          <svg viewBox="0 0 640 250" role="img" aria-label="Comparação entre a escala ABIC de 0 a 10 e a escala SCA de 0 a 100">
+            <text class="rg-t" x="40" y="28">Régua da ABIC, o selo do café de supermercado, de 0 a 10</text>
+            <rect x="40" y="40" width="252" height="34" fill="var(--crema-300)"/>
+            <rect x="293" y="40" width="77" height="34" fill="var(--cafe-500)"/>
+            <rect x="371" y="40" width="72" height="34" fill="var(--torra-700)"/>
+            <rect x="444" y="40" width="156" height="34" fill="var(--torra-500)"/>
+            <g class="rg-l">
+              <text x="166" y="62" text-anchor="middle" fill="var(--cafe-500)">fora do programa</text>
+              <text x="331" y="62" text-anchor="middle" fill="var(--crema-100)">tradicional</text>
+              <text x="407" y="62" text-anchor="middle" fill="var(--crema-100)">superior</text>
+              <text x="522" y="62" text-anchor="middle" fill="var(--cafe-900)">gourmet</text>
+            </g>
+            <g class="rg-n">
+              <text x="293" y="92" text-anchor="middle">4,5</text>
+              <text x="371" y="92" text-anchor="middle">6,0</text>
+              <text x="444" y="92" text-anchor="middle">7,3</text>
+              <text x="600" y="92" text-anchor="middle">10</text>
+            </g>
+            <text class="rg-t" x="40" y="150">Régua da SCA, a do café especial, de 0 a 100</text>
+            <rect x="40" y="162" width="448" height="34" fill="var(--crema-300)"/>
+            <rect x="489" y="162" width="27" height="34" fill="var(--folha-400)"/>
+            <rect x="517" y="162" width="27" height="34" fill="var(--folha-600)"/>
+            <rect x="545" y="162" width="55" height="34" fill="var(--cafe-900)"/>
+            <g class="rg-l">
+              <text x="264" y="184" text-anchor="middle" fill="var(--cafe-500)">café comercial</text>
+            </g>
+            <g class="rg-n">
+              <text x="489" y="214" text-anchor="middle">80</text>
+              <text x="517" y="214" text-anchor="middle">85</text>
+              <text x="545" y="214" text-anchor="middle">90</text>
+              <text x="600" y="214" text-anchor="middle">100</text>
+            </g>
+            <g class="rg-s">
+              <text x="489" y="236" text-anchor="middle">especial</text>
+              <text x="604" y="236" text-anchor="end">excepcional</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="duo">
+          <div>
+            <h3>A régua da ABIC</h3>
+            <p>O Programa de Qualidade do Café dá uma nota global de 0 a 10 e divide o café torrado de mercado em três faixas: <strong>tradicional de 4,5 a 5,9</strong>, <strong>superior de 6,0 a 7,2</strong> e <strong>gourmet de 7,3 a 10</strong>. "Extraforte" não é uma faixa de qualidade: é torra mais escura dentro do tradicional.</p>
+            <p>Serve pra separar o café de supermercado entre si. Um gourmet é melhor que um tradicional, sem dúvida. Mas gourmet <strong>não</strong> quer dizer especial.</p>
+          </div>
+          <div>
+            <h3>A régua da SCA</h3>
+            <p>Um provador certificado, o <strong>Q-Grader</strong>, prova o café numa mesa padronizada e dá nota de 0 a 100 somando dez atributos: fragrância, uniformidade, ausência de defeito, doçura, sabor, acidez, corpo, finalização, harmonia e conceito final.</p>
+            <p><strong>80 pontos ou mais é café especial.</strong> Acima de 85 é excelente, acima de 90 é excepcional e vira leilão. É a régua que o mundo usa, e a que a BSCA representa por aqui.</p>
+          </div>
+        </div>
+
+        <p class="sub sub2">E o que, na prática, faz um café passar de 80?</p>
+        <ol class="passos quatro">
+          <li><span class="ico" set:html={ic.mao} /><span class="n">1</span><h3>Cereja madura</h3><p>Colheita seletiva, sem verde e sem fruta do chão. É o custo que a maioria das lavouras não paga.</p></li>
+          <li><span class="ico" set:html={ic.sol} /><span class="n">2</span><h3>Secagem sob controle</h3><p>Terreiro virado, secador medido, umidade parando em torno de 11%. Erro aqui vira mofo e fermentado ruim.</p></li>
+          <li><span class="ico" set:html={ic.medalha} /><span class="n">3</span><h3>Nenhum defeito grave</h3><p>Grão preto, ardido, brocado ou pau são catados fora, à mão ou por máquina de visão. É o que dá limpeza à xícara.</p></li>
+          <li><span class="ico" set:html={ic.fogo} /><span class="n">4</span><h3>Torra que revela</h3><p>Torra feita pra mostrar a origem, não pra esconder. Por isso café especial quase nunca é escuro.</p></li>
+        </ol>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.xicara} />
+          <div>
+            <span class="sel">a resposta curta</span>
+            <h3>Por que ele é melhor mesmo</h3>
+            <p>Porque cada etapa foi feita pra <strong>preservar</strong> o que a fruta tinha, em vez de disfarçar o que faltou. Sem defeito, a torra pode ser mais clara. Com torra mais clara, sobra a doçura e a acidez da fruta. Com doçura, você não precisa de açúcar. É tudo a mesma corrente.</p>
+            <p>E tem o outro lado: o Brasil é o maior produtor do mundo, mas historicamente <strong>exportou o que tinha de melhor</strong> e bebeu o resto, bem torrado e bem adoçado. Não é o seu paladar que é ruim: é o café que você conheceu.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="torra">
+        <header class="cab-sec"><h2>Torra: quanto mais escura, menos café</h2></header>
+        <p class="sub">A torra não coloca sabor no grão. Ela <strong>transforma</strong> o açúcar e o ácido que já estavam lá, e depois começa a queimar. Passou do ponto, o que você sente é a torra, não o café.</p>
+
+        <div class="desenho">
+          <svg viewBox="0 0 640 120" role="img" aria-label="Faixa de torra, da clara à escura, com o que acontece em cada ponto">
+            {[0, 1, 2, 3].map((i) => (
+              <g>
+                <rect x={40 + i * 145} y="16" width="140" height="56" fill={["#A9754B", "#7A4A2B", "#4E2C18", "#241209"][i]} rx="8"/>
+                <text class="tr-n" x={110 + i * 145} y="50" text-anchor="middle" fill={i === 0 ? "var(--cafe-900)" : "var(--crema-100)"}>{["clara", "média", "média escura", "escura"][i]}</text>
+              </g>
+            ))}
+            <path d="M40 92 L600 92" stroke="var(--crema-300)" stroke-width="2"/>
+            <text class="tr-e" x="40" y="112">mais origem, mais acidez</text>
+            <text class="tr-e" x="600" y="112" text-anchor="end">mais amargor, mais fumaça</text>
+          </svg>
+        </div>
+
+        <div class="prods quatro">
+          {torras.map((t, i) => {
+            const b = [[5, 3, 2, 1], [4, 5, 3, 2], [2, 4, 4, 4], [1, 2, 5, 5]][i];
+            return (
+              <article class="prod semcompra">
+                <span class={i === 1 ? "tg tg-bom" : "tg"}>{t.tag}</span>
+                <div class="prod-head"><span class="bolinha" style={`background:${t.cor}`}></span><h4>{t.nome}</h4></div>
+                <p>{t.oq} {t.copo}</p>
+                <p class="quando">{t.quando}</p>
+                <ul class="barras">
+                  {["Acidez", "Doçura", "Corpo", "Gosto de torra"].map((rot, j) => (
+                    <li><span>{rot}</span><i><b style={`width:${b[j] * 20}%`}></b></i></li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
+        </div>
+
+        <p class="nota"><strong>Estalo?</strong> Durante a torra o grão estala duas vezes, como pipoca. O primeiro estalo é quando ele vira café bebível. O segundo é quando o óleo vem pra superfície e o sabor de torra domina. Café especial quase sempre para entre um e outro.</p>
+      </section>
+
+      <section id="rotulo">
+        <header class="cab-sec"><h2>Como ler o pacote em dez segundos</h2></header>
+        <p class="sub">Esta é a parte mais prática do guia inteiro. Um pacote de café especial sempre conta a mesma história, na mesma ordem. Depois que você vê uma vez, vê sempre.</p>
+
+        <div class="desenho rot">
+          <svg viewBox="0 0 320 430" role="img" aria-label="Pacote de café com os nove campos que aparecem no rótulo">
+            <path d="M46 44 h228 a6 6 0 0 1 6 6 v346 a6 6 0 0 1 -6 6 h-228 a6 6 0 0 1 -6 -6 v-346 a6 6 0 0 1 6 -6 z" fill="var(--crema-200)" stroke="var(--cafe-900)" stroke-width="3"/>
+            <path d="M40 44 h240 v-16 h-240 z" fill="var(--cafe-700)"/>
+            <circle cx="252" cy="78" r="13" fill="none" stroke="var(--cafe-500)" stroke-width="2.5"/>
+            <circle cx="252" cy="78" r="4" fill="var(--cafe-500)"/>
+            <text class="rot-min" x="62" y="82">válvula, deixa o CO2 sair</text>
+            <g class="rot-pin">
+              {[104, 142, 186, 214, 242, 270, 304, 338, 372].map((y, i) => (<g><circle cx="62" cy={y - 5} r="11"/><text x="62" y={y - 1}>{i + 1}</text></g>))}
+            </g>
+            <g class="rot-txt">
+              <text x="84" y="108">ARÁBICA · BOURBON</text>
+              <text class="g" x="84" y="147">Fazenda Santa Luzia</text>
+              <text x="84" y="166">Mantiqueira de Minas, MG · IG</text>
+              <text x="84" y="190">1.250 m de altitude</text>
+              <text x="84" y="218">Cereja descascado</text>
+              <text x="84" y="246">Torra média</text>
+              <text x="84" y="274">86 pontos SCA</text>
+              <text class="d" x="84" y="308">Torrado em 12/09/2026</text>
+              <text x="84" y="342">chocolate, caramelo, laranja</text>
+              <text x="84" y="376">250 g · em grãos</text>
+            </g>
+          </svg>
+          <ol class="legenda">
+            {rotulo.map(([t, d]) => (<li><b></b><span><strong>{t}.</strong> {d}</span></li>))}
+          </ol>
+        </div>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.relogio} />
+          <div>
+            <span class="sel">o campo que decide</span>
+            <h3>Se não tem data de torra, não é especial</h3>
+            <p>Validade de doze meses é informação legal, não é qualidade. <strong>Data de torra</strong> é o que te diz se o café está vivo. Torrefação que tem orgulho do café dela imprime a data, às vezes carimba à mão. Quem esconde a data está escondendo o tempo de prateleira.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sabor">
+        <header class="cab-sec"><h2>"Notas de chocolate" não é chocolate</h2></header>
+        <p class="sub">Ninguém coloca nada no café. As notas são <strong>lembranças de aroma</strong>: seu cérebro reconhece no café moléculas que também existem na fruta, na castanha, na flor. É associação, não ingrediente.</p>
+
+        <div class="roda">
+          <svg viewBox="0 0 300 300" role="img" aria-label="Roda simplificada de sabores do café, com seis famílias">
+            {familias.map(([n, cor], i) => {
+              const r = (d: number) => (d * Math.PI) / 180;
+              const a0 = i * 60 - 90 + 1.5, a1 = a0 + 57;
+              const R = 116, ri = 62, cx = 150, cy = 150;
+              const p = (a: number, rr: number) => `${(cx + rr * Math.cos(r(a))).toFixed(1)} ${(cy + rr * Math.sin(r(a))).toFixed(1)}`;
+              const am = (a0 + a1) / 2;
+              return (
+                <g>
+                  <path d={`M${p(a0, R)} A${R} ${R} 0 0 1 ${p(a1, R)} L${p(a1, ri)} A${ri} ${ri} 0 0 0 ${p(a0, ri)} Z`} fill={cor as string}/>
+                  <text class="rd-l" x={cx + 89 * Math.cos(r(am))} y={cy + 89 * Math.sin(r(am))} text-anchor="middle" fill={i === 2 ? "var(--cafe-900)" : "var(--crema-100)"}>{(n as string).split(" e ")[0]}</text>
+                </g>
+              );
+            })}
+            <circle cx="150" cy="150" r="54" fill="var(--crema-200)"/>
+            <text class="rd-c" x="150" y="145" text-anchor="middle">o que</text>
+            <text class="rd-c" x="150" y="166" text-anchor="middle">você sente</text>
+          </svg>
+          <ul class="roda-l">
+            {familias.map(([n, cor, ex]) => (<li><i style={`background:${cor}`}></i><span><strong>{n}.</strong> {ex}</span></li>))}
+          </ul>
+        </div>
+
+        <p class="sub sub2">E os cinco eixos que um provador usa, em português de gente:</p>
+        <div class="prods">
+          <article class="prod semcompra"><span class="tg">antes de beber</span><div class="prod-head"><h4>Aroma</h4></div><p>O que sobe do pó seco e depois da bebida. É onde mora a maior parte do que a gente chama de sabor.</p></article>
+          <article class="prod semcompra"><span class="tg">a mais confundida</span><div class="prod-head"><h4>Acidez</h4></div><p>A vivacidade que faz a boca salivar, como numa laranja ou numa maçã. Acidez boa refresca. O que você conhece como "azedo" é outra coisa.</p></article>
+          <article class="prod semcompra"><span class="tg tg-bom">a que importa</span><div class="prod-head"><h4>Doçura</h4></div><p>Não é açúcar: é a percepção doce de fruta madura. É o atributo que mais separa café especial de café comum.</p></article>
+          <article class="prod semcompra"><span class="tg">o peso</span><div class="prod-head"><h4>Corpo</h4></div><p>A textura na boca: se parece água, chá, leite ou caldo. Processo e método mudam muito isso.</p></article>
+          <article class="prod semcompra"><span class="tg">o fim</span><div class="prod-head"><h4>Finalização</h4></div><p>O que fica depois de engolir, e por quanto tempo. Café bom deixa lembrança boa e longa. Café ruim deixa a boca seca.</p></article>
+          <article class="prod semcompra"><span class="tg">o vilão de sempre</span><div class="prod-head"><h4>Amargor</h4></div><p>Existe em todo café e nem sempre é defeito. Vira problema quando é o único sabor, e isso quase sempre é torra escura ou extração demais.</p></article>
+        </div>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.lingua} />
+          <div>
+            <span class="sel">desmontando o medo</span>
+            <h3>Você não precisa sentir "maracujá"</h3>
+            <p>Ninguém começa sentindo nota nenhuma, e tudo bem. Comece com três palavras só: <strong>é doce ou seco? é leve ou pesado? eu tomaria de novo?</strong> Depois de uns dez cafés diferentes, o vocabulário chega sozinho, porque você passa a ter com o que comparar.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="ato">
+        <span class="ato-n">Ato 3</span>
+        <h2 class="ato-t">Na sua casa</h2>
+        <p class="ato-d">O café já chegou. Daqui pra frente tudo que você faz só pode piorar o que veio da fazenda, ou preservar. Estas seis ideias preservam.</p>
+      </div>
+
+      <section id="frescor">
+        <header class="cab-sec"><h2>O café tem idade, e ela conta</h2></header>
+        <p class="sub">Café torrado não estraga: ele <strong>desbota</strong>. Perde aroma, perde doçura, e um dia sobra só o amargo. A conta corre a partir da torra, não da compra.</p>
+
+        <div class="desenho">
+          <svg viewBox="0 0 640 160" role="img" aria-label="Linha do tempo do café depois da torra, com a janela boa entre uma e quatro semanas">
+            <rect x="40" y="52" width="37" height="38" fill="var(--crema-300)" rx="6"/>
+            <rect x="79" y="52" width="52" height="38" fill="var(--torra-500)" rx="6"/>
+            <rect x="133" y="52" width="185" height="38" fill="var(--folha-600)" rx="6"/>
+            <rect x="320" y="52" width="138" height="38" fill="var(--torra-700)" rx="6"/>
+            <rect x="460" y="52" width="140" height="38" fill="var(--cafe-500)" rx="6"/>
+            <g class="tl-n">
+              <text x="40" y="112">dia 0</text>
+              <text x="105" y="112" text-anchor="middle">4</text>
+              <text x="226" y="112" text-anchor="middle">10</text>
+              <text x="389" y="112" text-anchor="middle">30</text>
+              <text x="600" y="112" text-anchor="end">60 dias</text>
+            </g>
+            <g class="tl-l">
+              <text x="226" y="78" text-anchor="middle" fill="var(--crema-100)">a janela boa</text>
+              <text x="389" y="78" text-anchor="middle" fill="var(--crema-100)">ainda dá</text>
+              <text x="530" y="78" text-anchor="middle" fill="var(--crema-100)">já foi</text>
+            </g>
+            <g class="tl-d">
+              <text x="40" y="140">descansando,</text>
+              <text x="40" y="154">CO2 saindo</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="duo">
+          <div>
+            <h3>Por que café novo demais também não é bom</h3>
+            <p>Na torra o grão enche de gás carbônico e leva dias pra soltar. Café de três dias faz uma espuma exagerada no coador, empurra a água pro lado e sai <strong>desigual e azedo</strong>. É a desgaseificação.</p>
+            <p>Por isso o pacote tem aquela válvula redonda: ela deixa o gás sair sem deixar o ar entrar. Espere de <strong>quatro a sete dias</strong> depois da torra pro coado, e uns sete a dez pro espresso.</p>
+          </div>
+          <div>
+            <h3>Quanto comprar, então</h3>
+            <p>Compre o que você bebe em <strong>duas a quatro semanas</strong>. Pra quem faz duas xícaras por dia, isso é um pacote de 250 g. Dois pacotes diferentes de 250 g ensinam muito mais que um de 1 kg.</p>
+            <p>Depois de aberto, o relógio acelera: o ar entra toda vez. Um pacote aberto rende bem por umas duas semanas, e vai caindo devagar a partir daí.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="moer">
+        <header class="cab-sec"><h2>Por que raios eu tenho que moer na hora</h2></header>
+        <p class="sub">Essa é a dúvida número um de quem está começando, e a resposta é bem física: <strong>o grão inteiro é uma embalagem</strong>. Moer é abrir essa embalagem. Depois de aberta, não fecha.</p>
+
+        <div class="desenho">
+          <svg viewBox="0 0 640 250" role="img" aria-label="Comparação entre um grão inteiro e o mesmo grão moído, mostrando o aumento da superfície exposta ao ar">
+            <rect x="20" y="20" width="280" height="210" rx="14" fill="var(--crema-200)"/>
+            <ellipse cx="160" cy="105" rx="46" ry="64" fill="var(--crema-300)" stroke="var(--cafe-500)" stroke-width="3"/>
+            <path d="M160 46 C146 76 174 106 160 164" fill="none" stroke="var(--cafe-500)" stroke-width="3.4" stroke-linecap="round"/>
+            <text class="mo-t" x="160" y="200" text-anchor="middle">um grão inteiro</text>
+            <text class="mo-d" x="160" y="220" text-anchor="middle">o aroma fica preso lá dentro</text>
+            <rect x="340" y="20" width="280" height="210" rx="14" fill="var(--crema-200)"/>
+            {Array.from({ length: 46 }).map((_, i) => {
+              const a = (i * 137.5 * Math.PI) / 180;
+              const rr = 6 + Math.sqrt(i) * 12.6;
+              return (<ellipse cx={(480 + rr * Math.cos(a)).toFixed(1)} cy={(105 + rr * Math.sin(a) * 0.72).toFixed(1)} rx={3 + ((i * 7) % 4)} ry={4 + ((i * 5) % 3)} fill="var(--cafe-500)"/>);
+            })}
+            <text class="mo-t" x="480" y="200" text-anchor="middle">o mesmo grão, moído</text>
+            <text class="mo-d" x="480" y="220" text-anchor="middle">tudo isso agora está no ar</text>
+          </svg>
+        </div>
+
+        <div class="duo">
+          <div>
+            <h3>O que acontece no instante em que você mói</h3>
+            <p>A torra cria centenas de compostos aromáticos e eles ficam guardados dentro da estrutura do grão, junto com o CO2. Ao moer, você quebra isso em milhares de pedaços e <strong>multiplica a área exposta ao oxigênio</strong>.</p>
+            <p>Aquele perfume maravilhoso que sobe quando você abre o moedor é bonito e é triste ao mesmo tempo: é o aroma <strong>saindo</strong> do seu café, em vez de ir pra xícara. Boa parte dele vai embora nos primeiros minutos.</p>
+          </div>
+          <div>
+            <h3>E tem o segundo motivo, o tamanho</h3>
+            <p>Café moído de fábrica vem numa moagem média genérica, feita pra funcionar mais ou menos em tudo e perfeitamente em nada. Moendo em casa você <strong>ajusta ao seu método</strong>, e é esse ajuste que conserta café azedo ou amargo.</p>
+            <p>Também é por isso que moedor de lâmina não resolve: ele pica o grão em pó e pedregulho ao mesmo tempo, e você extrai demais e de menos na mesma xícara. <a href="/guias/equipamento#moedores">No guia de equipamento eu mostro quais moedores valem</a>.</p>
+          </div>
+        </div>
+
+        <p class="sub sub2">E cada método pede um tamanho:</p>
+        <div class="desenho">
+          <svg viewBox="0 0 720 210" role="img" aria-label="Régua de moagem, do mais fino ao mais grosso, com os métodos de cada faixa">
+            <rect x="20" y="34" width="680" height="92" rx="12" fill="var(--crema-200)"/>
+            {moagens.map(([nome, tam, met], i) => {
+              const cx = 76 + i * 112;
+              return (
+                <g>
+                  <text class="mg-n" x={cx} y="26" text-anchor="middle">{nome}</text>
+                  {Array.from({ length: 9 }).map((_, k) => {
+                    const a = (k * 137.5 * Math.PI) / 180;
+                    const rr = 4 + Math.sqrt(k) * 9;
+                    return (<circle cx={(cx + rr * Math.cos(a)).toFixed(1)} cy={(80 + rr * Math.sin(a)).toFixed(1)} r={tam / 2.4} fill="var(--cafe-500)"/>);
+                  })}
+                  {met.map((linha, j) => (<text class="mg-m" x={cx} y={152 + j * 17} text-anchor="middle">{linha}</text>))}
+                </g>
+              );
+            })}
+            <path d="M20 186 L700 186" stroke="var(--crema-300)" stroke-width="2"/>
+            <text class="mg-e" x="20" y="204">mais fino, extrai mais rápido</text>
+            <text class="mg-e" x="700" y="204" text-anchor="end">mais grosso, extrai mais devagar</text>
+          </svg>
+        </div>
+      </section>
+
+      <section id="agua">
+        <header class="cab-sec"><h2>A xícara é quase toda água</h2></header>
+        <p class="sub">Mais de 98% do que você bebe é água. Se ela tem gosto, o café vai ter o gosto dela junto. Esse é o ajuste mais barato do guia inteiro.</p>
+
+        <div class="desenho">
+          <svg viewBox="0 0 640 130" role="img" aria-label="Faixa de temperatura da água para café, de 80 a 100 graus">
+            <rect x="40" y="40" width="280" height="38" rx="6" fill="var(--crema-300)"/>
+            <rect x="320" y="40" width="168" height="38" rx="6" fill="var(--folha-600)"/>
+            <rect x="490" y="40" width="110" height="38" rx="6" fill="var(--cereja)"/>
+            <g class="tl-l">
+              <text x="180" y="66" text-anchor="middle" fill="var(--cafe-500)">extrai de menos, fica raso</text>
+              <text x="404" y="66" text-anchor="middle" fill="var(--crema-100)">a faixa boa</text>
+              <text x="545" y="66" text-anchor="middle" fill="var(--crema-100)">queima</text>
+            </g>
+            <g class="tl-n">
+              <text x="40" y="100">80 ºC</text>
+              <text x="320" y="100" text-anchor="middle">90</text>
+              <text x="488" y="100" text-anchor="middle">96</text>
+              <text x="600" y="100" text-anchor="end">100 ºC</text>
+            </g>
+            <text class="tl-d" x="40" y="124">sem termômetro: ferva, desligue e espere de um a dois minutos</text>
+          </svg>
+        </div>
+
+        <ul class="pula">
+          <li><span class="ico" set:html={ic.gota} /><div><strong>Água filtrada ou mineral</strong><p>Cloro na água é o assassino silencioso do aroma. Filtro de barro, de torneira ou galão, qualquer um resolve.</p></div></li>
+          <li><span class="ico" set:html={ic.gota} /><div><strong>Nem água destilada, nem água durona</strong><p>Água sem mineral nenhum extrai mal e dá xícara chata. Água muito dura deixa tudo achatado. O meio-termo de uma mineral leve é o ideal.</p></div></li>
+          <li><span class="ico" set:html={ic.balanca} /><div><strong>Proporção de partida: 1 pra 15</strong><p>20 g de café pra 300 ml de água. A faixa que se usa vai de 1:12 (bem forte) a 1:17 (bem leve). Comece no meio e ajuste ao seu gosto.</p></div></li>
+          <li><span class="ico" set:html={ic.coador} /><div><strong>Lave o filtro de papel antes</strong><p>Um jorro de água quente no papel tira o gosto de papelão e ainda esquenta o coador e a jarra. Jogue essa água fora antes de pôr o café.</p></div></li>
+          <li><span class="ico" set:html={ic.xicara} /><div><strong>Aqueça a xícara</strong><p>Xícara fria rouba uns graus do café na hora de servir. Um gole de água quente dentro dela antes resolve.</p></div></li>
+        </ul>
+      </section>
+
+      <section id="extracao">
+        <header class="cab-sec"><h2>Ficou azedo ou amargo? O mapa é este</h2></header>
+        <p class="sub">A água dissolve as coisas do café <strong>em ordem</strong>: primeiro os ácidos, depois os açúcares, por último os amargos. Uma xícara boa é uma que parou no meio dessa fila.</p>
+
+        <div class="desenho">
+          <svg viewBox="0 0 640 150" role="img" aria-label="Régua de extração: subextraído, ideal e superextraído">
+            <rect x="40" y="40" width="200" height="40" rx="6" fill="var(--crema-300)"/>
+            <rect x="242" y="40" width="158" height="40" rx="6" fill="var(--folha-600)"/>
+            <rect x="402" y="40" width="198" height="40" rx="6" fill="var(--cafe-700)"/>
+            <g class="tl-l">
+              <text x="140" y="66" text-anchor="middle" fill="var(--cafe-500)">subextraído</text>
+              <text x="321" y="66" text-anchor="middle" fill="var(--crema-100)">o ponto</text>
+              <text x="501" y="66" text-anchor="middle" fill="var(--crema-100)">superextraído</text>
+            </g>
+            <g class="tl-n">
+              <text x="242" y="102" text-anchor="middle">18%</text>
+              <text x="400" y="102" text-anchor="middle">22%</text>
+            </g>
+            <g class="tl-d">
+              <text x="140" y="130" text-anchor="middle">azedo, raso, aguado</text>
+              <text x="321" y="130" text-anchor="middle">doce e equilibrado</text>
+              <text x="501" y="130" text-anchor="middle">amargo, seco, áspero</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="tabela">
+          <div class="th"><span>Se a xícara está</span><span>O que é</span><span>O que fazer</span></div>
+          {sintomas.map(([a, b, c]) => (<div class="tr"><span><strong>{a}</strong></span><span>{b}</span><span>{c}</span></div>))}
+        </div>
+
+        <p class="nota">Mude <strong>uma coisa por vez</strong> e prove de novo. Mexer na moagem, no tempo e na proporção na mesma rodada é a receita pra não aprender nada. Os quatro botões são: moagem, temperatura, tempo de contato e proporção.</p>
+      </section>
+
+      <section id="guardar">
+        <header class="cab-sec"><h2>Como guardar (e onde não guardar)</h2></header>
+        <p class="sub">Os quatro inimigos do café são sempre os mesmos: <strong>ar, luz, calor e umidade</strong>. Guardar bem é só tirar os quatro do caminho.</p>
+        <div class="prods">
+          <article class="prod semcompra"><span class="tg tg-bom">o jeito certo</span><div class="prod-head"><span class="ico prodico" set:html={ic.pote} /><h4>Pote fechado e opaco</h4></div><p>Vidro escuro, cerâmica ou inox, num armário longe do fogão. Se o pacote tiver válvula e zíper, ele já serve bem: tire o ar e feche.</p></article>
+          <article class="prod semcompra"><span class="tg">fica pra depois</span><div class="prod-head"><span class="ico prodico" set:html={ic.pote} /><h4>Pote a vácuo</h4></div><p>Ajuda de verdade, mas só o bom. Os genéricos baratos perdem a vedação em poucos dias e viram pote comum caro.</p></article>
+          <article class="prod semcompra"><span class="tg">com regra</span><div class="prod-head"><span class="ico prodico" set:html={ic.relogio} /><h4>Freezer</h4></div><p>Serve pra estoque, não pro dia a dia: porções pequenas, bem seladas, que saem uma vez só e não voltam. Congelar e descongelar o mesmo pacote arruína o café.</p></article>
+          <article class="prod semcompra"><span class="tg">nunca</span><div class="prod-head"><span class="ico prodico" set:html={ic.x} /><h4>Geladeira</h4></div><p>É o pior lugar da casa. Cada vez que o pote sai e volta, ele sua por dentro. E café puxa cheiro de cebola, de queijo, de tudo.</p></article>
+        </div>
+        <p class="nota">Moeu demais sem querer? Não jogue fora: use no mesmo dia, de preferência nas próximas horas. <a href="/guias/equipamento#potes">Os potes que valem estão no guia de equipamento</a>.</p>
+      </section>
+
+      <section id="provar">
+        <header class="cab-sec"><h2>Como provar sem parecer bobo</h2></header>
+        <p class="sub">Provar não é adivinhar. É prestar atenção numa ordem fixa, sempre a mesma, pra você conseguir comparar um café com o outro.</p>
+        <ol class="passos">
+          <li><span class="ico" set:html={ic.grao} /><span class="n">1</span><h3>Cheire o pó</h3><p>Antes da água. Feche os olhos. Não precisa nomear nada: repare só se é doce, tostado, frutado ou verde.</p></li>
+          <li><span class="ico" set:html={ic.gota} /><span class="n">2</span><h3>Cheire molhado</h3><p>Na primeira água o aroma explode. É o momento mais aromático do preparo inteiro, e dura segundos.</p></li>
+          <li><span class="ico" set:html={ic.xicara} /><span class="n">3</span><h3>Sorva, não beba</h3><p>Puxe um golinho com ar junto, fazendo barulho mesmo. O ar espalha o aroma pelo nariz por dentro, e é ali que o sabor aparece.</p></li>
+          <li><span class="ico" set:html={ic.relogio} /><span class="n">4</span><h3>Prove de novo esfriando</h3><p>Café fervendo esconde tudo. Morno, a doçura e a acidez aparecem. Café que fica bom esfriando é café bom.</p></li>
+        </ol>
+        <p class="nota">Anote três palavras por café, num caderninho ou no app. Em dez cafés você já tem um padrão, e em vinte você já sabe pedir o que gosta pelo nome do processo e da região.</p>
+      </section>
+
+      <section id="acucar">
+        <header class="cab-sec"><h2>Posso adoçar? E outras perguntas que ninguém faz alto</h2></header>
+        <p class="sub">A parte mais chata do mundo do café especial é a turma que julga. Ignore essa turma. O café é seu.</p>
+        <ul class="pula">
+          <li><span class="ico" set:html={ic.acucar} /><div><strong>Posso pôr açúcar?</strong><p>Pode. Só faça um teste: prove primeiro sem. Café especial já tem doçura de fruta madura, e muita gente descobre que não precisava. Se precisar, adoce sem culpa nenhuma.</p></div></li>
+          <li><span class="ico" set:html={ic.xicara} /><div><strong>Posso tomar com leite?</strong><p>Pode, e fica ótimo com torra média escura e processo natural. Para café com leite, prefira perfil de chocolate e castanha, não o floral delicado, que some.</p></div></li>
+          <li><span class="ico" set:html={ic.coador} /><div><strong>Preciso de máquina cara?</strong><p>Não. Um coador Melitta de R$ 15 com um café bom ganha de máquina de mil reais com café ruim, sempre. <a href="/guias/equipamento">O guia de equipamento mostra o mínimo que vale</a>.</p></div></li>
+          <li><span class="ico" set:html={ic.grao} /><div><strong>Café especial tem mais cafeína?</strong><p>Geralmente menos: quase todo especial é arábica, que tem cerca de metade da cafeína do robusta. Torra escura também não aumenta cafeína, só o gosto de queimado.</p></div></li>
+          <li><span class="ico" set:html={ic.pacote} /><div><strong>Café mais caro é sempre melhor?</strong><p>Não. Preço alto pode ser raridade, moda ou frete. Pontuação, data de torra e processo dizem mais sobre a xícara do que o preço.</p></div></li>
+          <li><span class="ico" set:html={ic.lingua} /><div><strong>E se eu não gostar?</strong><p>Normal. Pode ser o processo (lavado ácido demais pra você), a torra ou o preparo. Troque uma variável e tente de novo antes de concluir que não é pra você.</p></div></li>
+        </ul>
+      </section>
+
+      <section id="comprar">
+        <header class="cab-sec"><h2>Onde comprar o seu primeiro pacote</h2></header>
+        <p class="sub">Você não precisa achar o melhor café do Brasil. Precisa achar <strong>um café bom, fresco e fácil de repetir</strong>. Estes são os caminhos, do mais fácil ao mais garimpo.</p>
+        <div class="prods">
+          {ondeComprar.map((o) => (
+            <article class="prod semcompra">
+              <span class={o.tag.startsWith("o melhor") ? "tg tg-bom" : "tg"}>{o.tag}</span>
+              <div class="prod-head"><span class="ico prodico" set:html={ic.loja} /><h4>{o.nome}</h4></div>
+              <p>{o.txt}</p>
+              <p class="contra"><strong>Dica.</strong> {o.dica}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.pacote} />
+          <div>
+            <span class="sel">o pedido pronto</span>
+            <h3>O que falar quando não souber o que pedir</h3>
+            <p>Decore esta frase e use em qualquer torrefação, cafeteria ou chat de loja: <strong>"Quero 250 g em grãos, arábica, torra média, cereja descascado ou natural, torrado nas últimas duas semanas, com nota de chocolate e caramelo."</strong></p>
+            <p>É um pedido específico, barato, quase impossível de dar errado, e que ainda mostra que você sabe o que está falando.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="erros">
+        <header class="cab-sec"><h2>Os erros que todo mundo comete no começo</h2></header>
+        <p class="sub">Nenhum deles é burrice: são coisas que a gente aprendeu errado em casa, vendo café ser feito de um jeito que ninguém questionou.</p>
+        <ul class="pula">
+          {erros.map(([t, d]) => (<li><span class="ico" set:html={ic.x} /><div><strong>{t}</strong><p set:html={d} /></div></li>))}
+        </ul>
+      </section>
+
+      <section id="alem">
+        <header class="cab-sec"><h2>Pra ir além</h2></header>
+        <p class="sub">Se este guia acendeu alguma coisa, é daqui que eu continuaria. Nenhum link aqui é pago nem patrocinado.</p>
+        <div class="apps">
+          {alem.map(([nome, url, tags, desc]) => (
+            <a class="app" href={url} rel="noopener">
+              <span class="ico" set:html={ic.livro} />
+              <div>
+                <h3>{nome}</h3>
+                <div class="tags">{(tags as string[]).map((t) => (<span>{t}</span>))}</div>
+                <p>{desc}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <p class="sub sub2">E o glossário, pra quando alguém falar difícil:</p>
+        <dl class="glos">
+          {glossario.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+        </dl>
+      </section>
+
+      <div class="par" id="par">
+        <span class="ico" set:html={ic.moedor} />
+        <div>
+          <div class="rot">a outra metade</div>
+          <h2>Café é metade. A outra metade é o equipamento</h2>
+          <p>Você já sabe escolher o café. Falta com o que fazer ele. O <strong>Guia de equipamento</strong> é o par deste aqui: moedor, balança, método, chaleira e pote, com opção pra cada orçamento e onde achar cada item. Os dois se conversam o tempo todo, e você pode entrar por qualquer um dos lados.</p>
+        </div>
+        <a class="botao" href="/guias/equipamento">ir pro guia de equipamento</a>
+      </div>
+
+      <div class="canal-final" id="canal">
+        <div class="cf-txt">
+          <h2>E quando o café bom ficar barato, eu te aviso</h2>
+          <p>No canal de ofertas a cafetinha acompanha preço de café e de equipamento e só avisa quando o desconto é de verdade, com histórico e a loja de onde vem. Sem spam.</p>
+        </div>
+        <a class="botao" href="https://t.me/cafuacu_ofertas">entrar no canal de ofertas</a>
+      </div>
+
+      <p class="transp"><strong>Transparência.</strong> Alguns links aqui podem ser de afiliado: se você comprar por eles, a Cafuaçu pode receber uma comissão, sem custo extra pra você. Isso não muda a recomendação, e o que a gente não usaria ou não indicaria não entra. Preço, pontuação e safra mudam o tempo todo: confira na hora da compra.</p>
+
+    </div>
+  </div>
+</Pagina>
+
+<script>
+  // Sumário do topo: destaca a seção da tela e mostra o progresso da leitura.
+  const nav = document.getElementById("topo-sum")!;
+  const chips = Array.from(nav.querySelectorAll<HTMLAnchorElement>(".ts-chips a[data-alvo]"));
+  const barra = nav.querySelector<HTMLElement>(".progresso i");
+  function atualiza() {
+    const topo = window.scrollY + nav.offsetHeight + 140;
+    let sec: string | undefined;
+    for (const a of chips) {
+      const e = document.getElementById(a.dataset.alvo!);
+      if (e && e.getBoundingClientRect().top + window.scrollY <= topo) sec = a.dataset.alvo;
+    }
+    chips.forEach((a) => a.classList.toggle("ativo", a.dataset.alvo === sec));
+    const ativo = chips.find((a) => a.dataset.alvo === sec);
+    if (ativo) { const box = ativo.closest(".ts-chips") as HTMLElement; box.scrollTo({ left: ativo.offsetLeft - box.clientWidth / 2 + ativo.clientWidth / 2, behavior: "auto" }); }
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    if (barra && h > 0) barra.style.width = Math.min(100, (window.scrollY / h) * 100).toFixed(1) + "%";
+  }
+  window.addEventListener("scroll", atualiza, { passive: true });
+  window.addEventListener("resize", atualiza);
+  atualiza();
+</script>
+
+<script>
+  // Aparece ao rolar: só quando o site ligou "anim" (sem "reduzir movimento"). O que já está na tela abre direto.
+  (function () {
+    if (!document.documentElement.classList.contains("anim")) return;
+    if (!("IntersectionObserver" in window)) return;
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .par, .transp, .canal-final");
+    const cont = new Map();
+    let disparou = false;
+    const obs = new IntersectionObserver((itens) => {
+      disparou = true;
+      itens.forEach((it) => { if (it.isIntersecting) { it.target.classList.add("vis"); obs.unobserve(it.target); } });
+    }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
+    alvos.forEach((a) => {
+      const i = cont.get(a.parentElement) || 0;
+      cont.set(a.parentElement, i + 1);
+      a.style.setProperty("--i", String(Math.min(i, 5)));
+      const r = a.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) { a.classList.add("vis"); return; }
+      a.classList.add("rv");
+      obs.observe(a);
+    });
+    setTimeout(() => { if (!disparou) alvos.forEach((a) => a.classList.add("vis")); }, 3500);
+  })();
+</script>
+
+<style>
+  /* Vermelho de cereja: só existe dentro dos desenhos deste guia, pra fruta madura ler como fruta madura. */
+  .conteudo{--cereja:#B4341F;--cereja-esc:#7E2314}
+
+  /* divisor de ato */
+  .ato{border-top:2px solid var(--cafe-900);padding:26px 0 0;margin:0 0 52px}
+  .ato-n{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--cafe-900);color:var(--crema-100);padding:5px 12px;border-radius:999px}
+  .ato-t{font-size:clamp(30px,4.4vw,46px)!important;margin:14px 0 10px!important;letter-spacing:-.03em}
+  .ato-d{font-size:17px;line-height:1.55;color:var(--cafe-500);max-width:68ch}
+
+  /* moldura padrão dos desenhos */
+  .desenho{margin:26px 0 8px}
+  .desenho svg{display:block;width:100%;height:auto}
+  .desenho.rot,.desenho:has(.legenda){display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:40px;align-items:center}
+  .desenho.alt svg{max-width:760px;margin:0 auto}
+  .desenho.reguas svg{max-width:820px}
+
+  /* legenda numerada ao lado do desenho */
+  .legenda{list-style:none;margin:0;padding:0;counter-reset:leg;display:flex;flex-direction:column;gap:12px}
+  .legenda li{display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--cafe-500)}
+  .legenda b{counter-increment:leg;flex:none;width:26px;height:26px;border-radius:999px;background:var(--cafe-700);color:var(--crema-100);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .legenda b::before{content:counter(leg)}
+  .legenda strong{color:var(--cafe-900)}
+
+  /* pinos numerados dentro do SVG */
+  .pino circle{fill:var(--cafe-900)}
+  .pino text{fill:var(--crema-100);font-size:15px;font-weight:700;text-anchor:middle;font-family:var(--ff)}
+
+  /* textos dentro dos SVGs */
+  .desenho text,.roda text{font-family:var(--ff)}
+  .faixa line{stroke:var(--crema-300);stroke-width:2;stroke-dasharray:5 6}
+  .faixa text{font-size:12px;font-weight:600;fill:var(--cafe-500)}
+  .rotulo-alt text{font-size:13px;font-weight:600;fill:var(--cafe-700)}
+  .graos-alt ellipse{fill:var(--crema-100);stroke:var(--cafe-500);stroke-width:2.5}
+  .rg-t{font-size:14px;font-weight:700;fill:var(--cafe-900)}
+  .rg-l{font-size:13px;font-weight:700}
+  .rg-n{font-size:12.5px;font-weight:600;fill:var(--cafe-500)}
+  .rg-s{font-size:12px;font-weight:600;fill:var(--folha-600)}
+  .tr-n{font-size:14px;font-weight:700}
+  .tr-e{font-size:12.5px;font-weight:600;fill:var(--cafe-500)}
+  .tl-n{font-size:12.5px;font-weight:600;fill:var(--cafe-500)}
+  .tl-l{font-size:13px;font-weight:700}
+  .tl-d{font-size:12.5px;fill:var(--cafe-500)}
+  .mo-t{font-size:15px;font-weight:700;fill:var(--cafe-900)}
+  .mo-d{font-size:13px;fill:var(--cafe-500)}
+  .mg-n{font-size:12.5px;font-weight:700;fill:var(--cafe-900)}
+  .mg-m{font-size:12px;fill:var(--cafe-500)}
+  .mg-e{font-size:12px;font-weight:600;fill:var(--cafe-500)}
+  .rot-txt text{font-size:12.5px;fill:var(--cafe-700)}
+  .rot-txt .g{font-size:17px;font-weight:700;fill:var(--cafe-900)}
+  .rot-txt .d{font-size:13.5px;font-weight:700;fill:var(--torra-700)}
+  .rot-min{font-size:10.5px;fill:var(--cafe-500)}
+  .rot-pin circle{fill:var(--torra-500)}
+  .rot-pin text{fill:var(--cafe-900);font-size:12px;font-weight:700;text-anchor:middle}
+  .rd-l{font-size:11.5px;font-weight:700;letter-spacing:.01em}
+  .rd-c{font-size:14px;font-weight:600;fill:var(--cafe-500)}
+
+  /* espécies */
+  .esp{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;margin-top:8px}
+  .esp-c{background:var(--crema-200);border:1px solid var(--crema-300);border-radius:12px;padding:22px 20px;display:flex;flex-direction:column;gap:8px}
+  .esp-d{background:var(--crema-100);border:1.5px solid var(--cafe-900);box-shadow:8px 8px 0 var(--torra-700)}
+  .esp-c .tg{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--crema-300);color:var(--cafe-700);padding:4px 10px;border-radius:999px}
+  .esp-c .tg-bom{background:var(--folha-600);color:var(--crema-100)}
+  .graozinho{width:76px;height:76px;margin:6px 0}
+  .esp-c h3{font-size:24px}
+  .cient{font-style:italic;font-size:13.5px;color:var(--cafe-500)}
+  .esp-c p{font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
+  .esp-c strong,.proc-c strong{color:var(--cafe-900)}
+  .contra{padding:10px 12px;background:var(--crema-300);border-radius:8px;font-size:13.5px;line-height:1.45;margin-top:auto}
+  .esp-c dl,.proc-c dl{margin:4px 0;display:flex;flex-wrap:wrap;gap:8px}
+  .esp-c dl > div,.proc-c dl > div{background:#fff;border-radius:8px;padding:8px 10px;flex:1 1 auto}
+  .esp-c dt,.proc-c dt{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cafe-500)}
+  .esp-c dd,.proc-c dd{margin:2px 0 0;font-size:13.5px;font-weight:600;color:var(--cafe-900)}
+
+  /* colheita */
+  .colheita{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
+  .cer{background:var(--crema-200);border-radius:12px;padding:18px;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+  .cer svg{width:78px;height:78px}
+  .cer strong{font-size:18px}
+  .cer p{font-size:14px;line-height:1.5;color:var(--cafe-500);margin-bottom:6px}
+  .cer span{margin-top:auto;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+  .cer .sim{background:var(--folha-600);color:var(--crema-100)}
+  .cer .nao{background:var(--cereja);color:var(--crema-100)}
+  .cer .talvez{background:var(--crema-300);color:var(--cafe-700)}
+
+  /* processos */
+  .proc{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px}
+  .proc-c{background:var(--crema-200);border:1px solid var(--crema-300);border-radius:12px;padding:20px 18px;display:flex;flex-direction:column;gap:8px}
+  .proc-c svg{width:86px;height:86px}
+  .proc-t h3{font-size:21px}
+  .quanto{display:block;font-size:13px;color:var(--torra-700);font-weight:600;margin-top:2px}
+  .proc-c p{font-size:14px;line-height:1.5;color:var(--cafe-500)}
+
+  /* dois blocos de texto lado a lado */
+  .duo{display:grid;grid-template-columns:repeat(2,1fr);gap:34px;margin-top:28px}
+  .duo h3{font-size:20px;margin-bottom:10px}
+  .duo p{font-size:15.5px;line-height:1.6;color:var(--cafe-500);margin-bottom:12px}
+  .duo strong{color:var(--cafe-900)}
+
+  /* barrinhas da torra */
+  .barras{list-style:none;margin:auto 0 0;padding:14px 0 0;display:flex;flex-direction:column;gap:7px}
+  .barras li{display:grid;grid-template-columns:104px 1fr;align-items:center;gap:10px;font-size:12px;color:var(--cafe-500)}
+  .barras i{display:block;height:7px;border-radius:999px;background:var(--crema-300);overflow:hidden}
+  .barras b{display:block;height:100%;background:var(--torra-700);border-radius:999px}
+  .prod .quando{font-size:13.5px;font-weight:600;color:var(--cafe-900);margin-bottom:0}
+  .bolinha{flex:none;width:26px;height:26px;border-radius:999px;border:2px solid var(--crema-300)}
+  .prods.quatro{grid-template-columns:repeat(4,1fr)}
+  .passos.quatro{grid-template-columns:repeat(4,1fr)}
+
+  /* roda de sabores */
+  .roda{display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);gap:40px;align-items:center;margin:24px 0 8px}
+  .roda svg{display:block;width:100%;height:auto;max-width:330px;margin:0 auto}
+  .roda-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+  .roda-l li{display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--cafe-500)}
+  .roda-l i{flex:none;width:22px;height:22px;border-radius:6px;margin-top:2px}
+  .roda-l strong{color:var(--cafe-900)}
+
+  /* tabela de sintomas */
+  .tabela{margin-top:22px;border:1px solid var(--crema-300);border-radius:12px;overflow:hidden}
+  .tabela .th,.tabela .tr{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:18px;padding:14px 18px}
+  .tabela .th{background:var(--cafe-700);color:var(--crema-200);font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+  .tabela .tr{font-size:14.5px;line-height:1.5;color:var(--cafe-500);border-top:1px solid var(--crema-300)}
+  .tabela .tr:nth-child(odd){background:var(--crema-200)}
+  .tabela .tr strong{color:var(--cafe-900)}
+
+  /* glossário */
+  .glos{margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .glos > div{background:var(--crema-200);border-radius:12px;padding:16px 18px}
+  .glos dt{font-size:16px;font-weight:700;color:var(--cafe-900);margin-bottom:3px}
+  .glos dd{margin:0;font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
+
+  @media (max-width:1020px){
+    .esp,.proc,.colheita,.prods.quatro,.passos.quatro{grid-template-columns:repeat(2,1fr)}
+    .desenho.rot,.desenho:has(.legenda),.roda{grid-template-columns:1fr;gap:26px}
+    .desenho.rot svg,.desenho:has(.legenda) svg{max-width:420px;margin:0 auto}
+    .duo{grid-template-columns:1fr;gap:24px}
+    .tabela .th{display:none}
+    .tabela .tr{grid-template-columns:1fr;gap:6px;padding:16px 18px}
+  }
+  /* desenho largo no celular: rola de lado em vez de encolher a ponto de não dar pra ler */
+  @media (max-width:760px){
+    .desenho:not(.rot):not(:has(.legenda)){overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+    .desenho:not(.rot):not(:has(.legenda)) svg{min-width:560px}
+  }
+  @media (max-width:640px){
+    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.glos{grid-template-columns:1fr}
+    .ato{margin-bottom:38px}
+    .barras li{grid-template-columns:92px 1fr}
+  }
+</style>

@@ -2,6 +2,7 @@
 // /guias/equipamento · página própria (layout largo, sumário fixo no topo com barra de progresso, cartões e ilustrações de traço).
 // TRAVA: enquanto PUBLICADO for false, o build de produção redireciona pra /guias. Liberado por ela em 19/09/2026.
 import Pagina from "../../layouts/Pagina.astro";
+import "../../styles/paginas/guia.css";
 
 const PUBLICADO = true;
 if (!PUBLICADO && import.meta.env.PROD) return Astro.redirect("/guias");
@@ -148,6 +149,7 @@ const secoes = [
   { id: "pular", curto: "Pular" },
   { id: "receita", curto: "Receita" },
   { id: "apps", curto: "Apps" },
+  { id: "par", curto: "O guia do café" },
 ];
 
 const ordem = [
@@ -170,7 +172,7 @@ const orcamentos = [
       ["chaleira", "Leiteira que você já tem em casa", "chaleiras"],
       ["grao", "Café especial em grão, moído na hora da compra", "cafe"],
     ],
-    aviso: "Nessa faixa não dá pra ter um moedor que preste, e um ruim é pior que nenhum. Peça pra moer o café na hora da compra, guarde bem fechado e tome em poucas semanas. O moedor é a primeira compra da próxima faixa.",
+    aviso: 'Nessa faixa não dá pra ter um moedor que preste, e um ruim é pior que nenhum. Peça pra moer o café na hora da compra, guarde bem fechado e tome em poucas semanas (<a href="/guias/cafe#frescor">por que o frescor conta</a>). O moedor é a primeira compra da próxima faixa.',
     destaque: false,
   },
   {
@@ -298,6 +300,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
             <p>É outra escala, com origem, produtor e notas de sabor no pacote. É onde a coisa fica boa.</p>
           </div>
         </div>
+        <p class="nota">Essa escada é o resumo. A escala inteira, as duas réguas (ABIC e SCA), a torra, o processo e como ler o pacote estão no <a href="/guias/cafe#especial">guia do café</a>, que é o par deste aqui.</p>
         <div class="master">
           <span class="ico grande" set:html={ic.grao} />
           <div>
@@ -336,7 +339,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
               <ul>
                 {o.itens.map(([i, t, alvo]) => (<li><span class="ico" set:html={ic[i]} /><span>{t} <a class="ver" href={`#${alvo}`}>ver opções</a></span></li>))}
               </ul>
-              {o.aviso && <p class="avisa"><strong>A cafetinha avisa:</strong> {o.aviso}</p>}
+              {o.aviso && <p class="avisa"><strong>A cafetinha avisa:</strong> <span set:html={o.aviso} /></p>}
             </article>
           ))}
         </div>
@@ -409,7 +412,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
           <div>
             <span class="sel">armadilha</span>
             <h3>Moedor de lâmina</h3>
-            <p>Parece barato, mas ele quebra o grão em pedaços de tamanhos diferentes, e o café sai amargo num gole e aguado no outro. Se o orçamento é curto, é melhor pedir pra moer na loja do que comprar um desses.</p>
+            <p>Parece barato, mas ele quebra o grão em pedaços de tamanhos diferentes, e o café sai amargo num gole e aguado no outro. Se o orçamento é curto, é melhor pedir pra moer na loja do que comprar um desses. <a href="/guias/cafe#moer">Por que a moagem uniforme muda tanto</a>.</p>
           </div>
         </div>
         <p class="sub sub2">E o resto que dá pra deixar pra depois:</p>
@@ -465,6 +468,16 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
         </div>
       </section>
 
+      <div class="par" id="par">
+        <span class="ico" set:html={ic.grao} />
+        <div>
+          <div class="rot">a outra metade</div>
+          <h2>Equipamento é metade. A outra metade é o café</h2>
+          <p>O <strong>Guia do café</strong> é o par deste aqui: o que é café especial e por que ele custa mais, as duas réguas de qualidade, torra, processo, como ler o pacote, por que moer na hora e onde comprar o seu primeiro. Os dois se conversam o tempo todo.</p>
+        </div>
+        <a class="botao" href="/guias/cafe">ir pro guia do café</a>
+      </div>
+
       <div class="canal-final" id="canal">
         <div class="cf-txt">
           <h2>Quer saber quando esses itens ficarem baratos?</h2>
@@ -516,7 +529,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   (function () {
     if (!document.documentElement.classList.contains("anim")) return;
     if (!("IntersectionObserver" in window)) return;
-    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .cat-cab, .passos li, .cartao, .prod, .master, .escolha, .pula > *, .receita, .formula, .rec-cols > *, .app, .transp, .canal-final");
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .cat-cab, .passos li, .cartao, .prod, .master, .escolha, .pula > *, .receita, .formula, .rec-cols > *, .app, .par, .transp, .canal-final");
     const cont = new Map();
     let disparou = false;
     const obs = new IntersectionObserver((itens) => {
@@ -535,233 +548,3 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
     setTimeout(() => { if (!disparou) alvos.forEach((a) => a.classList.add("vis")); }, 3500);
   })();
 </script>
-<style>
-  :global(html),:global(body){overflow-x:clip}
-  :global(.corpo){background:#fff}
-  @media (prefers-reduced-motion:no-preference){:global(html){scroll-behavior:smooth}}
-  @media (prefers-reduced-motion:reduce){.conteudo *,.topo-sum *{transition:none!important}}
-  a:focus-visible,button:focus-visible{outline:3px solid var(--torra-700);outline-offset:2px;border-radius:6px}
-  .hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
-  .hero-stats span{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--crema-300);border:1px solid rgba(253,247,239,.28);border-radius:999px;padding:4px 12px}
-  .guia{display:block}
-
-  /* textura de grão nos blocos escuros */
-  .master::before,.canal-final::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-
-  /* sumário no topo: compacto, centralizado, fixo, com progresso */
-  .topo-sum{position:sticky;top:0;z-index:20;margin:-44px 0 40px;background:#fff;
-    box-shadow:0 0 0 100vmax #fff;clip-path:inset(0 -100vmax -16px -100vmax)}
-  .topo-sum::after{content:"";position:absolute;left:-100vmax;right:-100vmax;bottom:0;height:1px;background:var(--crema-300)}
-  .ts-in{display:flex;justify-content:center;padding:7px 0}
-  .ts-chips{list-style:none;margin:0;padding:0;display:flex;gap:4px;justify-content:center;max-width:100%;overflow-x:auto;scrollbar-width:none}
-  .ts-chips::-webkit-scrollbar{display:none}
-  .ts-chips li{flex:none}
-  .ts-chips a{display:block;padding:6px 14px;border-radius:999px;font-size:14px;font-weight:600;line-height:1.2;color:var(--cafe-500);text-decoration:none;white-space:nowrap;transition:background .15s ease,color .15s ease}
-  .ts-chips a:hover{background:var(--crema-200);color:var(--cafe-900)}
-  .ts-chips a.ativo{background:var(--cafe-700);color:var(--crema-100)}
-  .ts-sub{display:none;padding:0 0 7px}
-  .topo-sum.mostra-sub .ts-sub{display:block}
-  .ts-sub ul{list-style:none;margin:0;padding:0;display:flex;justify-content:center;gap:2px;overflow-x:auto;scrollbar-width:none}
-  .ts-sub ul::-webkit-scrollbar{display:none}
-  .ts-sub a{display:block;white-space:nowrap;font-size:12.5px;font-weight:600;text-decoration:none;color:var(--cafe-500);padding:4px 10px;border-radius:6px}
-  .ts-sub a:hover{color:var(--cafe-900);background:var(--crema-200)}
-  .ts-sub a.ativo{background:var(--crema-300);color:var(--cafe-900)}
-  .progresso{height:3px;background:var(--crema-300);position:relative;z-index:1}
-  .progresso i{display:block;height:100%;width:0;background:var(--folha-600);transition:width .08s linear}
-
-  .conteudo{min-width:0}
-  .escolha-orc{background:var(--crema-200);border-radius:16px;padding:22px 22px 18px;display:flex;flex-direction:column;gap:10px}
-  .escolha-orc h2.eo-t{font-size:18px;margin:0 0 4px;letter-spacing:-.01em}
-  .escolha-orc a{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--cafe-900);transition:transform .12s ease, box-shadow .12s ease}
-  .escolha-orc a:hover{transform:translateX(3px);box-shadow:0 0 0 2px var(--cafe-700)}
-  .escolha-orc strong{display:block;font-size:16px}
-  .escolha-orc em{display:block;font-style:normal;font-size:13px;color:var(--cafe-500);margin-top:1px}
-  .escolha-orc i{font-style:normal;font-size:20px;color:var(--torra-700)}
-  .cartao{scroll-margin-top:110px}
-  .conteudo section{scroll-margin-top:96px;padding:0 0 84px}
-  .inicio{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;margin-bottom:72px}
-  .abre{margin:0}
-  .abre p{font-size:18px;line-height:1.55;margin-bottom:16px}
-  .abre ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
-  .abre li{position:relative;padding-left:26px;font-size:15.5px;line-height:1.5}
-  .abre li{padding-left:26px}
-  .abre li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;border-radius:50%;background:var(--folha-600)}
-
-  /* títulos: um salto de escala forte e um filete, sem número nem etiqueta */
-  .cab-sec{margin-bottom:12px}
-  h2{font-size:clamp(24px,2.6vw,32px);line-height:1.1;margin:0;letter-spacing:-.022em}
-  h3{font-size:22px;line-height:1.2}
-  h4{font-size:19px;line-height:1.2;margin:0;font-weight:600}
-  .sub{font-size:16.5px;color:var(--cafe-500);margin:0 0 26px}
-  .sub2{margin:34px 0 14px}
-  .nota{margin-top:20px;font-size:15px;color:var(--cafe-500)}
-  .ico{display:inline-flex;flex:none;width:34px;height:34px;color:var(--torra-700)}
-  .ico :global(svg){width:100%;height:100%}
-  .ico.grande{width:52px;height:52px}
-  .ver{font-size:13px;font-weight:700;white-space:nowrap}
-
-  /* escada da qualidade do café */
-  .escada{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end;margin-top:22px}
-  .deg{padding:20px 16px;display:flex;flex-direction:column;gap:10px}
-  .deg p{font-size:14.5px;line-height:1.5}
-  .deg .tag{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-  .deg .tag em{font-style:normal;font-weight:500;opacity:.8}
-  .d1{background:var(--crema-300);color:var(--cafe-700);min-height:180px}
-  .d2{background:var(--torra-500);color:var(--cafe-900);min-height:250px}
-  .d3,.d4{align-self:stretch}
-  .d3{background:var(--crema-100);color:var(--cafe-900);border:2px dashed var(--folha-600);min-height:360px}
-  .deg .cuidado{margin-top:auto;padding:9px 11px;background:var(--crema-200);font-size:13.5px;line-height:1.45}
-  .d4{background:var(--folha-600);color:var(--crema-100);min-height:360px}
-
-  /* ordem das compras: aqui a sequência é real, então o número fica (grande e apagado, como imagem) */
-  .passos{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  .passos li{position:relative;background:var(--crema-200);border:1px solid var(--crema-300);padding:24px 18px 18px;display:flex;flex-direction:column}
-  .passos li .n{position:absolute;top:8px;right:14px;font-size:56px;line-height:1;font-weight:600;color:var(--crema-300);font-variant-numeric:tabular-nums}
-  .passos .ico{width:44px;height:44px;margin-bottom:12px}
-  .passos h3{font-size:19px;margin-bottom:6px}
-  .passos p{font-size:14.5px;line-height:1.5;color:var(--cafe-500);margin-bottom:10px}
-  .passos .ver{margin-top:auto}
-
-  /* orçamentos */
-  .orc{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
-  .cartao{background:var(--crema-200);border:1px solid var(--crema-300);padding:26px 22px;display:flex;flex-direction:column;gap:12px}
-  .cartao-d{background:var(--crema-100);border:1.5px solid var(--cafe-900);box-shadow:8px 8px 0 var(--torra-700);position:relative;top:-6px}
-  .cartao .rot{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--folha-600)}
-  .cartao-d .rot{color:var(--torra-700)}
-  .cartao h3{font-size:26px}
-  .total{display:flex;flex-direction:column;gap:2px;padding:4px 0 6px}
-  .total span{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cafe-500)}
-  .total strong{font-size:20px;color:var(--cafe-900);font-variant-numeric:tabular-nums}
-  .total em{font-style:normal;font-size:13.5px;color:var(--cafe-500)}
-  .cartao ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
-  .cartao li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.45}
-  .cartao li .ico{width:26px;height:26px;margin-top:1px}
-  .avisa{margin-top:auto;padding:12px 14px;background:var(--crema-300);font-size:14px;line-height:1.5}
-
-  /* categorias e produtos */
-  .cat{padding-top:64px;scroll-margin-top:150px}
-  .cat:first-of-type{padding-top:24px}
-  .cat-cab{display:flex;gap:16px;align-items:flex-start;margin-bottom:26px}
-  .cat-cab h3{font-size:24px;margin-bottom:4px}
-  .cat-cab p{font-size:16px;color:var(--cafe-500)}
-  .prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:26px 22px}
-  .prods.tres{grid-template-columns:repeat(3,1fr)}
-  .prod{background:var(--crema-200);border:1px solid var(--crema-300);padding:18px 16px 0;display:flex;flex-direction:column;overflow:hidden}
-  .prod .tg{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--crema-300);color:var(--cafe-700);padding:4px 10px;border-radius:999px;line-height:1.25}
-  .prod .tg-bom{background:var(--folha-600);color:var(--crema-100)}
-  .prod-head{display:flex;align-items:center;gap:12px;margin:14px 0 8px}
-  .prodico{width:46px;height:46px;color:var(--torra-700)}
-  .prod p{font-size:14.5px;line-height:1.5;color:var(--cafe-500);margin-bottom:18px}
-  .compra{margin:auto -16px 0;padding:12px 16px 14px;background:var(--crema-300);display:flex;flex-direction:column;gap:8px}
-  .onde{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cafe-500)}
-  .bts{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:6px}
-  .compra a{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;line-height:1.15;font-size:12.5px;font-weight:700;text-decoration:none;padding:6px 4px;border-radius:8px;border:1.5px solid var(--cafe-700);color:var(--cafe-700);background:var(--crema-100);transition:transform .12s ease, background .15s ease}
-  .compra a:hover{background:var(--cafe-700);color:var(--crema-100);transform:translateY(-1px)}
-  .compra .b-ali{border-color:var(--torra-700);color:var(--torra-700)}
-  .compra .b-ali:hover{background:var(--torra-700);color:var(--crema-100)}
-
-  /* dicas de destaque: "compre em grão" e "moedor de lâmina" têm o mesmo peso */
-  .master{position:relative;overflow:hidden;display:flex;gap:24px;align-items:center;background:var(--cafe-700);color:var(--crema-100);border-radius:16px;padding:30px 32px;margin:28px 0 8px}
-  .master > *{position:relative}
-  .master .ico{color:var(--torra-500);width:42px;height:42px}
-  .master h3{font-size:24px;margin:8px 0 6px;color:var(--crema-100)}
-  .master p{font-size:16.5px;line-height:1.55;color:var(--crema-300)}
-  .sel{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--torra-500);color:var(--cafe-900);padding:4px 10px;border-radius:999px}
-
-  /* como escolher (métodos) */
-  .escolha{background:var(--crema-200);border-radius:16px;padding:26px 28px;margin:0 0 34px}
-  .esc-cab h4{font-size:20px;margin-bottom:4px}
-  .esc-cab p{font-size:15px;color:var(--cafe-500);margin-bottom:20px}
-  .esc-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .esc-cols > div{background:#fff;border-radius:12px;padding:18px}
-  .esc-cols strong{display:block;font-size:17px;margin-bottom:6px;color:var(--cafe-900)}
-  .esc-cols p{font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
-  .esc-m{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-  .esc-m span{font-size:12px;font-weight:600;background:var(--crema-300);color:var(--cafe-700);padding:4px 10px;border-radius:999px}
-
-  /* o que dá pra pular */
-  .pula{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  .pula li{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;background:var(--crema-200);border-radius:12px}
-  .pula .ico{width:26px;height:26px;color:var(--cafe-500);margin-top:1px}
-  .pula strong{display:block;font-size:16.5px;margin-bottom:4px}
-  .pula p{font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
-
-  /* receita: um painel só */
-  .receita{background:var(--crema-200);border-radius:16px;padding:30px 30px 26px}
-  .formula{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:12px 28px;padding:6px 0 44px}
-  .formula > div{display:flex;flex-direction:column;align-items:center;text-align:center}
-  .formula strong{font-size:clamp(34px,4.8vw,60px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .formula span{font-size:14px;color:var(--cafe-500);margin-top:8px}
-  .formula .op{font-size:34px;font-weight:600;color:var(--torra-700)}
-  .formula .res strong{color:var(--folha-600)}
-  .rec-cols{display:grid;grid-template-columns:repeat(2,1fr);gap:40px}
-  .rec-cols h3{font-size:18px;margin-bottom:16px}
-  .dicas,.ajustes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
-  .dicas li,.ajustes li{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.5}
-  .dicas .ico,.ajustes .ico{width:26px;height:26px;margin-top:0}
-  .rec-nota{margin-top:14px;font-size:14.5px;color:var(--cafe-500)}
-
-  /* apps */
-  .apps{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-  .app{display:flex;gap:16px;align-items:flex-start;padding:20px;background:var(--crema-200);border:1px solid var(--crema-300);color:inherit;text-decoration:none;transition:transform .15s ease, box-shadow .15s ease}
-  .app:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--torra-700);color:inherit}
-  .app h3{font-size:20px;margin-bottom:6px}
-  .app p{font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
-  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-  .tags span{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--crema-300);color:var(--cafe-700);padding:3px 9px;border-radius:999px}
-
-  /* canal de ofertas, no fim do guia */
-  .canal-final{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;background:var(--cafe-700);color:var(--crema-100);border-radius:16px;padding:52px 52px;margin:8px 0 44px}
-  .canal-final > *{position:relative}
-  .cf-txt h2{font-size:clamp(24px,2.8vw,34px);color:var(--crema-100);margin-bottom:12px}
-  .cf-txt p{font-size:16.5px;line-height:1.6;color:var(--crema-300);max-width:58ch}
-  .canal-final .botao{margin:0;font-size:16px;padding:16px 26px;white-space:nowrap}
-
-  .transp{font-size:13.5px;line-height:1.55;color:var(--cafe-500);margin-bottom:24px}
-
-  /* cantos arredondados em tudo (pedido dela) */
-  .prod,.cartao,.cartao-d,.passos li,.app,.deg{border-radius:12px}
-  .deg .cuidado{border-radius:8px}
-
-  @media (max-width:1020px){
-    .inicio{grid-template-columns:1fr;gap:28px;margin-bottom:56px}
-    .ts-chips a{padding:9px 15px}
-    .passos{grid-template-columns:repeat(2,1fr)}
-    .orc{grid-template-columns:1fr;gap:18px}
-    .cartao-d{top:0}
-    .esc-cols{grid-template-columns:1fr}
-    .rec-cols{grid-template-columns:1fr;gap:28px}
-    .prods.tres{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-    .deg{padding:16px 13px}
-    .deg p{font-size:13.5px}
-    .ts-chips,.ts-sub ul{justify-content:flex-start}
-    .canal-final{grid-template-columns:1fr;gap:22px;padding:38px 28px}
-    .canal-final .botao{justify-self:start;padding:13px 22px;font-size:15px}
-  }
-  @media (max-width:760px){
-    .escada{grid-template-columns:repeat(2,1fr);align-items:stretch}
-    .d1,.d2,.d3,.d4{min-height:0}
-  }
-  @media (max-width:640px){
-    .passos,.pula,.apps,.escada{grid-template-columns:1fr}
-    .master{flex-direction:column;align-items:flex-start;gap:12px;padding:24px 22px}
-    .master .ico{width:34px;height:34px}
-    .formula{grid-template-columns:1fr;gap:6px}
-    .formula .op{font-size:26px}
-    .receita{padding:22px 18px}
-    .canal-final{padding:32px 22px}
-  }
-
-  /* movimento: pouco, e só onde ajuda a ler */
-  .rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease, transform .55s cubic-bezier(.2,.8,.3,1);transition-delay:calc(var(--i,0) * 70ms)}
-  .rv.vis{opacity:1;transform:none}
-  .master.vis .ico{animation:grao-gira .9s cubic-bezier(.3,1.4,.5,1) .25s backwards}
-  @keyframes grao-gira{from{transform:rotate(-40deg) scale(.6);opacity:0}to{transform:none;opacity:1}}
-  @media (prefers-reduced-motion:no-preference){
-    .prod,.passos li,.cartao,.app{transition:opacity .55s ease calc(var(--i,0) * 70ms), transform .55s cubic-bezier(.2,.8,.3,1) calc(var(--i,0) * 70ms), translate .2s ease, box-shadow .2s ease}
-    .prod:hover,.passos li:hover,.app:hover{translate:0 -3px;box-shadow:0 8px 20px -10px rgba(58,36,25,.35)}
-    .bts a{transition:translate .15s ease, filter .15s ease}
-    .bts a:hover{translate:0 -1px;filter:brightness(1.06)}
-    .bts a:active{translate:0 1px}
-  }
-</style>
