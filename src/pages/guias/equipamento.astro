@@ -64,8 +64,8 @@ const categorias: Cat[] = [
     itens: [
       { nome: "Balança de cozinha digital", tag: "pra começar", porque: "De R$ 20 a 30, com precisão de 1 g. Já dá controle e repetição.", busca: "balança de cozinha digital 5kg", so: ["amz", "ml"] },
       { nome: "Balança MHW-3Bomber", tag: "custo-benefício", porque: "A genérica que funciona muito bem, com temporizador.", busca: "balança café mhw-3bomber", so: ["ali"] },
-      { nome: "Timemore Basic 3", tag: "a preferida de muita gente", porque: "Boa e confiável. Evite a Basic 2, que tem defeito no botão.", busca: "balança timemore basic 3" },
-      { nome: "Timemore Black Mirror", tag: "pra ir além", porque: "Quem usa há anos não reclama; é excelente pra coado. Com Bluetooth, mostra o fluxo no app.", busca: "balança timemore black mirror" },
+      { nome: "Timemore Basic 3", tag: "a preferida de muita gente", porque: "Boa e confiável. Evite a Basic 2, que tem defeito no botão.", busca: "balança timemore basic 3", links: [ { id: "ali", nome: "AliExpress", href: "https://pt.aliexpress.com/wholesale?SearchText=balan%C3%A7a%20timemore%20basic%203" }, { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/s?k=balan%C3%A7a%20timemore%20basic%203&tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/2yFPq2K" } ] },
+      { nome: "Timemore Black Mirror", tag: "pra ir além", porque: "Quem usa há anos não reclama; é excelente pra coado. Com Bluetooth, mostra o fluxo no app.", busca: "balança timemore black mirror", links: [ { id: "ali", nome: "AliExpress", href: "https://pt.aliexpress.com/wholesale?SearchText=balan%C3%A7a%20timemore%20black%20mirror" }, { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/s?k=balan%C3%A7a%20timemore%20black%20mirror&tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/1k2zTaC" } ] },
     ],
   },
   {
@@ -73,7 +73,7 @@ const categorias: Cat[] = [
     intro: "Chaleira não é prioridade. Mas bico fino de pescoço de ganso dá controle do despejo, e é o que mais muda o coado.",
     itens: [
       { nome: "Leiteira ou bule de casa", tag: "grátis", porque: "Serve no começo. Sem termômetro: ferva, apague o fogo e espere uns 2 minutos.", busca: "", sem: true },
-      { nome: "Chaleira pescoço de ganso de entrada", tag: "custo-benefício", porque: "Bico fino, sem frescura. Se a chaleira comum passar de uns R$ 100, já vale esta.", busca: "chaleira pescoço de ganso café 600ml" },
+      { nome: "Chaleira pescoço de ganso de entrada", tag: "custo-benefício", porque: "Bico fino, sem frescura. Se a chaleira comum passar de uns R$ 100, já vale esta.", busca: "chaleira pescoço de ganso café 600ml", links: [ { id: "ali", nome: "AliExpress", href: "https://pt.aliexpress.com/wholesale?SearchText=chaleira%20pesco%C3%A7o%20de%20ganso%20caf%C3%A9%20600ml" }, { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/s?k=chaleira%20pesco%C3%A7o%20de%20ganso%20caf%C3%A9%20600ml&tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/1ZRimJ7" } ] },
       { nome: "Chaleira elétrica MHW-3Bomber", tag: "boa e no Brasil", porque: "Bico de pescoço de ganso, elétrica, e a mesma marca de várias peças boas da lista. Custa mais que a de entrada.", busca: "chaleira elétrica mhw-3bomber pescoço de ganso", so: ["ali", "amz"] },
       { nome: "Fellow Stagg ou Brewista Artisan", tag: "pra ir além", porque: "Com controle de temperatura e fluxo perfeito pro coado. São importadas e caras.", busca: "chaleira fellow stagg ek", so: ["amz", "ali"] },
     ],
@@ -88,7 +88,7 @@ const categorias: Cat[] = [
     ],
     itens: [
       { nome: "Melitta 102", tag: "leve e limpo · começo", porque: "O mais barato e o mais fácil de achar. Um furo só, despejo tranquilo. Faz café incrível e perdoa erro.", busca: "porta filtro melitta 102", so: ["amz", "ml"], icone: "melitta" },
-      { nome: "Hario V60", tag: "leve e limpo", porque: "O clássico que não tem erro, um dos mais usados do mundo. Tem muita receita pra seguir, mas pede mais capricho no despejo.", busca: "hario v60 02", icone: "v60" },
+      { nome: "Hario V60", tag: "leve e limpo", porque: "O clássico que não tem erro, um dos mais usados do mundo. Tem muita receita pra seguir, mas pede mais capricho no despejo.", busca: "hario v60 02", icone: "v60", links: [ { id: "ali", nome: "AliExpress", href: "https://pt.aliexpress.com/wholesale?SearchText=hario%20v60%2002" }, { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/s?k=hario%20v60%2002&tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/1wca38y" } ] },
       { nome: "Chemex", tag: "leve e limpo · suave", porque: "Papel mais grosso, café bem suave e uma peça linda na bancada.", busca: "chemex 6 xícaras", icone: "chemex" },
       { nome: "Kalita Wave", tag: "meio-termo", porque: "Fundo plano: ressalta mais corpo e doçura que o V60. Despeje e deixe o coador trabalhar.", busca: "kalita wave 185", icone: "kalita" },
       { nome: "Clever", tag: "meio-termo", porque: "Mistura de imersão com coado: você deixa o café em contato com a água e depois abre o fundo. Fácil de acertar.", busca: "clever dripper café", icone: "clever" },
@@ -101,7 +101,7 @@ const categorias: Cat[] = [
     id: "ceramica", titulo: "Coadores de cerâmica", icone: "coador",
     intro: "A cerâmica segura melhor o calor e é bonita. Aqueça o coador com água quente antes de usar.",
     itens: [
-      { nome: "V60 de cerâmica", tag: "clássico", porque: "O mesmo V60, com cara de peça de bancada.", busca: "hario v60 cerâmica 02", icone: "v60" },
+      { nome: "V60 de cerâmica", tag: "clássico", porque: "O mesmo V60, com cara de peça de bancada.", busca: "hario v60 cerâmica 02", icone: "v60", links: [ { id: "ali", nome: "AliExpress", href: "https://pt.aliexpress.com/wholesale?SearchText=hario%20v60%20cer%C3%A2mica%2002" }, { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/s?k=hario%20v60%20cer%C3%A2mica%2002&tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/2h7MB3o" } ] },
       { nome: "Origami de cerâmica", tag: "muito elogiado", porque: "Foi chamado de método de percolação preferido por quem testa equipamento. Aceita filtro do V60 e do tipo Kalita.", busca: "origami dripper cerâmica", icone: "kalita" },
       { nome: "Timemore B75 de cerâmica", tag: "fundo plano", porque: "Outra opção de base plana, importada.", busca: "timemore b75 cerâmica", so: ["ali"], icone: "kalita" },
       { nome: "Coador de cerâmica genérico", tag: "econômico", porque: "Tem versão de cerâmica bem barata em lojas de utilidades e no AliExpress. Confira a nota antes de comprar.", busca: "coador de café cerâmica porta filtro", so: ["ali", "ml"], icone: "melitta" },
@@ -122,7 +122,7 @@ const categorias: Cat[] = [
     intro: "O papel tem que ter o mesmo número do coador: Melitta 102 usa papel 102 e Kalita usa papel 185. O V60 vem em três tamanhos, 01 (1 a 2 xícaras), 02 (1 a 4, o mais comum) e 03 (1 a 6), e o papel tem que ser do mesmo número. Errar isso é motivo de muito café ruim.",
     itens: [
       { nome: "Papel Melitta 102", tag: "começo", porque: "Barato e fácil de achar. Casa com o porta-filtro Melitta.", busca: "filtro de papel melitta 102", so: ["amz", "ml"] },
-      { nome: "Papel Hario 02", tag: "padrão do V60 02", porque: "É o papel do V60 tamanho 02, que serve pra 1 a 4 xícaras e é o mais comum. Se o seu coador for 01 ou 03, compre o papel com o mesmo número.", busca: "filtro de papel hario v60 02" },
+      { nome: "Papel Hario 02", tag: "padrão do V60 02", porque: "É o papel do V60 tamanho 02, que serve pra 1 a 4 xícaras e é o mais comum. Se o seu coador for 01 ou 03, compre o papel com o mesmo número.", busca: "filtro de papel hario v60 02", links: [ { id: "ali", nome: "AliExpress", href: "https://pt.aliexpress.com/wholesale?SearchText=filtro%20de%20papel%20hario%20v60%2002" }, { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/s?k=filtro%20de%20papel%20hario%20v60%2002&tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/1LNVJcF" } ] },
       { nome: "Papel MHW-3Bomber ou Timemore", tag: "custo-benefício", porque: "Passagem rápida e bons filtros, mais baratos que os de marca.", busca: "filtro papel v60 02 100 unidades", so: ["ali"] },
       { nome: "Cafec (Origami) ou Sibarist", tag: "pra ir além", porque: "O Cafec passa mais rápido que o da Hario. O Sibarist é o melhor que existe, e é caro.", busca: "filtro de papel cafec origami" },
     ],
@@ -134,7 +134,7 @@ const categorias: Cat[] = [
       { nome: "Zip da própria embalagem", tag: "grátis", porque: "Solução mais barata: aperte o ar pra fora e feche bem. Pra estoque, divida em porções e congele.", busca: "", sem: true },
       { nome: "Airscape", tag: "referência no Brasil", porque: "Tampa com êmbolo que empurra o ar pra fora. Guarda em torno de 500 g de grãos.", busca: "airscape pote hermético café", so: ["amz", "ml"] },
       { nome: "Fellow Atmos", tag: "pra ir além", porque: "Tampa que faz vácuo. Comporta uns 170 g. É importado.", busca: "fellow atmos vacuum canister", so: ["amz", "ali"] },
-      { nome: "Pote de vidro com vácuo manual", tag: "a que a cafetinha indica", porque: "Vidro borossilicato com tampa de vácuo manual e à prova de umidade. Como o vidro deixa a luz passar, guarde dentro do armário. Ainda assim, é bem melhor que deixar o café aberto na bancada.", busca: "", links: [{ id: "ali", nome: "AliExpress", href: "https://pt.aliexpress.com/item/1005007805425983.html" }] },
+      { nome: "Pote de vidro com vácuo manual", tag: "a que a cafetinha indica", porque: "Vidro borossilicato com tampa de vácuo manual e à prova de umidade. Como o vidro deixa a luz passar, guarde dentro do armário. Ainda assim, é bem melhor que deixar o café aberto na bancada.", busca: "", links: [{ id: "ali", nome: "AliExpress", href: "https://s.click.aliexpress.com/e/_c4Nbckxn" }] },
     ],
   },
 ];
