@@ -325,7 +325,7 @@ const dadosDoGuia = {
   <Filtros />
 
   <div class="guia">
-    <p class="so-print credito"><strong>Material gratuito da Cafuaçu.</strong> Pode imprimir e compartilhar à vontade, desde que com a fonte. A versão sempre atualizada, com os links, mora em <strong>cafuacu.com.br/guias/cafe</strong>.</p>
+    <p class="so-print credito"><strong>Material gratuito da Cafuaçu, versão pra imprimir.</strong> Pode imprimir e compartilhar à vontade, sempre com a fonte e sem alterar o conteúdo. <strong>É proibido vender</strong>, cobrar por ele ou usar como material pago (licença CC BY-NC-ND 4.0). A versão sempre atualizada, com os links, mora em <strong>cafuacu.com.br/guias/cafe</strong>.</p>
     <!-- textura de giz de cera, usada pelas setinhas desenhadas à mão -->
     <svg class="so-defs" width="0" height="0" aria-hidden="true" focusable="false">
       <filter id="giz" x="-20%" y="-20%" width="140%" height="140%">
@@ -819,7 +819,7 @@ const dadosDoGuia = {
             <span class="sel">é pipoca mesmo</span>
             <h3>O ponto de estouro</h3>
             <p>A analogia com a pipoca não é figura de linguagem, é o <strong>mesmo mecanismo</strong>. O calor transforma a água de dentro do grão em vapor, junta o gás carbônico que a torra vai criando, a pressão sobe, e a parede da célula não aguenta: o grão <strong>estala e abre</strong>, com barulho.</p>
-            <p>Esse é o <strong>primeiro estalo</strong>, perto dos 200 °C, e é o instante em que o grão vira café bebível. Ele incha, e ao mesmo tempo <strong>perde de 12 a 20% do peso</strong>, quase tudo água. Uns 25 graus depois vem o <strong>segundo estalo</strong>: a estrutura quebra de novo e o óleo aparece na casca. Daí pra frente o que você prova é a torra, não o café.</p>
+            <p>Esse é o <strong>primeiro estalo</strong> (o primeiro crack, no jargão da torra), perto dos 200 °C, e é o instante em que o grão vira café bebível. Ele incha, e ao mesmo tempo <strong>perde de 12 a 20% do peso</strong>, quase tudo água. Uns 25 graus depois vem o <strong>segundo estalo</strong>: a estrutura quebra de novo e o óleo aparece na casca. Daí pra frente o que você prova é a torra, não o café.</p>
             <p>Toda a diferença entre um café e outro cabe nos <strong>poucos minutos entre um estalo e o outro</strong>. É por isso que torrar é ofício, e por isso que o mesmo grão muda de torrefação pra torrefação.</p>
           </div>
         </div>
@@ -1274,9 +1274,9 @@ const dadosDoGuia = {
           </svg>
         </div>
 
-        <div class="tabela">
-          <div class="th"><span>Se a xícara está</span><span>O que é</span><span>O que fazer</span></div>
-          {sintomas.map(([a, b, c]) => (<div class="tr"><span><strong>{a}</strong></span><span>{b}</span><span>{c}</span></div>))}
+        <div class="tabela" role="table" aria-label="O que fazer quando o café fica ruim">
+          <div class="th" role="row"><span role="columnheader">Se a xícara está</span><span role="columnheader">O que é</span><span role="columnheader">O que fazer</span></div>
+          {sintomas.map(([a, b, c]) => (<div class="tr" role="row"><span role="cell"><strong>{a}</strong></span><span role="cell" data-rot="O que é">{b}</span><span role="cell" data-rot="O que fazer">{c}</span></div>))}
         </div>
 
         <p class="nota">Mude <strong>uma coisa por vez</strong> e prove de novo. Mexer na moagem, no tempo e na proporção na mesma rodada é a receita pra não aprender nada. Os quatro botões são: moagem, temperatura, tempo de contato e proporção.</p>
@@ -1776,6 +1776,7 @@ const dadosDoGuia = {
     .desenho.largo::after{display:block}
     .tabela .th{display:none}
     .tabela .tr{grid-template-columns:1fr;gap:6px;padding:16px 18px}
+    .tabela [data-rot]::before{content:attr(data-rot) ": ";font-weight:700;color:var(--cafe-700)}
   }
   /* o aviso de arrastar só aparece quando o desenho de fato passa da coluna (coluna = tela menos 56px de margem) */
   @media (max-width:735px){.desenho.medio::after{display:block}}

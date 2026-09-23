@@ -267,11 +267,34 @@ html{scroll-padding-top:104px}
 @media print{
   @page{
     size:A4;margin:11mm 11mm 15mm;
-    @bottom-left{content:"Guia do café · Cafuaçu · cafuacu.com.br/guias/cafe";font:600 7.5pt/1 system-ui,sans-serif;color:#6B4A38}
+    @bottom-left{content:"Guia do café · Cafuaçu · cafuacu.com.br/guias/cafe · distribuição gratuita, proibida a venda";font:600 7.5pt/1 system-ui,sans-serif;color:#6B4A38}
     @bottom-right{content:counter(page) " de " counter(pages);font:600 7.5pt/1 system-ui,sans-serif;color:#6B4A38}
   }
   html{zoom:.78}
   .so-print{display:block!important}
+  /* topo pro papel: fundo claro, marca escura, sem animação */
+  .hero{background:#fff!important;border-bottom:2px solid var(--cafe-900)}
+  .hero-in{padding:10px 24px 22px!important;color:var(--cafe-900)!important}
+  .hero .marca{margin-bottom:10px!important}
+  .hero .marca .cafetinha{width:54px!important;margin-bottom:6px!important}
+  .hero .marca .cafetinha *{fill:var(--cafe-900)!important}
+  .hero .marca img{filter:brightness(.16)}
+  .hero .eyebrow{color:var(--torra-700)!important}
+  .hero h1{color:var(--cafe-900)!important}
+  .hero p{color:var(--cafe-500)!important}
+  .hero-stats span,.hero-stats time{color:var(--cafe-700)!important;border-color:var(--crema-300)!important}
+  /* nada de fundo escuro chapado no papel: os blocos de destaque ficam claros */
+  .master{background:var(--crema-200)!important;color:var(--cafe-900)!important;border-left:5px solid var(--torra-500)}
+  .master h3{color:var(--cafe-900)!important}
+  .master p{color:var(--cafe-700)!important}
+  .master strong{color:var(--cafe-900)!important}
+  .master a{color:var(--torra-700)!important}
+  .master .ico{background:var(--crema-100)!important;color:var(--torra-700)!important}
+  .master::before,.master::after{display:none!important}
+  .tabela .th{background:var(--crema-300)!important;color:var(--cafe-900)!important}
+  .d4{background:#E3ECD6!important;color:var(--folha-600)!important;border:2px solid var(--folha-600)}
+  .d4 p,.d4 .tag{color:var(--folha-600)!important}
+  .d1,.d2,.d3,.d4{min-height:0!important}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   html,body,.corpo{background:#fff!important}
   /* o que só faz sentido na tela */
