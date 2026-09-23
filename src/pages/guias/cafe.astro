@@ -225,7 +225,7 @@ const apps: [string, string, string, string[], string][] = [
   ["pra registrar o que você tomou", "Beanconqueror", "https://beanconqueror.com", ["grátis", "código aberto", "iPhone e Android"],
    "O mais completo pra quem quer levar a sério: guarda cada grão, cada torra e cada preparo, com foto, e liga em balança Bluetooth. Exporta tudo, e os seus dados continuam seus."],
   ["pra treinar o paladar e achar café fora", "Flavor Notes", "https://apps.apple.com/br/app/flavor-notes-coffee-brewing/id6762590488", ["grátis", "só iPhone"],
-   "A roda de sabores lá de cima, interativa, com mais de 70 notas, e um modo de degustação guiada que diz o que reparar e quando. É o que mais ajuda a sair do 'não sinto nada'."],
+   "A roda de sabores lá de cima, interativa, com mais de 70 notas, e um modo de degustação guiada que diz o que reparar e quando. É o que mais ajuda a sair do “não sinto nada”."],
   ["pra treinar o paladar e achar café fora", "Kafex", "https://kafex.com.br", ["grátis", "brasileiro", "iPhone, Android e web"],
    "Guia de cafeteria de café especial por cidade, com curadoria de quem bebe. É o jeito mais rápido de cumprir o degrau 1 lá do começo do guia."],
 ];
@@ -411,7 +411,7 @@ const glossario = [
             <span class="sel">o degrau que ninguém conta</span>
             <h3>Robusta fino é outra coisa</h3>
             <p>O robusta que deu má fama ao robusta é o de supermercado: colhido de qualquer jeito, torrado escuro, feito pra ser barato. Só que existe <strong>canéfora fino</strong>, também chamado de conilon especial, colhido maduro e processado com o mesmo cuidado de um arábica.</p>
-            <p>O <strong>Robusta Amazônico de Rondônia</strong> tem indicação geográfica própria, corpo grande e nota de chocolate e castanha. É o melhor degrau pra quem acha o café especial "fraco" demais: tem a força do café tradicional sem o amargor de torra queimada.</p>
+            <p>O <strong>Robusta Amazônico de Rondônia</strong> tem indicação geográfica própria, corpo grande e nota de chocolate e castanha. É o melhor degrau pra quem acha o café especial “fraco” demais: tem a força do café tradicional sem o amargor de torra queimada.</p>
           </div>
         </div>
       </section>
@@ -423,7 +423,7 @@ const glossario = [
           {variedades.map(([n, t, d]) => (
             <article class="prod semcompra">
               <span class="tg">{t}</span>
-              <div class="prod-head"><h4>{n}</h4></div>
+              <div class="prod-head"><h3 class="prod-t">{n}</h3></div>
               <p>{d}</p>
             </article>
           ))}
@@ -568,7 +568,7 @@ const glossario = [
 
       <section id="especial">
         <header class="cab-sec"><h2>Por que o especial é outra coisa</h2></header>
-        <p class="sub">"Especial" não é adjetivo de marketing: é <strong>nota</strong>. Só que o Brasil convive com duas réguas diferentes ao mesmo tempo, e é aí que quase todo mundo se perde.</p>
+        <p class="sub">“Especial” não é adjetivo de marketing: é <strong>nota</strong>. Só que o Brasil convive com duas réguas diferentes ao mesmo tempo, e é aí que quase todo mundo se perde.</p>
 
         <p class="sub sub2">Primeiro, o que você vê na prateleira</p>
         <div class="escada">
@@ -634,7 +634,7 @@ const glossario = [
         <div class="duo">
           <div>
             <h3>A régua da ABIC</h3>
-            <p>O Programa de Qualidade do Café dá uma nota global de 0 a 10 e divide o café torrado de mercado em três faixas: <strong>tradicional de 4,5 a 5,9</strong>, <strong>superior de 6,0 a 7,2</strong> e <strong>gourmet de 7,3 a 10</strong>. "Extraforte" não é uma faixa de qualidade: é torra mais escura dentro do tradicional.</p>
+            <p>O Programa de Qualidade do Café dá uma nota global de 0 a 10 e divide o café torrado de mercado em três faixas: <strong>tradicional de 4,5 a 5,9</strong>, <strong>superior de 6,0 a 7,2</strong> e <strong>gourmet de 7,3 a 10</strong>. “Extraforte” não é uma faixa de qualidade: é torra mais escura dentro do tradicional.</p>
             <p>Serve pra separar o café de supermercado entre si. Um gourmet é melhor que um tradicional, sem dúvida. Mas gourmet <strong>não</strong> quer dizer especial.</p>
           </div>
           <div>
@@ -670,19 +670,19 @@ const glossario = [
         <div class="prods tres">
           <article class="prod semcompra">
             <span class="tg tg-bom">o produtor</span>
-            <div class="prod-head"><span class="ico prodico" set:html={ic.mao} /><h4>O preço é por qualidade, não por peso</h4></div>
+            <div class="prod-head"><span class="ico prodico" set:html={ic.mao} /><h3 class="prod-t">O preço é por qualidade, não por peso</h3></div>
             <p>Commodity paga por saca, e quem vende por saca precisa de volume e de colheita rápida. O especial paga por <strong>nota</strong>, e nota exige colher só a cereja madura, passar várias vezes na mesma planta e ter gente treinada que volte no ano seguinte.</p>
             <p class="contra">O incentivo vira qualidade em vez de pressa. Isso sustenta mão de obra melhor paga e, muitas vezes, o próprio sítio da família.</p>
           </article>
           <article class="prod semcompra">
             <span class="tg">o ambiente</span>
-            <div class="prod-head"><span class="ico prodico" set:html={ic.pe} /><h4>Qualidade combina com sombra e com menos veneno</h4></div>
+            <div class="prod-head"><span class="ico prodico" set:html={ic.pe} /><h3 class="prod-t">Qualidade combina com sombra e com menos veneno</h3></div>
             <p>Quem mira pontuação costuma ir pro caminho contrário do volume: <strong>altitude, sombreamento, agrofloresta</strong>, manejo de água na secagem e menos insumo, porque grão forçado não pontua.</p>
             <p class="contra">Não é automático, e nem todo especial é sustentável. Mas é o único pedaço do mercado onde o incentivo econômico anda junto com o cuidado.</p>
           </article>
           <article class="prod semcompra">
             <span class="tg">você</span>
-            <div class="prod-head"><span class="ico prodico" set:html={ic.pacote} /><h4>O café tem nome, e nome dá pra cobrar</h4></div>
+            <div class="prod-head"><span class="ico prodico" set:html={ic.pacote} /><h3 class="prod-t">O café tem nome, e nome dá pra cobrar</h3></div>
             <p>Café de supermercado é anônimo por construção: vem misturado de dezenas de origens e ninguém, nem quem torra, sabe dizer de que talhão saiu. O especial escreve <strong>fazenda, região, altitude e variedade</strong> no pacote.</p>
             <p class="contra">Rastreabilidade não conserta nada sozinha. Ela só faz uma coisa, e é a coisa que faltava: dá endereço pra cobrança.</p>
           </article>
@@ -837,7 +837,7 @@ const glossario = [
       </section>
 
       <section id="sabor">
-        <header class="cab-sec"><h2>"Notas de chocolate" não é chocolate</h2></header>
+        <header class="cab-sec"><h2>“Notas de chocolate” não é chocolate</h2></header>
         <p class="sub">Ninguém coloca nada no café. As notas são <strong>lembranças de aroma</strong>: seu cérebro reconhece no café moléculas que também existem na fruta, na castanha, na flor. É associação, não ingrediente. E é <strong>subjetivo</strong>: a nota no pacote é o que aquele provador sentiu, com a memória e o repertório dele.</p>
 
         <div class="roda">
@@ -868,19 +868,19 @@ const glossario = [
 
         <p class="sub sub2">E os seis eixos que um provador usa, em português de gente:</p>
         <div class="prods tres">
-          <article class="prod semcompra"><span class="tg">antes de beber</span><div class="prod-head"><h4>Aroma</h4></div><p>O que sobe do pó seco e depois da bebida. É onde mora a maior parte do que a gente chama de sabor.</p></article>
-          <article class="prod semcompra"><span class="tg">a mais confundida</span><div class="prod-head"><h4>Acidez</h4></div><p>A vivacidade que faz a boca salivar, como numa laranja ou numa maçã. Acidez boa refresca. O que você conhece como "azedo" é outra coisa.</p></article>
-          <article class="prod semcompra"><span class="tg tg-bom">a que importa</span><div class="prod-head"><h4>Doçura</h4></div><p>Não é açúcar: é a percepção doce de fruta madura. É o atributo que mais separa café especial de café comum.</p></article>
-          <article class="prod semcompra"><span class="tg">o peso</span><div class="prod-head"><h4>Corpo</h4></div><p>A textura na boca: se parece água, chá, leite ou caldo. Processo e método mudam muito isso.</p></article>
-          <article class="prod semcompra"><span class="tg">o fim</span><div class="prod-head"><h4>Finalização</h4></div><p>O que fica depois de engolir, e por quanto tempo. Café bom deixa lembrança boa e longa. Café ruim deixa a boca seca.</p></article>
-          <article class="prod semcompra"><span class="tg">o vilão de sempre</span><div class="prod-head"><h4>Amargor</h4></div><p>Existe em todo café e nem sempre é defeito. Vira problema quando é o único sabor, e isso quase sempre é torra escura ou extração demais.</p></article>
+          <article class="prod semcompra"><span class="tg">antes de beber</span><div class="prod-head"><h3 class="prod-t">Aroma</h3></div><p>O que sobe do pó seco e depois da bebida. É onde mora a maior parte do que a gente chama de sabor.</p></article>
+          <article class="prod semcompra"><span class="tg">a mais confundida</span><div class="prod-head"><h3 class="prod-t">Acidez</h3></div><p>A vivacidade que faz a boca salivar, como numa laranja ou numa maçã. Acidez boa refresca. O que você conhece como “azedo” é outra coisa.</p></article>
+          <article class="prod semcompra"><span class="tg tg-bom">a que importa</span><div class="prod-head"><h3 class="prod-t">Doçura</h3></div><p>Não é açúcar: é a percepção doce de fruta madura. É o atributo que mais separa café especial de café comum.</p></article>
+          <article class="prod semcompra"><span class="tg">o peso</span><div class="prod-head"><h3 class="prod-t">Corpo</h3></div><p>A textura na boca: se parece água, chá, leite ou caldo. Processo e método mudam muito isso.</p></article>
+          <article class="prod semcompra"><span class="tg">o fim</span><div class="prod-head"><h3 class="prod-t">Finalização</h3></div><p>O que fica depois de engolir, e por quanto tempo. Café bom deixa lembrança boa e longa. Café ruim deixa a boca seca.</p></article>
+          <article class="prod semcompra"><span class="tg">o vilão de sempre</span><div class="prod-head"><h3 class="prod-t">Amargor</h3></div><p>Existe em todo café e nem sempre é defeito. Vira problema quando é o único sabor, e isso quase sempre é torra escura ou extração demais.</p></article>
         </div>
 
         <div class="master">
           <span class="ico grande" set:html={ic.lingua} />
           <div>
             <span class="sel">desmontando o medo</span>
-            <h3>Você não precisa sentir "maracujá"</h3>
+            <h3>Você não precisa sentir “maracujá”</h3>
             <p>Ninguém começa sentindo nota nenhuma, e tudo bem. Comece com três palavras só: <strong>é doce ou seco? é leve ou pesado? eu tomaria de novo?</strong> Depois de uns dez cafés diferentes, o vocabulário chega sozinho, porque você passa a ter com o que comparar.</p>
             <p>E não existe gabarito. <strong>Sabor é subjetivo por definição</strong>: depende da sua genética, do que você comeu hoje, do que você comia na infância e até do seu humor. Duas pessoas provando a mesma xícara vão descrever coisas diferentes, e as duas estão certas. A roda aí de cima é um <strong>vocabulário comum</strong> pra gente conseguir conversar, não uma verdade sobre o café.</p>
           </div>
@@ -1045,7 +1045,7 @@ const glossario = [
             <div>
               <h3>Mais forte ou mais leve</h3>
               <ul class="dicas">
-                <li><span class="ico" set:html={ic.balanca} /><p><strong>1:12 a 1:14 é encorpado.</strong> Bom pra quem vem do café tradicional e acha o especial "fraco".</p></li>
+                <li><span class="ico" set:html={ic.balanca} /><p><strong>1:12 a 1:14 é encorpado.</strong> Bom pra quem vem do café tradicional e acha o especial “fraco”.</p></li>
                 <li><span class="ico" set:html={ic.balanca} /><p><strong>1:16 a 1:17 é leve e limpo.</strong> Bom pra torra clara e pra sentir fruta e flor.</p></li>
               </ul>
             </div>
@@ -1150,10 +1150,10 @@ const glossario = [
         <header class="cab-sec"><h2>Como guardar (e onde não guardar)</h2></header>
         <p class="sub">Os quatro inimigos do café são sempre os mesmos: <strong>ar, luz, calor e umidade</strong>. Guardar bem é só tirar os quatro do caminho.</p>
         <div class="prods">
-          <article class="prod semcompra"><span class="tg tg-bom">o jeito certo</span><div class="prod-head"><span class="ico prodico" set:html={ic.pote} /><h4>Pote fechado e opaco</h4></div><p>Vidro escuro, cerâmica ou inox, num armário longe do fogão. Se o pacote tiver válvula e zíper, ele já serve bem: tire o ar e feche.</p></article>
-          <article class="prod semcompra"><span class="tg">fica pra depois</span><div class="prod-head"><span class="ico prodico" set:html={ic.pote} /><h4>Pote a vácuo</h4></div><p>Ajuda de verdade, mas só o bom. Os genéricos baratos perdem a vedação em poucos dias e viram pote comum caro.</p></article>
-          <article class="prod semcompra"><span class="tg">com regra</span><div class="prod-head"><span class="ico prodico" set:html={ic.relogio} /><h4>Freezer</h4></div><p>Serve pra estoque, não pro dia a dia: porções pequenas, bem seladas, que saem uma vez só e não voltam. Congelar e descongelar o mesmo pacote arruína o café.</p></article>
-          <article class="prod semcompra"><span class="tg">nunca</span><div class="prod-head"><span class="ico prodico" set:html={ic.x} /><h4>Geladeira</h4></div><p>É o pior lugar da casa. Cada vez que o pote sai e volta, ele sua por dentro. E café puxa cheiro de cebola, de queijo, de tudo.</p></article>
+          <article class="prod semcompra"><span class="tg tg-bom">o jeito certo</span><div class="prod-head"><span class="ico prodico" set:html={ic.pote} /><h3 class="prod-t">Pote fechado e opaco</h3></div><p>Vidro escuro, cerâmica ou inox, num armário longe do fogão. Se o pacote tiver válvula e zíper, ele já serve bem: tire o ar e feche.</p></article>
+          <article class="prod semcompra"><span class="tg">fica pra depois</span><div class="prod-head"><span class="ico prodico" set:html={ic.pote} /><h3 class="prod-t">Pote a vácuo</h3></div><p>Ajuda de verdade, mas só o bom. Os genéricos baratos perdem a vedação em poucos dias e viram pote comum caro.</p></article>
+          <article class="prod semcompra"><span class="tg">com regra</span><div class="prod-head"><span class="ico prodico" set:html={ic.relogio} /><h3 class="prod-t">Freezer</h3></div><p>Serve pra estoque, não pro dia a dia: porções pequenas, bem seladas, que saem uma vez só e não voltam. Congelar e descongelar o mesmo pacote arruína o café.</p></article>
+          <article class="prod semcompra"><span class="tg">nunca</span><div class="prod-head"><span class="ico prodico" set:html={ic.x} /><h3 class="prod-t">Geladeira</h3></div><p>É o pior lugar da casa. Cada vez que o pote sai e volta, ele sua por dentro. E café puxa cheiro de cebola, de queijo, de tudo.</p></article>
         </div>
         <p class="nota">Moeu demais sem querer? Não jogue fora: use no mesmo dia, de preferência nas próximas horas. <a href="/guias/equipamento#potes">Os potes que valem estão no guia de equipamento</a>.</p>
       </section>
@@ -1190,7 +1190,7 @@ const glossario = [
           {ondeComprar.map((o) => (
             <article class="prod semcompra">
               <span class={o.tag.startsWith("o melhor") ? "tg tg-bom" : "tg"}>{o.tag}</span>
-              <div class="prod-head"><span class="ico prodico" set:html={ic.loja} /><h4>{o.nome}</h4></div>
+              <div class="prod-head"><span class="ico prodico" set:html={ic.loja} /><h3 class="prod-t">{o.nome}</h3></div>
               <p>{o.txt}</p>
               <p class="contra"><strong>Dica.</strong> {o.dica}</p>
             </article>
@@ -1202,7 +1202,7 @@ const glossario = [
           <div>
             <span class="sel">o pedido pronto</span>
             <h3>O que falar quando não souber o que pedir</h3>
-            <p>Decore esta frase e use em qualquer torrefação, cafeteria ou chat de loja: <strong>"Quero 250 g em grãos, arábica, torra média, cereja descascado ou natural, torrado nas últimas duas semanas, com nota de chocolate e caramelo."</strong></p>
+            <p>Decore esta frase e use em qualquer torrefação, cafeteria ou chat de loja: <strong>“Quero 250 g em grãos, arábica, torra média, cereja descascado ou natural, torrado nas últimas duas semanas, com nota de chocolate e caramelo.”</strong></p>
             <p>É um pedido específico, barato, quase impossível de dar errado, e que ainda mostra que você sabe o que está falando.</p>
           </div>
         </div>
@@ -1442,6 +1442,7 @@ const glossario = [
   .barras b{display:block;height:100%;background:var(--torra-700);border-radius:999px}
   .sub-t{font-size:22px;font-weight:600;color:var(--cafe-900);letter-spacing:-.02em;margin:38px 0 8px}
   .fase-e text{font-size:11.5px;font-weight:700;fill:var(--torra-700)}
+  .prod-head .prod-t{font-size:19px;line-height:1.2;margin:0;font-weight:600}
   .app .grupo{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--folha-600);margin-bottom:5px}
   .prod .grau{font-size:26px;font-weight:600;color:var(--torra-700);letter-spacing:-.02em;margin-bottom:10px;font-variant-numeric:tabular-nums}
   .prod .quando{font-size:13.5px;font-weight:600;color:var(--cafe-900);margin-bottom:0}

@@ -7,8 +7,11 @@
 
 html,body{overflow-x:clip}
 body .corpo{background:#fff}
+/* a barra do sumário é fixa: âncora e foco precisam parar abaixo dela */
+html{scroll-padding-top:104px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 @media (prefers-reduced-motion:reduce){.conteudo *,.topo-sum *{transition:none!important}}
+.conteudo a,.topo-sum a{touch-action:manipulation}
 .conteudo a:focus-visible,.conteudo button:focus-visible,.topo-sum a:focus-visible{outline:3px solid var(--torra-700);outline-offset:2px;border-radius:6px}
 
 .hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
@@ -61,9 +64,9 @@ body .corpo{background:#fff}
 
 /* títulos: um salto de escala forte, sem número nem etiqueta */
 .cab-sec{margin-bottom:12px}
-.conteudo h2{font-size:clamp(24px,2.6vw,32px);line-height:1.1;margin:0;letter-spacing:-.022em}
-.conteudo h3{font-size:22px;line-height:1.2}
-.conteudo h4{font-size:19px;line-height:1.2;margin:0;font-weight:600}
+.conteudo h2{font-size:clamp(24px,2.6vw,32px);line-height:1.1;margin:0;letter-spacing:-.022em;text-wrap:balance}
+.conteudo h3{font-size:22px;line-height:1.2;text-wrap:balance}
+.conteudo h4{font-size:19px;line-height:1.2;margin:0;font-weight:600;text-wrap:balance}
 .sub{font-size:16.5px;color:var(--cafe-500);margin:0 0 26px}
 .sub2{margin:34px 0 14px}
 .nota{margin-top:20px;font-size:15px;color:var(--cafe-500)}

@@ -5,13 +5,14 @@ interface Props { titulo: string; descricao?: string; noindex?: boolean; }
 const { titulo, descricao, noindex = false } = Astro.props;
 ---
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" style="color-scheme:light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{titulo}</title>
   {descricao && <meta name="description" content={descricao} />}
   {noindex && <meta name="robots" content="noindex" />}
+  <meta name="theme-color" content="#2E1E17" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -25,6 +26,7 @@ const { titulo, descricao, noindex = false } = Astro.props;
   <slot name="head" />
 </head>
 <body>
+  <a class="pular-pro-conteudo" href="#conteudo">Pular para o conteúdo</a>
   <slot />
 </body>
 </html>

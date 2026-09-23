@@ -24,7 +24,7 @@ const naoEHub = !["", "/", "/index.html", "/index"].includes(Astro.url.pathname)
     </div>
   </section>
   {faixa && <div class="faixa"><div>{faixa}</div></div>}
-  <section class="corpo">
+  <section class="corpo" id="conteudo" tabindex="-1">
     <div class={largo ? "corpo-in largo" : "corpo-in"}>
       <slot />
     </div>

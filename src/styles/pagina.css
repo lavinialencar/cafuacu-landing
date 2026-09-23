@@ -8,6 +8,17 @@ p{margin:0}
 a{color:var(--torra-700)}
 a:hover{color:var(--cafe-900)}
 
+/* pular pro conteúdo: só aparece no teclado */
+.pular-pro-conteudo{
+  position:absolute;left:12px;top:-100px;z-index:100;
+  background:var(--torra-500);color:var(--cafe-900);
+  font-weight:700;font-size:14px;text-decoration:none;
+  padding:11px 18px;border-radius:0 0 10px 10px;
+  transition:top .15s ease;
+}
+.pular-pro-conteudo:focus{top:0;color:var(--cafe-900)}
+.corpo:focus{outline:none}
+
 /* topo escuro */
 .hero{background:var(--cafe-700);width:100%}
 .hero-in{max-width:640px;margin:0 auto;color:var(--crema-200);padding:56px 32px 48px;text-align:center;display:flex;flex-direction:column;align-items:center}
