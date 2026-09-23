@@ -1,9 +1,11 @@
 ---
-// Rodapé claro, igual ao da landing.
+// Rodapé claro, igual ao da landing. No hub, fecha com a frase da marca.
+const noHub = ["", "/", "/index.html", "/index"].includes(Astro.url.pathname);
 ---
 <footer class="rodape">
   <div class="rodape-in">
     <div><a href="mailto:contato@cafuacu.com.br">contato@cafuacu.com.br</a></div>
     <div><a href="/privacidade">política de privacidade</a></div>
+    {noHub && <div class="rodape-frase">Da Amazônia pra sua xícara</div>}
   </div>
 </footer>
