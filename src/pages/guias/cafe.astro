@@ -436,50 +436,45 @@ const glossario = [
         <p class="sub">Quanto mais alto e mais frio, mais devagar a cereja amadurece. Mais tempo na planta quer dizer <strong>mais açúcar e mais acidez</strong> dentro da semente, e um grão mais denso.</p>
 
         <div class="desenho alt">
-          <svg viewBox="0 0 1160 420" role="img" aria-label="Quanto mais alta a lavoura, mais devagar a cereja amadurece e mais doce e ácido fica o grão">
+          <svg viewBox="0 0 600 400" role="img" aria-label="Encosta de café: quanto mais alta a lavoura, mais devagar a cereja amadurece e mais doce e ácido fica o grão">
             <defs>
-              <clipPath id="encosta"><path d="M120 364 L760 44 L760 364 Z"/></clipPath>
+              <clipPath id="encosta"><path d="M105 360 L580 40 L580 360 Z"/></clipPath>
             </defs>
             <g clip-path="url(#encosta)">
-              <rect x="120" y="236" width="640" height="128" fill="var(--crema-300)"/>
-              <rect x="120" y="172" width="640" height="64" fill="#D9BF9B"/>
-              <rect x="120" y="108" width="640" height="64" fill="var(--folha-400)"/>
-              <rect x="120" y="44" width="640" height="64" fill="var(--folha-600)"/>
+              <rect x="105" y="232" width="475" height="128" fill="var(--crema-300)"/>
+              <rect x="105" y="168" width="475" height="64" fill="#D9BF9B"/>
+              <rect x="105" y="104" width="475" height="64" fill="var(--folha-400)"/>
+              <rect x="105" y="40" width="475" height="64" fill="var(--folha-600)"/>
             </g>
-            <path d="M120 364 L760 44" fill="none" stroke="var(--cafe-900)" stroke-width="3.5" stroke-linecap="round"/>
-            <path d="M120 364 L760 364" fill="none" stroke="var(--crema-300)" stroke-width="2"/>
-
+            <path d="M105 360 L580 40" fill="none" stroke="var(--cafe-900)" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M105 360 L580 360" fill="none" stroke="var(--crema-300)" stroke-width="2"/>
             <g class="alt-guia">
-              <path d="M112 236 L788 236"/><path d="M112 172 L788 172"/><path d="M112 108 L788 108"/>
+              <path d="M98 232 L588 232"/><path d="M98 168 L588 168"/><path d="M98 104 L588 104"/>
             </g>
             <g class="alt-m">
-              <text x="100" y="368" text-anchor="end">0</text>
-              <text x="100" y="241" text-anchor="end">600 m</text>
-              <text x="100" y="177" text-anchor="end">900 m</text>
-              <text x="100" y="113" text-anchor="end">1.200 m</text>
+              <text x="88" y="364" text-anchor="end">0</text>
+              <text x="88" y="237" text-anchor="end">600 m</text>
+              <text x="88" y="173" text-anchor="end">900 m</text>
+              <text x="88" y="109" text-anchor="end">1.200 m</text>
             </g>
-
             <g class="alt-grao">
-              <ellipse cx="256" cy="296" rx="13" ry="18"/>
-              <ellipse cx="434" cy="207" rx="14" ry="19"/>
-              <ellipse cx="562" cy="143" rx="15" ry="20"/>
-              <ellipse cx="690" cy="79" rx="16" ry="21"/>
+              <ellipse cx="200" cy="296" rx="13" ry="18"/>
+              <ellipse cx="342" cy="200" rx="14" ry="19"/>
+              <ellipse cx="437" cy="136" rx="15" ry="20"/>
+              <ellipse cx="532" cy="72" rx="16" ry="21"/>
             </g>
-
-            <g class="alt-p">
-              <text x="806" y="306">canéfora, corpo e cafeína</text>
-              <text x="806" y="211">arábica de corpo, chocolate</text>
-              <text x="806" y="147">doçura alta, acidez viva</text>
-              <text x="806" y="83">acidez brilhante, floral</text>
-            </g>
-
             <g class="alt-eixo">
-              <path d="M52 340 L52 70" stroke-linecap="round"/>
-              <path d="M44 80 L52 66 L60 80" fill="none"/>
-              <text x="36" y="210" text-anchor="middle" transform="rotate(-90 36 210)">mais frio, amadurece mais devagar</text>
+              <path d="M34 340 L34 70" stroke-linecap="round"/>
+              <path d="M26 80 L34 66 L42 80" fill="none"/>
+              <text x="18" y="205" text-anchor="middle" transform="rotate(-90 18 205)">mais frio, amadurece devagar</text>
             </g>
-            <text class="alt-pe" x="120" y="400">quanto mais alto, mais tempo a cereja fica na planta, e mais açúcar e acidez o grão guarda</text>
           </svg>
+          <ul class="alt-l">
+            <li><i style="background:var(--folha-600)"></i><span><strong>Acima de 1.200 m.</strong> Acidez brilhante e floral. É onde saem as pontuações mais altas.</span></li>
+            <li><i style="background:var(--folha-400)"></i><span><strong>900 a 1.200 m.</strong> Doçura alta e acidez viva. A faixa da maior parte do café especial brasileiro.</span></li>
+            <li><i style="background:#D9BF9B"></i><span><strong>600 a 900 m.</strong> Arábica de corpo, com nota de chocolate e castanha.</span></li>
+            <li><i style="background:var(--crema-300)"></i><span><strong>Abaixo de 600 m.</strong> Território da canéfora: corpo grande e mais cafeína.</span></li>
+          </ul>
         </div>
 
         <div class="cat-cab"><span class="ico grande" set:html={ic.pe} /><div><h3>Onde nasce o café brasileiro</h3><p>O Brasil é o maior produtor do mundo, e cada região tem cara própria. As que têm <strong>IG</strong> (indicação geográfica registrada no INPI) juram por escrito de onde o café veio.</p></div></div>
@@ -591,7 +586,7 @@ const glossario = [
         </div>
 
         <p class="sub sub2">E as duas réguas por trás dessa escada</p>
-        <div class="desenho reguas">
+        <div class="desenho largo">
           <svg viewBox="0 0 1160 270" role="img" aria-label="Comparação entre a escala ABIC de 0 a 10 e a escala SCA de 0 a 100">
             <text class="rg-t" x="0" y="26">Régua da ABIC, o selo do café de supermercado, de 0 a 10</text>
             <rect x="0" y="42" width="522" height="38" fill="var(--crema-300)"/>
@@ -710,7 +705,7 @@ const glossario = [
         <p class="sub sub-t">O grão cru não tem cheiro de café</p>
         <p class="sub">Grão verde cheira a capim e feijão cru, e tem de 10 a 12% de água dentro. Tudo que você reconhece como café nasce em <strong>uns doze minutos</strong> de fogo, e nessa ordem:</p>
 
-        <div class="desenho">
+        <div class="desenho largo">
           <svg viewBox="0 0 1160 190" role="img" aria-label="As quatro fases da torra do café, da secagem ao segundo estalo">
             <rect x="0" y="16" width="298" height="44" rx="8" fill="var(--crema-300)"/>
             <rect x="301" y="16" width="337" height="44" rx="8" fill="#A9754B"/>
@@ -758,7 +753,7 @@ const glossario = [
 
         <p class="sub sub-t">E o ponto onde ele parou</p>
 
-        <div class="desenho">
+        <div class="desenho rola">
           <svg viewBox="0 0 640 120" role="img" aria-label="Faixa de torra, da clara à escura, com o que acontece em cada ponto">
             {[0, 1, 2, 3].map((i) => (
               <g>
@@ -897,7 +892,7 @@ const glossario = [
         <header class="cab-sec"><h2>O café tem idade, e ela conta</h2></header>
         <p class="sub">Café torrado não estraga: ele <strong>desbota</strong>. Perde aroma, perde doçura, e um dia sobra só o amargo. A conta corre a partir da torra, não da compra.</p>
 
-        <div class="desenho">
+        <div class="desenho rola">
           <svg viewBox="0 0 640 160" role="img" aria-label="Linha do tempo do café depois da torra, com a janela boa entre uma e quatro semanas">
             <rect x="40" y="52" width="37" height="38" fill="var(--crema-300)" rx="6"/>
             <rect x="79" y="52" width="52" height="38" fill="var(--torra-500)" rx="6"/>
@@ -941,7 +936,7 @@ const glossario = [
         <header class="cab-sec"><h2>Por que raios eu tenho que moer na hora</h2></header>
         <p class="sub">Essa é a dúvida número um de quem está começando, e a resposta é bem física: <strong>o grão inteiro é uma embalagem</strong>. Moer é abrir essa embalagem. Depois de aberta, não fecha.</p>
 
-        <div class="desenho">
+        <div class="desenho rola">
           <svg viewBox="0 0 640 250" role="img" aria-label="Comparação entre um grão inteiro e o mesmo grão moído, mostrando o aumento da superfície exposta ao ar">
             <rect x="20" y="20" width="280" height="210" rx="14" fill="var(--crema-200)"/>
             <ellipse cx="160" cy="105" rx="46" ry="64" fill="var(--crema-300)" stroke="var(--cafe-500)" stroke-width="3"/>
@@ -973,7 +968,7 @@ const glossario = [
         </div>
 
         <p class="sub sub2">E cada método pede um tamanho:</p>
-        <div class="desenho">
+        <div class="desenho medio">
           <svg viewBox="0 0 720 210" role="img" aria-label="Régua de moagem, do mais fino ao mais grosso, com os métodos de cada faixa">
             <rect x="20" y="34" width="680" height="92" rx="12" fill="var(--crema-200)"/>
             {moagens.map(([nome, tam, met], i) => {
@@ -1001,7 +996,7 @@ const glossario = [
         <header class="cab-sec"><h2>A xícara é quase toda água</h2></header>
         <p class="sub">Mais de 98% do que você bebe é água. Se ela tem gosto, o café vai ter o gosto dela junto. Esse é o ajuste mais barato do guia inteiro.</p>
 
-        <div class="desenho">
+        <div class="desenho rola">
           <svg viewBox="0 0 640 130" role="img" aria-label="Faixa de temperatura da água para café, de 80 a 100 graus">
             <rect x="40" y="40" width="280" height="38" rx="6" fill="var(--crema-300)"/>
             <rect x="320" y="40" width="168" height="38" rx="6" fill="var(--folha-600)"/>
@@ -1067,7 +1062,7 @@ const glossario = [
         </div>
 
         <p class="sub sub2">E o relógio: um coado de 300 ml, do começo ao fim</p>
-        <div class="desenho">
+        <div class="desenho largo">
           <svg viewBox="0 0 1160 130" role="img" aria-label="Linha do tempo de um café coado, do primeiro molhar aos três minutos e meio">
             <rect x="0" y="16" width="246" height="42" rx="8" fill="var(--torra-500)"/>
             <rect x="249" y="16" width="246" height="42" rx="8" fill="var(--folha-400)"/>
@@ -1116,7 +1111,7 @@ const glossario = [
         <header class="cab-sec"><h2>Ficou azedo ou amargo? O mapa é este</h2></header>
         <p class="sub">A água dissolve as coisas do café <strong>em ordem</strong>: primeiro os ácidos, depois os açúcares, por último os amargos. Uma xícara boa é uma que parou no meio dessa fila.</p>
 
-        <div class="desenho">
+        <div class="desenho rola">
           <svg viewBox="0 0 640 150" role="img" aria-label="Régua de extração: subextraído, ideal e superextraído">
             <rect x="40" y="40" width="200" height="40" rx="6" fill="var(--crema-300)"/>
             <rect x="242" y="40" width="158" height="40" rx="6" fill="var(--folha-600)"/>
@@ -1348,7 +1343,12 @@ const glossario = [
   .desenho{margin:26px 0 8px}
   .desenho svg{display:block;width:100%;height:auto}
   .desenho.rot,.desenho:has(.legenda){display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:40px;align-items:center}
+  .desenho.alt{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:36px;align-items:center}
   .desenho.alt svg{max-width:none}
+  .alt-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+  .alt-l li{display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--cafe-500)}
+  .alt-l i{flex:none;width:22px;height:22px;border-radius:6px;margin-top:2px}
+  .alt-l strong{color:var(--cafe-900)}
 
   /* legenda numerada ao lado do desenho */
   .legenda{list-style:none;margin:0;padding:0;counter-reset:leg;display:flex;flex-direction:column;gap:12px}
@@ -1482,9 +1482,14 @@ const glossario = [
     .tabela .tr{grid-template-columns:1fr;gap:6px;padding:16px 18px}
   }
   /* desenho largo no celular: rola de lado em vez de encolher a ponto de não dar pra ler */
+  /* desenho largo no celular: rola de lado, e com largura que mantém o texto legível */
   @media (max-width:760px){
-    .desenho:not(.rot):not(:has(.legenda)){overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
-    .desenho:not(.rot):not(:has(.legenda)) svg{min-width:560px}
+    .desenho.rola,.desenho.medio,.desenho.largo{overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+    .desenho.rola svg{min-width:560px}
+    .desenho.medio svg{min-width:680px}
+    .desenho.largo svg{min-width:1000px}
+    .desenho.largo::after,.desenho.medio::after,.desenho.rola::after{content:"arraste pro lado \2192";display:block;position:sticky;left:0;width:max-content;font-size:11.5px;font-weight:600;color:var(--cafe-500);padding-top:6px}
+    .desenho.alt{grid-template-columns:1fr;gap:22px}
   }
   @media (max-width:640px){
     .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.glos{grid-template-columns:1fr}
