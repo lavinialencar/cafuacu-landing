@@ -19,9 +19,11 @@ export async function onRequestPost({ request, env }) {
     return responder({ erro: "servico indisponivel", faltando }, 500);
   }
   let email = "";
+  let atributos = {};
   try {
     const corpo = await request.json();
     email = String(corpo.email || "").trim().toLowerCase();
+    atributos = lerUtm(corpo);
   } catch {
     return responder({ erro: "pedido invalido" }, 400);
   }
@@ -37,6 +39,7 @@ export async function onRequestPost({ request, env }) {
         includeListIds: [LISTA_ID],
         templateId: MODELO_CONFIRMACAO_ID,
         redirectionUrl: "https://cafuacu.com.br/confirmado",
+        ...(Object.keys(atributos).length ? { attributes: atributos } : {}),
       }),
     });
     if (r.status === 201 || r.status === 204) return responder({ ok: true, status: "pending" }, 200);
@@ -50,6 +53,22 @@ export async function onRequestPost({ request, env }) {
     console.error("falha ao chamar o brevo", e);
     return responder({ erro: "nao deu pra cadastrar agora" }, 502);
   }
+}
+
+// UTM do anuncio (qual criativo trouxe a pessoa). Opcional: valor fora do padrao
+// e simplesmente descartado, sem erro, pra nunca travar uma inscricao.
+// Atributos criados no Brevo (texto, categoria normal) em 23/09/2026.
+const UTM_CAMPOS = { utm_source: "UTM_SOURCE", utm_medium: "UTM_MEDIUM", utm_campaign: "UTM_CAMPAIGN", utm_content: "UTM_CONTENT" };
+function lerUtm(corpo) {
+  const saida = {};
+  if (!corpo || typeof corpo !== "object") return saida;
+  for (const [campo, atributo] of Object.entries(UTM_CAMPOS)) {
+    const v = corpo[campo];
+    if (typeof v !== "string") continue;
+    const limpo = v.trim().toLowerCase();
+    if (/^[a-z0-9_-]{1,60}$/.test(limpo)) saida[atributo] = limpo;
+  }
+  return saida;
 }
 
 function responder(objeto, status) {

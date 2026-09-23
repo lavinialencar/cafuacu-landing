@@ -20,6 +20,21 @@
   // Mesma origem do site: o arquivo functions/api/inscrever.js do repositório.
   const ENDERECO_INSCRICAO = "/api/inscrever";
 
+  // UTM do anuncio: o Base.astro guarda no sessionStorage ao abrir qualquer pagina.
+  // Aqui le de la (ou direto da URL, se o armazenamento estiver bloqueado).
+  function lerUtm() {
+    const chaves = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
+    let salvo = {};
+    try { salvo = JSON.parse(sessionStorage.getItem("cafuacu_utm") || "{}") || {}; } catch (e) { salvo = {}; }
+    const q = new URLSearchParams(location.search);
+    const utm = {};
+    chaves.forEach(function (k) {
+      const v = String(q.get(k) || salvo[k] || "").trim().toLowerCase();
+      if (/^[a-z0-9_-]{1,60}$/.test(v)) utm[k] = v;
+    });
+    return utm;
+  }
+
   (function () {
     const form = document.getElementById("assinar");
     const campo = document.getElementById("email");
@@ -62,7 +77,7 @@
         const r = await fetch(ENDERECO_INSCRICAO, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: email }),
+          body: JSON.stringify(Object.assign({ email: email }, lerUtm())),
         });
 
         if (!r.ok) throw new Error("resposta " + r.status);

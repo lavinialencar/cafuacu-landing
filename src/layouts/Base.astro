@@ -35,6 +35,18 @@ const canonico = new URL(caminho || "/", Astro.site).href;
   <script is:inline>
     try{ if(!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim"); }catch(e){}
   </script>
+  <script is:inline>
+    // Guarda os UTM de quem chegou por anuncio, pra inscricao levar mesmo se a pessoa
+    // passear pelo site antes de assinar. So vale na aba (sessionStorage). A funcao revalida tudo.
+    try{
+      var q=new URLSearchParams(location.search),u={},tem=false;
+      ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){
+        var v=(q.get(k)||"").trim().toLowerCase();
+        if(/^[a-z0-9_-]{1,60}$/.test(v)){u[k]=v;tem=true;}
+      });
+      if(tem) sessionStorage.setItem("cafuacu_utm",JSON.stringify(u));
+    }catch(e){}
+  </script>
   <slot name="head" />
 </head>
 <body>
