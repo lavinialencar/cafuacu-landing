@@ -3,6 +3,9 @@
 import "../styles/tokens.css";
 interface Props { titulo: string; descricao?: string; noindex?: boolean; }
 const { titulo, descricao, noindex = false } = Astro.props;
+// Endereço oficial da página (sem barra no fim, igual ao trailingSlash "never" do site).
+const caminho = Astro.url.pathname.replace(/\.html$/, "").replace(/\/index$/, "").replace(/\/$/, "");
+const canonico = new URL(caminho || "/", Astro.site).href;
 ---
 <!doctype html>
 <html lang="pt-BR" style="color-scheme:light">
@@ -12,6 +15,15 @@ const { titulo, descricao, noindex = false } = Astro.props;
   <title>{titulo}</title>
   {descricao && <meta name="description" content={descricao} />}
   {noindex && <meta name="robots" content="noindex" />}
+  {!noindex && <link rel="canonical" href={canonico} />}
+  <meta property="og:site_name" content="Cafuaçu" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={titulo} />
+  {descricao && <meta property="og:description" content={descricao} />}
+  <meta property="og:url" content={canonico} />
+  <meta property="og:image" content="https://cafuacu.com.br/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#2E1E17" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />

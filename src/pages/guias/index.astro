@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 const todos = (await getCollection("guias")).sort((a, b) => a.data.ordem - b.data.ordem);
 const publicados = todos.filter((g) => g.data.estado === "publicado");
 ---
-<Pagina titulo="Guias · Cafuaçu" descricao="Guias de café pra quem está começando." faixa="democratizando o acesso ao café especial ☕">
+<Pagina titulo="Guias de café especial · Cafuaçu" descricao="Guias de café especial pra quem está começando: o que é café especial, como escolher, preparar e qual equipamento comprar." faixa="democratizando o acesso ao café especial ☕">
   <Fragment slot="hero">
     <div class="eyebrow">pra quem está começando</div>
     <h1>Guias</h1>

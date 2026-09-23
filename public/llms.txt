@@ -1,0 +1,18 @@
+# Cafuaçu
+
+> Cafuaçu é uma marca brasileira de café especial, da Amazônia pra sua xícara. Publica a Cafuaçu News, uma newsletter de café especial gratuita e quinzenal, guias gratuitos pra quem está começando no café especial e um canal de ofertas de café e equipamento no Telegram.
+
+Tudo é em português do Brasil e escrito pra iniciante, sem jargão.
+
+## Newsletter
+- [Cafuaçu News](https://cafuacu.com.br/newsletter): newsletter de café especial, grátis, a cada duas semanas. Notícias do café, cotação da saca, lançamentos de equipamento, garimpo com preço conferido e agenda de eventos de café no Brasil.
+- [Edições publicadas](https://cafuacu.com.br/edicoes): arquivo de todas as edições.
+
+## Guias
+- [Guia do café](https://cafuacu.com.br/guias/cafe): o que é café especial, espécies e variedades, terroir, colheita, processo, as réguas da ABIC e da SCA, torra, como ler o rótulo, sabor, frescor, moagem, água, receita de café coado, extração, como guardar, glossário e os grandes eventos de café do Brasil.
+- [Guia de equipamento](https://cafuacu.com.br/guias/equipamento): moedor, balança, chaleira, método de preparo, filtro, jarra, pote e máquina de espresso, com opção pra cada orçamento e onde comprar.
+
+## Contato
+- E-mail: contato@cafuacu.com.br
+- Instagram: https://instagram.com/cafuacu
+- Canal de ofertas: https://t.me/cafuacu_ofertas

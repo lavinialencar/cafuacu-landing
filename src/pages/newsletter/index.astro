@@ -7,20 +7,14 @@ import VoltarHub from "../../components/VoltarHub.astro";
 import "../../styles/paginas/newsletter.css";
 ---
 <Base
-  titulo="newsletter de café"
-  descricao="Notícias, cotação, lançamentos, garimpo e agenda do universo do café, a cada duas semanas. Simples, direto na sua xícara."
+  titulo="Newsletter de café especial, grátis e quinzenal · Cafuaçu News"
+  descricao="A newsletter de café da Cafuaçu: notícias, cotação da saca, lançamentos, garimpo com preço conferido e agenda de eventos de café, a cada duas semanas, de graça."
 >
   <Fragment slot="head">
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Cafuaçu, newsletter quinzenal de café" />
-    <meta property="og:description" content="Notícias, cotação, lançamentos, garimpo e agenda do universo do café, a cada duas semanas." />
-    <meta property="og:image" content="https://cafuacu.com.br/og.png" />
-    <meta property="og:url" content="https://cafuacu.com.br/newsletter" />
-    <meta property="og:locale" content="pt_BR" />
-    <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
       try{ if(!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim"); }catch(e){}
     </script>
+    <script type="application/ld+json" set:html={JSON.stringify({"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://cafuacu.com.br/#org", "name": "Cafuaçu", "url": "https://cafuacu.com.br", "logo": "https://cafuacu.com.br/icone-512.png", "email": "contato@cafuacu.com.br", "sameAs": ["https://instagram.com/cafuacu", "https://t.me/cafuacu_ofertas"]}, {"@type": "WebPage", "@id": "https://cafuacu.com.br/newsletter", "url": "https://cafuacu.com.br/newsletter", "name": "Cafuaçu News, newsletter de café especial", "inLanguage": "pt-BR", "description": "Newsletter quinzenal e gratuita de café especial: notícias, cotação da saca, lançamentos, garimpo com preço conferido e agenda de eventos de café.", "publisher": {"@id": "https://cafuacu.com.br/#org"}}]})} />
   </Fragment>
 
   <Filtros />

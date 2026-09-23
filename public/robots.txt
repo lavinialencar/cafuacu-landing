@@ -1,0 +1,6 @@
+# Cafuaçu: todo mundo pode ler, inclusive os robôs de busca das IAs.
+User-agent: *
+Allow: /
+Disallow: /confirmado
+
+Sitemap: https://cafuacu.com.br/sitemap.xml
