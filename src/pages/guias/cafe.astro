@@ -1063,13 +1063,18 @@ const glossario = [
           </div>
         </div>
 
-        <p class="sub sub2">Quanto de café pra quanta água</p>
-        <div class="tabela estreita">
-          <div class="th"><span>Água</span><span>Café, na proporção 1:15</span><span>Dá quanto</span></div>
-          {proporcoes.map(([a, c, d]) => (<div class="tr"><span><strong>{a}</strong></span><span>{c}</span><span>{d}</span></div>))}
+        <p class="sub-t">Quanto de café pra quanta água</p>
+        <div class="medidas">
+          {proporcoes.map(([agua, cafe, rende]) => (
+            <div class="medida">
+              <span class="med-a">{agua} de água</span>
+              <strong>{cafe}</strong>
+              <span class="med-d">{rende}</span>
+            </div>
+          ))}
         </div>
 
-        <p class="sub sub2">E o relógio: um coado de 300 ml, do começo ao fim</p>
+        <p class="sub-t">E o relógio: um coado de 300 ml, do começo ao fim</p>
         <div class="desenho largo">
           <svg viewBox="0 0 1160 148" role="img" aria-label="Linha do tempo de um café coado, do primeiro molhar aos três minutos e meio">
             <rect x="0" y="16" width="246" height="42" rx="8" fill="var(--torra-500)"/>
@@ -1101,7 +1106,7 @@ const glossario = [
         </ol>
         <p class="nota">Aquela bolha toda do passo 1 tem nome: <strong>bloom</strong>, ou florada. Quanto mais fresco o café, mais ele infla. Se o seu não inflar nada, o café provavelmente já está velho, e aí o problema não é a receita. <a href="#frescor">Ver a linha do tempo do frescor</a>.</p>
 
-        <p class="sub sub2">E a temperatura muda com a torra</p>
+        <p class="sub-t">E a temperatura muda com a torra</p>
         <div class="prods tres">
           {temperaturas.map(([n, t, tag, d], i) => (
             <article class="prod semcompra">
@@ -1317,7 +1322,7 @@ const glossario = [
   (function () {
     if (!document.documentElement.classList.contains("anim")) return;
     if (!("IntersectionObserver" in window)) return;
-    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .grao-c, .tile, .transp, .fim-cab");
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .grao-c, .medida, .tile, .transp, .fim-cab");
     const cont = new Map();
     let disparou = false;
     const obs = new IntersectionObserver((itens) => {
@@ -1406,7 +1411,12 @@ const glossario = [
   .mg-m{font-size:12px;fill:var(--cafe-500)}
   .mg-r{font-size:10.5px;font-style:italic;fill:var(--torra-700)}
   .nota-fig{margin:-14px 0 30px;padding-left:14px;border-left:3px solid var(--torra-500);font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
-  .tabela.estreita{max-width:780px}
+  /* medidas: mesma família visual da fórmula lá de cima, número grande em superfície crema */
+  .medidas{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 6px}
+  .medida{background:var(--crema-200);border-radius:12px;padding:20px 18px;text-align:center;display:flex;flex-direction:column;gap:4px}
+  .med-a{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--cafe-500)}
+  .medida strong{font-size:34px;line-height:1.05;color:var(--torra-700);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .med-d{font-size:14px;line-height:1.45;color:var(--cafe-500)}
   .mg-e{font-size:12px;font-weight:600;fill:var(--cafe-500)}
   .rot-txt text{font-size:12.5px;fill:var(--cafe-700)}
   .rot-txt .g{font-size:17px;font-weight:700;fill:var(--cafe-900)}
@@ -1517,7 +1527,7 @@ const glossario = [
   .glos dd{margin:0;font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
 
   @media (max-width:1020px){
-    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.apps{grid-template-columns:repeat(2,1fr)}
+    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.apps,.medidas{grid-template-columns:repeat(2,1fr)}
     .desenho.rot,.desenho:has(.legenda),.roda{grid-template-columns:1fr;gap:26px}
     .desenho.rot svg,.desenho:has(.legenda) svg{max-width:420px;margin:0 auto}
     .duo{grid-template-columns:1fr;gap:24px}
