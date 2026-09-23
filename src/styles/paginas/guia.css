@@ -135,9 +135,9 @@ body .corpo{background:#fff}
 .compra .b-ali:hover{background:var(--torra-700);color:var(--crema-100)}
 
 /* dica de destaque em bloco escuro */
-.master{position:relative;overflow:hidden;display:flex;gap:24px;align-items:center;background:var(--cafe-700);color:var(--crema-100);border-radius:16px;padding:30px 32px;margin:28px 0 8px}
+.master{position:relative;overflow:hidden;display:flex;gap:22px;align-items:flex-start;background:var(--cafe-700);color:var(--crema-100);border-radius:16px;padding:30px 32px;margin:28px 0 8px}
 .master > *{position:relative}
-.master .ico{color:var(--torra-500);width:42px;height:42px}
+.master .ico{color:var(--torra-500);width:54px;height:54px;padding:12px;border-radius:14px;background:rgba(232,161,58,.12);box-sizing:border-box;margin-top:2px}
 .master h3{font-size:24px;margin:8px 0 6px;color:var(--crema-100)}
 .master p{font-size:16.5px;line-height:1.55;color:var(--crema-300)}
 .master p + p{margin-top:10px}
@@ -222,7 +222,7 @@ body .corpo{background:#fff}
 @media (max-width:640px){
   .passos,.pula,.apps,.escada{grid-template-columns:1fr}
   .master{flex-direction:column;align-items:flex-start;gap:12px;padding:24px 22px}
-  .master .ico{width:34px;height:34px}
+  .master .ico{width:44px;height:44px;padding:10px}
   .formula{grid-template-columns:1fr;gap:6px}
   .formula .op{font-size:26px}
   .receita{padding:22px 18px}

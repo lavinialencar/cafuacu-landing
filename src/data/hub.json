@@ -25,15 +25,15 @@
     "estado": "em breve"
   },
   {
-    "titulo": "Guia de equipamento",
-    "texto": "Quer comprar um moedor e não sabe qual? Aqui tem opção pra cada orçamento.",
-    "href": "/guias/equipamento",
-    "estado": "no ar"
-  },
-  {
     "titulo": "Guia do café",
     "texto": "Do pé de café à xícara: por que o especial é outra coisa, e como achar o seu.",
     "href": "/guias/cafe",
+    "estado": "no ar"
+  },
+  {
+    "titulo": "Guia de equipamento",
+    "texto": "Quer comprar um moedor e não sabe qual? Aqui tem opção pra cada orçamento.",
+    "href": "/guias/equipamento",
     "estado": "no ar"
   },
   {

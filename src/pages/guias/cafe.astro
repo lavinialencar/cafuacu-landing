@@ -436,23 +436,49 @@ const glossario = [
         <p class="sub">Quanto mais alto e mais frio, mais devagar a cereja amadurece. Mais tempo na planta quer dizer <strong>mais açúcar e mais acidez</strong> dentro da semente, e um grão mais denso.</p>
 
         <div class="desenho alt">
-          <svg viewBox="0 0 520 260" role="img" aria-label="Diagrama de altitude: quanto mais alto, mais doce e mais ácido o café">
-            <path d="M10 240 L200 60 L330 140 L510 40 L510 240 Z" fill="var(--crema-200)"/>
-            <path d="M10 240 L200 60 L330 140 L510 40" fill="none" stroke="var(--cafe-500)" stroke-width="3" stroke-linejoin="round"/>
-            <g class="faixa">
-              <line x1="10" y1="196" x2="510" y2="196"/><text x="16" y="190">600 m</text>
-              <line x1="10" y1="140" x2="510" y2="140"/><text x="16" y="134">900 m</text>
-              <line x1="10" y1="84" x2="510" y2="84"/><text x="16" y="78">1.200 m</text>
+          <svg viewBox="0 0 1160 420" role="img" aria-label="Quanto mais alta a lavoura, mais devagar a cereja amadurece e mais doce e ácido fica o grão">
+            <defs>
+              <clipPath id="encosta"><path d="M120 364 L760 44 L760 364 Z"/></clipPath>
+            </defs>
+            <g clip-path="url(#encosta)">
+              <rect x="120" y="236" width="640" height="128" fill="var(--crema-300)"/>
+              <rect x="120" y="172" width="640" height="64" fill="#D9BF9B"/>
+              <rect x="120" y="108" width="640" height="64" fill="var(--folha-400)"/>
+              <rect x="120" y="44" width="640" height="64" fill="var(--folha-600)"/>
             </g>
-            <g class="rotulo-alt">
-              <text x="505" y="222" text-anchor="end">canéfora, corpo e cafeína</text>
-              <text x="505" y="176" text-anchor="end">arábica de corpo, chocolate</text>
-              <text x="505" y="120" text-anchor="end">doçura alta, acidez viva</text>
-              <text x="505" y="66" text-anchor="end">acidez brilhante, floral</text>
+            <path d="M120 364 L760 44" fill="none" stroke="var(--cafe-900)" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M120 364 L760 364" fill="none" stroke="var(--crema-300)" stroke-width="2"/>
+
+            <g class="alt-guia">
+              <path d="M112 236 L788 236"/><path d="M112 172 L788 172"/><path d="M112 108 L788 108"/>
             </g>
-            <g class="graos-alt">
-              <ellipse cx="110" cy="216" rx="11" ry="15"/><ellipse cx="150" cy="168" rx="11" ry="15"/><ellipse cx="205" cy="112" rx="11" ry="15"/><ellipse cx="255" cy="60" rx="11" ry="15"/>
+            <g class="alt-m">
+              <text x="100" y="368" text-anchor="end">0</text>
+              <text x="100" y="241" text-anchor="end">600 m</text>
+              <text x="100" y="177" text-anchor="end">900 m</text>
+              <text x="100" y="113" text-anchor="end">1.200 m</text>
             </g>
+
+            <g class="alt-grao">
+              <ellipse cx="256" cy="296" rx="13" ry="18"/>
+              <ellipse cx="434" cy="207" rx="14" ry="19"/>
+              <ellipse cx="562" cy="143" rx="15" ry="20"/>
+              <ellipse cx="690" cy="79" rx="16" ry="21"/>
+            </g>
+
+            <g class="alt-p">
+              <text x="806" y="306">canéfora, corpo e cafeína</text>
+              <text x="806" y="211">arábica de corpo, chocolate</text>
+              <text x="806" y="147">doçura alta, acidez viva</text>
+              <text x="806" y="83">acidez brilhante, floral</text>
+            </g>
+
+            <g class="alt-eixo">
+              <path d="M52 340 L52 70" stroke-linecap="round"/>
+              <path d="M44 80 L52 66 L60 80" fill="none"/>
+              <text x="36" y="210" text-anchor="middle" transform="rotate(-90 36 210)">mais frio, amadurece mais devagar</text>
+            </g>
+            <text class="alt-pe" x="120" y="400">quanto mais alto, mais tempo a cereja fica na planta, e mais açúcar e acidez o grão guarda</text>
           </svg>
         </div>
 
@@ -1322,7 +1348,7 @@ const glossario = [
   .desenho{margin:26px 0 8px}
   .desenho svg{display:block;width:100%;height:auto}
   .desenho.rot,.desenho:has(.legenda){display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:40px;align-items:center}
-  .desenho.alt svg{max-width:760px;margin:0 auto}
+  .desenho.alt svg{max-width:none}
 
   /* legenda numerada ao lado do desenho */
   .legenda{list-style:none;margin:0;padding:0;counter-reset:leg;display:flex;flex-direction:column;gap:12px}
@@ -1337,10 +1363,13 @@ const glossario = [
 
   /* textos dentro dos SVGs */
   .desenho text,.roda text{font-family:var(--ff)}
-  .faixa line{stroke:var(--crema-300);stroke-width:2;stroke-dasharray:5 6}
-  .faixa text{font-size:12px;font-weight:600;fill:var(--cafe-500)}
-  .rotulo-alt text{font-size:13px;font-weight:600;fill:var(--cafe-700)}
-  .graos-alt ellipse{fill:var(--crema-100);stroke:var(--cafe-500);stroke-width:2.5}
+  .alt-guia path{stroke:var(--crema-300);stroke-width:1.5;stroke-dasharray:4 7}
+  .alt-m{font-size:13px;font-weight:700;fill:var(--cafe-500)}
+  .alt-p{font-size:14px;font-weight:600;fill:var(--cafe-900)}
+  .alt-pe{font-size:12.5px;fill:var(--cafe-500)}
+  .alt-eixo path{stroke:var(--cafe-500);stroke-width:1.5;fill:none}
+  .alt-eixo text{font-size:11.5px;font-weight:600;fill:var(--cafe-500);letter-spacing:.02em}
+  .alt-grao ellipse{fill:var(--crema-100);stroke:var(--cafe-900);stroke-width:2.5}
   .rg-t{font-size:14px;font-weight:700;fill:var(--cafe-900)}
   .rg-l{font-size:13px;font-weight:700}
   .rg-n{font-size:12.5px;font-weight:600;fill:var(--cafe-500)}
