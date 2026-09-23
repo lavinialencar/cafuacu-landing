@@ -149,7 +149,6 @@ const secoes = [
   { id: "equipamentos", curto: "Onde comprar" },
   { id: "espresso", curto: "Espresso" },
   { id: "pular", curto: "Pular" },
-  { id: "receita", curto: "Receita" },
   { id: "fim", curto: "Onde ir agora" },
 ];
 
@@ -284,6 +283,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
             <span class="sel">o par deste guia</span>
             <h3>Isso tudo está no guia do café</h3>
             <p>A escala de qualidade inteira, as duas réguas (ABIC e SCA), torra, processo, como ler o pacote, por que moer na hora e onde comprar o seu primeiro: está tudo lá, ilustrado, e é o que faz este guia aqui valer a pena.</p>
+            <p>A <a href="/guias/cafe#receita">receita pra começar</a> também mora lá, com peso, tempo, proporção e temperatura por torra.</p>
             <p><a href="/guias/cafe">Ler o guia do café primeiro</a>, ou seguir por aqui e voltar depois.</p>
           </div>
         </div>
@@ -399,36 +399,6 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
         </ul>
       </section>
 
-      <section id="receita">
-        <header class="cab-sec"><h2>Receita pra começar</h2></header>
-        <div class="receita">
-          <div class="formula" role="img" aria-label="20 gramas de café mais 300 mililitros de água dá proporção de 1 pra 15">
-            <div><strong>20 g</strong><span>de café</span></div>
-            <div class="op">+</div>
-            <div><strong>300 ml</strong><span>de água</span></div>
-            <div class="op">=</div>
-            <div class="res"><strong>1 : 15</strong><span>a proporção</span></div>
-          </div>
-          <div class="rec-cols">
-            <div>
-              <h3>Antes de começar</h3>
-              <ul class="dicas">
-                <li><span class="ico" set:html={ic.gota} /><p><strong>Água filtrada ou mineral.</strong> A da torneira tem cloro.</p></li>
-                <li><span class="ico" set:html={ic.chaleira} /><p><strong>Primeiro despejo devagar,</strong> só pra molhar o café e formar uma cama firme. Nos próximos você pode despejar com mais folga.</p></li>
-              </ul>
-            </div>
-            <div>
-              <h3>Depois de provar, ajuste</h3>
-              <ul class="ajustes">
-                <li><span class="ico" set:html={ic.seta} /><p>Ficou <strong>amargo</strong>? Moa mais grosso.</p></li>
-                <li><span class="ico" set:html={ic.seta} /><p>Ficou <strong>aguado ou ácido demais</strong>? Moa mais fino.</p></li>
-              </ul>
-              <p class="rec-nota">Não existe certo e errado: o certo é o que você gosta. <a href="/guias/cafe#receita">A receita inteira, com peso, tempo e temperatura por torra, está no guia do café</a>.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <div class="cab-sec fim-cab" id="fim">
         <h2>Onde ir agora</h2>
       </div>
@@ -497,7 +467,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   (function () {
     if (!document.documentElement.classList.contains("anim")) return;
     if (!("IntersectionObserver" in window)) return;
-    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .cat-cab, .passos li, .cartao, .prod, .master, .escolha, .pula > *, .receita, .formula, .rec-cols > *, .tile, .transp, .fim-cab");
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .cat-cab, .passos li, .cartao, .prod, .master, .escolha, .pula > *, .tile, .transp, .fim-cab");
     const cont = new Map();
     let disparou = false;
     const obs = new IntersectionObserver((itens) => {
