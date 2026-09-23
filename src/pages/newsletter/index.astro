@@ -5,6 +5,7 @@ import Filtros from "../../components/Filtros.astro";
 import Ilustracao from "../../components/Ilustracao.astro";
 import VoltarHub from "../../components/VoltarHub.astro";
 import "../../styles/paginas/newsletter.css";
+import proxima from "../../data/proxima-edicao.json";
 ---
 <Base
   titulo="Newsletter de café especial, grátis e quinzenal · Cafuaçu News"
@@ -143,7 +144,7 @@ import "../../styles/paginas/newsletter.css";
     <p style="color:var(--crema-300);font-size:15px;margin:0 0 34px">Toda quinzena, sem enrolação.</p>
 
     <div class="cartao">
-      <div class="selo">próxima edição · em breve</div>
+      <div class="selo">próxima edição · {proxima.texto}</div>
 
       <form id="assinar" novalidate>
         <label class="rotulo" for="email">seu e-mail</label>
