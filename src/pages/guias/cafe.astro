@@ -237,6 +237,7 @@ const alem = [
   ["Guia do Barista", "https://www.amazon.com.br/s?k=guia+do+barista+edgard+bressani&tag=cafuacu-20", ["livro", "em português"], "De Edgard Bressani, já na sexta edição. Vai da origem do grão ao espresso. Bressani é cafeólogo e foi o primeiro brasileiro a julgar um Mundial de Barista."],
   ["Isabela Raposeiras, do Coffee Lab", "https://www.coffeelab.com.br", ["escola e torrefação", "em São Paulo"], "Fundou o Coffee Lab em 2009 e virou uma das maiores referências de café do país. É escola, laboratório de torra e cafeteria, com curso de barista presencial e online, e vende o café que torra."],
   ["BSCA", "https://bsca.com.br/", ["associação", "em português"], "Associação Brasileira de Cafés Especiais. É quem representa a régua da SCA por aqui, lista produtor certificado e explica como a pontuação é dada."],
+  ["ABIC", "https://www.abic.com.br/", ["associação", "em português"], "Associação Brasileira da Indústria de Café. É a dona do selo que você vê no pacote de supermercado e do Programa de Qualidade que separa tradicional, superior e gourmet."],
   ["The World Atlas of Coffee", "https://www.amazon.com.br/s?k=the+world+atlas+of+coffee+james+hoffmann&tag=cafuacu-20", ["livro", "em inglês"], "James Hoffmann. O mapa do café do mundo, país por país, com preparo e história. Ainda sem edição em português."],
   ["James Hoffmann", "https://www.youtube.com/@jameshoffmann", ["canal", "em inglês"], "O canal que ensinou preparo pra metade do planeta. Tem legenda automática em português."],
 ];
@@ -587,7 +588,7 @@ const glossario = [
 
         <p class="sub sub2">E as duas réguas por trás dessa escada</p>
         <div class="desenho largo">
-          <svg viewBox="0 0 1160 270" role="img" aria-label="Comparação entre a escala ABIC de 0 a 10 e a escala SCA de 0 a 100">
+          <svg viewBox="0 0 1160 288" role="img" aria-label="Comparação entre a escala ABIC de 0 a 10 e a escala SCA de 0 a 100">
             <text class="rg-t" x="0" y="26">Régua da ABIC, o selo do café de supermercado, de 0 a 10</text>
             <rect x="0" y="42" width="522" height="38" fill="var(--crema-300)"/>
             <rect x="524" y="42" width="160" height="38" fill="var(--cafe-500)"/>
@@ -890,27 +891,28 @@ const glossario = [
         <p class="sub">Café torrado não estraga: ele <strong>desbota</strong>. Perde aroma, perde doçura, e um dia sobra só o amargo. A conta corre a partir da torra, não da compra.</p>
 
         <div class="desenho rola">
-          <svg viewBox="0 0 640 160" role="img" aria-label="Linha do tempo do café depois da torra, com a janela boa entre uma e quatro semanas">
-            <rect x="40" y="52" width="37" height="38" fill="var(--crema-300)" rx="6"/>
-            <rect x="79" y="52" width="52" height="38" fill="var(--torra-500)" rx="6"/>
-            <rect x="133" y="52" width="185" height="38" fill="var(--folha-600)" rx="6"/>
-            <rect x="320" y="52" width="138" height="38" fill="var(--torra-700)" rx="6"/>
-            <rect x="460" y="52" width="140" height="38" fill="var(--cafe-500)" rx="6"/>
-            <g class="tl-n">
-              <text x="40" y="112">dia 0</text>
-              <text x="105" y="112" text-anchor="middle">4</text>
-              <text x="226" y="112" text-anchor="middle">10</text>
-              <text x="389" y="112" text-anchor="middle">30</text>
-              <text x="600" y="112" text-anchor="end">60 dias</text>
+          <svg viewBox="0 0 640 132" role="img" aria-label="Linha do tempo do café depois da torra, com a janela boa entre uma e quatro semanas">
+            <text class="tl-d" x="40" y="13">descansando, CO2 saindo</text>
+            <g class="tl-seta">
+              <path d="M62 20 C54 28 53 32 56 40"/>
+              <path d="M50 34 L56 42 L63 37"/>
             </g>
+            <rect x="40" y="46" width="37" height="38" fill="var(--crema-300)" rx="6"/>
+            <rect x="79" y="46" width="52" height="38" fill="var(--torra-500)" rx="6"/>
+            <rect x="133" y="46" width="185" height="38" fill="var(--folha-600)" rx="6"/>
+            <rect x="320" y="46" width="138" height="38" fill="var(--torra-700)" rx="6"/>
+            <rect x="460" y="46" width="140" height="38" fill="var(--cafe-500)" rx="6"/>
             <g class="tl-l">
-              <text x="226" y="78" text-anchor="middle" fill="var(--crema-100)">a janela boa</text>
-              <text x="389" y="78" text-anchor="middle" fill="var(--crema-100)">ainda dá</text>
-              <text x="530" y="78" text-anchor="middle" fill="var(--crema-100)">já foi</text>
+              <text x="226" y="72" text-anchor="middle" fill="var(--crema-100)">a janela boa</text>
+              <text x="389" y="72" text-anchor="middle" fill="var(--crema-100)">ainda dá</text>
+              <text x="530" y="72" text-anchor="middle" fill="var(--crema-100)">já foi</text>
             </g>
-            <g class="tl-d">
-              <text x="40" y="140">descansando,</text>
-              <text x="40" y="154">CO2 saindo</text>
+            <g class="tl-n">
+              <text x="40" y="106">dia 0</text>
+              <text x="105" y="106" text-anchor="middle">4</text>
+              <text x="226" y="106" text-anchor="middle">10</text>
+              <text x="389" y="106" text-anchor="middle">30</text>
+              <text x="600" y="106" text-anchor="end">60 dias</text>
             </g>
           </svg>
         </div>
@@ -933,7 +935,7 @@ const glossario = [
         <header class="cab-sec"><h2>Por que raios eu tenho que moer na hora</h2></header>
         <p class="sub">Essa é a dúvida número um de quem está começando, e a resposta é bem física: <strong>o grão inteiro é uma embalagem</strong>. Moer é abrir essa embalagem. Depois de aberta, não fecha.</p>
 
-        <div class="desenho rola">
+        <div class="desenho rola compacto">
           <svg viewBox="0 0 640 250" role="img" aria-label="Comparação entre um grão inteiro e o mesmo grão moído, mostrando o aumento da superfície exposta ao ar">
             <rect x="20" y="20" width="280" height="210" rx="14" fill="var(--crema-200)"/>
             <ellipse cx="160" cy="105" rx="46" ry="64" fill="var(--crema-300)" stroke="var(--cafe-500)" stroke-width="3"/>
@@ -966,7 +968,7 @@ const glossario = [
 
         <p class="sub sub2">E cada método pede um tamanho:</p>
         <div class="desenho medio">
-          <svg viewBox="0 0 720 210" role="img" aria-label="Régua de moagem, do mais fino ao mais grosso, com os métodos de cada faixa">
+          <svg viewBox="0 0 720 228" role="img" aria-label="Régua de moagem, do mais fino ao mais grosso, com os métodos de cada faixa">
             <rect x="20" y="34" width="680" height="92" rx="12" fill="var(--crema-200)"/>
             {moagens.map(([nome, tam, met], i) => {
               const cx = 76 + i * 112;
@@ -994,7 +996,7 @@ const glossario = [
         <p class="sub">Mais de 98% do que você bebe é água. Se ela tem gosto, o café vai ter o gosto dela junto. Esse é o ajuste mais barato do guia inteiro.</p>
 
         <div class="desenho rola">
-          <svg viewBox="0 0 640 130" role="img" aria-label="Faixa de temperatura da água para café, de 80 a 100 graus">
+          <svg viewBox="0 0 640 148" role="img" aria-label="Faixa de temperatura da água para café, de 80 a 100 graus">
             <rect x="40" y="40" width="280" height="38" rx="6" fill="var(--crema-300)"/>
             <rect x="320" y="40" width="168" height="38" rx="6" fill="var(--folha-600)"/>
             <rect x="490" y="40" width="110" height="38" rx="6" fill="var(--cereja)"/>
@@ -1060,7 +1062,7 @@ const glossario = [
 
         <p class="sub sub2">E o relógio: um coado de 300 ml, do começo ao fim</p>
         <div class="desenho largo">
-          <svg viewBox="0 0 1160 130" role="img" aria-label="Linha do tempo de um café coado, do primeiro molhar aos três minutos e meio">
+          <svg viewBox="0 0 1160 148" role="img" aria-label="Linha do tempo de um café coado, do primeiro molhar aos três minutos e meio">
             <rect x="0" y="16" width="246" height="42" rx="8" fill="var(--torra-500)"/>
             <rect x="249" y="16" width="246" height="42" rx="8" fill="var(--folha-400)"/>
             <rect x="498" y="16" width="328" height="42" rx="8" fill="var(--folha-600)"/>
@@ -1109,7 +1111,7 @@ const glossario = [
         <p class="sub">A água dissolve as coisas do café <strong>em ordem</strong>: primeiro os ácidos, depois os açúcares, por último os amargos. Uma xícara boa é uma que parou no meio dessa fila.</p>
 
         <div class="desenho rola">
-          <svg viewBox="0 0 640 150" role="img" aria-label="Régua de extração: subextraído, ideal e superextraído">
+          <svg viewBox="0 0 640 166" role="img" aria-label="Régua de extração: subextraído, ideal e superextraído">
             <rect x="40" y="40" width="200" height="40" rx="6" fill="var(--crema-300)"/>
             <rect x="242" y="40" width="158" height="40" rx="6" fill="var(--folha-600)"/>
             <rect x="402" y="40" width="198" height="40" rx="6" fill="var(--cafe-700)"/>
@@ -1376,6 +1378,8 @@ const glossario = [
   .tl-n{font-size:12.5px;font-weight:600;fill:var(--cafe-500)}
   .tl-l{font-size:13px;font-weight:700}
   .tl-d{font-size:12.5px;fill:var(--cafe-500)}
+  .tl-seta path{fill:none;stroke:var(--cafe-500);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .desenho.compacto svg{max-width:680px;margin:0 auto}
   .mo-t{font-size:15px;font-weight:700;fill:var(--cafe-900)}
   .mo-d{font-size:13px;fill:var(--cafe-500)}
   .mg-n{font-size:12.5px;font-weight:700;fill:var(--cafe-900)}
@@ -1389,6 +1393,20 @@ const glossario = [
   .rot-pin text{fill:var(--cafe-900);font-size:12px;font-weight:700;text-anchor:middle}
   .rd-l{font-size:10.5px;font-weight:700;letter-spacing:.005em}
   .rd-c{font-size:14px;font-weight:600;fill:var(--cafe-500)}
+
+  /* desenho de viewBox 1160 renderiza quase 1:1, e o de 640 quase dobra.
+     Sem isto, o mesmo font-size sai pequeno num e grande no outro. */
+  .desenho.largo .rg-t{font-size:17px}
+  .desenho.largo .rg-l{font-size:15.5px}
+  .desenho.largo .rg-n{font-size:15px}
+  .desenho.largo .rg-s{font-size:14.5px}
+  .desenho.largo .tl-l{font-size:15.5px}
+  .desenho.largo .tl-n{font-size:15px}
+  .desenho.largo .tl-d{font-size:15px}
+  .desenho.largo .fase-e text{font-size:14px}
+  .desenho.medio .mg-n{font-size:11px}
+  .desenho.medio .mg-m{font-size:10.5px}
+  .desenho.medio .mg-e{font-size:10.5px}
 
   /* espécies */
   .esp{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;margin-top:8px}
@@ -1440,6 +1458,7 @@ const glossario = [
   .sub-t{font-size:22px;font-weight:600;color:var(--cafe-900);letter-spacing:-.02em;margin:38px 0 8px}
   .fase-e text{font-size:11.5px;font-weight:700;fill:var(--torra-700)}
   .prod-head .prod-t{font-size:19px;line-height:1.2;margin:0;font-weight:600}
+  .apps{grid-template-columns:repeat(3,1fr)}
   .app .grupo{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--folha-600);margin-bottom:5px}
   .prod .grau{font-size:26px;font-weight:600;color:var(--torra-700);letter-spacing:-.02em;margin-bottom:10px;font-variant-numeric:tabular-nums}
   .prod .quando{font-size:13.5px;font-weight:600;color:var(--cafe-900);margin-bottom:0}
@@ -1471,7 +1490,7 @@ const glossario = [
   .glos dd{margin:0;font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
 
   @media (max-width:1020px){
-    .esp,.proc,.colheita,.prods.quatro,.passos.quatro{grid-template-columns:repeat(2,1fr)}
+    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.apps{grid-template-columns:repeat(2,1fr)}
     .desenho.rot,.desenho:has(.legenda),.roda{grid-template-columns:1fr;gap:26px}
     .desenho.rot svg,.desenho:has(.legenda) svg{max-width:420px;margin:0 auto}
     .duo{grid-template-columns:1fr;gap:24px}
