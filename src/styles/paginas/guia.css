@@ -261,6 +261,7 @@ html{scroll-padding-top:104px}
 .imprimir p{margin:4px 0 0;font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
 .imprimir button{flex:none;font:inherit;font-weight:700;font-size:15px;background:var(--cafe-900);color:var(--crema-100);border:0;border-radius:999px;padding:12px 20px;cursor:pointer;transition:background .15s ease}
 .imprimir button:hover{background:var(--cafe-700)}
+.imprimir ~ .transp{margin-top:28px}
 @media (max-width:640px){.imprimir{flex-direction:column;align-items:flex-start}}
 
 /* versão impressa: sem menu, sem animação, com as cores do desenho e sem cortar cartão no meio */
