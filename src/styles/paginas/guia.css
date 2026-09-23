@@ -123,6 +123,7 @@ html{scroll-padding-top:104px}
 .cat-cab p{font-size:16px;color:var(--cafe-500)}
 .prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:26px 22px}
 .prods.tres{grid-template-columns:repeat(3,1fr)}
+.prods.duas{grid-template-columns:repeat(2,1fr)}
 .prod{background:var(--crema-200);border:1px solid var(--crema-300);padding:18px 16px 0;display:flex;flex-direction:column;overflow:hidden}
 .prod.semcompra{padding-bottom:18px}
 .prod .tg{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--crema-300);color:var(--cafe-700);padding:4px 10px;border-radius:999px;line-height:1.25}
@@ -217,7 +218,7 @@ html{scroll-padding-top:104px}
   .cartao-d{top:0}
   .esc-cols{grid-template-columns:1fr}
   .rec-cols{grid-template-columns:1fr;gap:28px}
-  .prods.tres{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+  .prods.tres,.prods.duas{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
   .deg{padding:16px 13px}
   .deg p{font-size:13.5px}
   .ts-chips,.ts-sub ul{justify-content:flex-start}

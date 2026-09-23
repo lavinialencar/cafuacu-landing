@@ -127,7 +127,7 @@ const categorias: Cat[] = [
       { nome: "Papel Melitta 102", tag: "começo", porque: "Barato e fácil de achar. Casa com o porta-filtro Melitta.", busca: "filtro de papel melitta 102", so: ["amz", "ml"], links: [ { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/dp/B078XNNYG6?tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/2XJj1dd" } ] },
       { nome: "Papel Hario 02", tag: "padrão do V60 02", porque: "É o papel do V60 tamanho 02, que serve pra 1 a 4 xícaras e é o mais comum. Se o seu coador for 01 ou 03, compre o papel com o mesmo número.", busca: "filtro de papel hario v60 02", links: [ { id: "ali", nome: "AliExpress", href: "https://s.click.aliexpress.com/e/_c2x6jIm9" }, { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/dp/B001U7EOYA?tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/1LNVJcF" } ] },
       { nome: "Papel MHW-3Bomber ou Timemore", tag: "custo-benefício", porque: "Passagem rápida e bons filtros, mais baratos que os de marca.", busca: "filtro papel v60 02 100 unidades", so: ["ali"], links: [ { id: "ali", nome: "AliExpress", href: "https://s.click.aliexpress.com/e/_c449M2px" }, { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/s?k=filtro%20papel%20v60%2002%20100%20unidades&tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/1Ltj7hc" } ] },
-      { nome: "Cafec (Origami) ou Sibarist", tag: "pra ir além", porque: "O Cafec passa mais rápido que o da Hario. O Sibarist é o melhor que existe, e é caro.", busca: "filtro de papel cafec origami", links: [ { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/dp/B07ZYKFXKZ?tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://lista.mercadolivre.com.br/filtro-de-papel-cafec-origami" } ] },
+      { nome: "Cafec (Origami) ou Sibarist", tag: "pra ir além", porque: "O Cafec passa mais rápido que o da Hario. O Sibarist é o melhor que existe, e é caro.", busca: "filtro de papel cafec origami", links: [ { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/dp/B07ZYKFXKZ?tag=cafuacu-20" } ] },
     ],
   },
   {
@@ -210,7 +210,6 @@ const orcamentos = [
 const espresso: Item[] = [
   { nome: "Philco 15 bar", tag: "porta de entrada", porque: "A mais citada como máquina de espresso de entrada.", busca: "cafeteira espresso philco 15 bar", so: ["amz", "ml"], links: [ { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/dp/B076HSPQFD?tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/1kMe2Rs" } ] },
   { nome: "Oster Compacta", tag: "mais bem acabada", porque: "Uma opção mais trabalhada na estética que a Philco, com bico vaporizador articulado e muito bom.", busca: "cafeteira espresso oster compacta", so: ["amz", "ml"] },
-  { nome: "Starseeker E55 Pro", tag: "moedor de espresso", porque: "Moedor elétrico de custo-benefício pra espresso. Vendido no Brasil e no AliExpress.", busca: "moedor elétrico starseeker e55 pro", links: [ { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/s?k=moedor%20el%C3%A9trico%20starseeker%20e55%20pro&tag=cafuacu-20" } ] },
 ];
 
 const pular = [
@@ -388,7 +387,7 @@ const dadosDoGuia = {
       <section id="espresso">
         <header class="cab-sec"><h2>E se eu quiser espresso?</h2></header>
         <p class="sub">Deixe pra depois. Espresso pede mais técnica, e quem começa por ele costuma desistir. Quando chegar a hora:</p>
-        <div class="prods tres">
+        <div class="prods duas">
           {espresso.map((it) => (
             <article class="prod">
               <span class={it.tag.startsWith("custo") ? "tg tg-bom" : "tg"}>{it.tag}</span>
