@@ -16,7 +16,7 @@ body .corpo{background:#fff}
 .guia{display:block}
 
 /* textura de grão nos blocos escuros */
-.master::before,.canal-final::before,.par::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.master::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
 /* sumário no topo: compacto, centralizado, fixo, com progresso */
 .topo-sum{position:sticky;top:0;z-index:20;margin:-44px 0 40px;background:#fff;
@@ -187,21 +187,13 @@ body .corpo{background:#fff}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
 .tags span{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--crema-300);color:var(--cafe-700);padding:3px 9px;border-radius:999px}
 
-/* o par: o outro guia (mão de via dupla) */
-.par{position:relative;overflow:hidden;display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;background:var(--crema-200);border:1.5px solid var(--cafe-900);border-radius:16px;padding:30px 32px;margin:8px 0 40px}
-.par > *{position:relative}
-.par .ico{width:56px;height:56px;color:var(--torra-700)}
-.par .rot{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--folha-600);margin-bottom:6px}
-.par h2{font-size:clamp(21px,2.2vw,27px);margin-bottom:8px}
-.par p{font-size:16px;line-height:1.55;color:var(--cafe-500)}
-.par .botao{margin:0;white-space:nowrap}
-
-/* canal de ofertas, no fim do guia */
-.canal-final{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;background:var(--cafe-700);color:var(--crema-100);border-radius:16px;padding:52px 52px;margin:8px 0 44px}
-.canal-final > *{position:relative}
-.cf-txt h2{font-size:clamp(24px,2.8vw,34px);color:var(--crema-100);margin-bottom:12px}
-.cf-txt p{font-size:16.5px;line-height:1.6;color:var(--crema-300)}
-.canal-final .botao{margin:0;font-size:16px;padding:16px 26px;white-space:nowrap}
+/* fecho dos guias: a mesma vitrine de três da página Confirmado (.tiles vem de pagina.css) */
+.fim-cab{margin-top:24px}
+.conteudo .tiles{grid-template-columns:repeat(3,1fr);gap:34px 28px;padding:6px 6px 6px 0;margin-bottom:52px}
+.conteudo .tile{padding:28px 22px 24px}
+.conteudo .tile .ilu{width:104px;height:104px}
+.conteudo .tile strong{font-size:18px}
+.conteudo .tile p{font-size:14.5px}
 
 .transp{font-size:13.5px;line-height:1.55;color:var(--cafe-500);margin-bottom:24px}
 
@@ -221,10 +213,7 @@ body .corpo{background:#fff}
   .deg{padding:16px 13px}
   .deg p{font-size:13.5px}
   .ts-chips,.ts-sub ul{justify-content:flex-start}
-  .canal-final{grid-template-columns:1fr;gap:22px;padding:38px 28px}
-  .canal-final .botao{justify-self:start;padding:13px 22px;font-size:15px}
-  .par{grid-template-columns:auto 1fr;gap:20px;padding:26px 24px}
-  .par .botao{grid-column:2}
+  .conteudo .tiles{gap:28px 22px}
 }
 @media (max-width:760px){
   .escada{grid-template-columns:repeat(2,1fr);align-items:stretch}
@@ -237,9 +226,7 @@ body .corpo{background:#fff}
   .formula{grid-template-columns:1fr;gap:6px}
   .formula .op{font-size:26px}
   .receita{padding:22px 18px}
-  .canal-final{padding:32px 22px}
-  .par{grid-template-columns:1fr;gap:14px;padding:24px 20px}
-  .par .botao{grid-column:1}
+  .conteudo .tiles{grid-template-columns:1fr;gap:30px 0}
 }
 
 /* movimento: pouco, e só onde ajuda a ler */

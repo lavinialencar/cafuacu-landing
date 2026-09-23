@@ -5,6 +5,8 @@
 // O estilo compartilhado dos guias mora em src/styles/paginas/guia.css.
 // TRAVA: enquanto PUBLICADO for false, o build de produção redireciona pra /guias.
 import Pagina from "../../layouts/Pagina.astro";
+import Filtros from "../../components/Filtros.astro";
+import Ilustracao from "../../components/Ilustracao.astro";
 import "../../styles/paginas/guia.css";
 
 const PUBLICADO = true;
@@ -59,12 +61,11 @@ const secoes = [
   { id: "extracao", curto: "Azedo ou amargo" },
   { id: "guardar", curto: "Guardar" },
   { id: "provar", curto: "Provar" },
-  { id: "apps", curto: "Apps" },
   { id: "acucar", curto: "Açúcar" },
   { id: "comprar", curto: "Onde comprar" },
   { id: "erros", curto: "Erros" },
   { id: "alem", curto: "Pra ir além" },
-  { id: "par", curto: "O guia de equipamento" },
+  { id: "fim", curto: "Onde ir agora" },
 ];
 
 // ---------------------------------------------------------------- dados
@@ -229,11 +230,11 @@ const apps: [string, string, string, string[], string][] = [
 ];
 
 const alem = [
+  ["Edições da Cafuaçu", "/edicoes", ["quinzenal", "em português"], "Toda edição da news fica no ar depois de enviada: notícia, cotação, lançamento, garimpo e agenda. É a forma mais rápida de ver se ela é pra você, sem assinar nada."],
   ["The World Atlas of Coffee", "https://www.amazon.com.br/s?k=the+world+atlas+of+coffee+james+hoffmann&tag=cafuacu-20", ["livro", "em inglês"], "James Hoffmann. O mapa do café do mundo, país por país, com preparo e história. Ainda sem edição em português."],
   ["James Hoffmann", "https://www.youtube.com/@jameshoffmann", ["canal", "em inglês"], "O canal que ensinou preparo pra metade do planeta. Tem legenda automática em português."],
-  ["Perfect Daily Grind Brasil", "https://perfectdailygrind.com/pt/", ["site", "em português"], "Jornalismo de café sério e traduzido. Quando você quiser a parte técnica de verdade, é aqui."],
   ["Coffee & Joy", "https://blog.coffeeandjoy.com.br/", ["blog e canal", "em português"], "Conteúdo didático pra quem está começando, sem esnobismo. De onde saiu boa parte da conversa sobre adoçar café."],
-  ["Não Sou Barista", "https://www.youtube.com/@naosoubarista", ["canal", "em português"], "Teste de equipamento e de café com método. Bom pra decidir compra."],
+  ["Isabela Raposeiras, do Coffee Lab", "https://www.coffeelab.com.br", ["escola e torrefação", "em São Paulo"], "Fundou o Coffee Lab em 2009 e virou uma das maiores referências de café do país. É escola, laboratório de torra e cafeteria, com curso de barista presencial e online, e vende o café que torra."],
   ["BSCA", "https://bsca.com.br/", ["associação"], "Associação Brasileira de Cafés Especiais. Lista produtor certificado e explica a pontuação."],
 ];
 
@@ -272,6 +273,8 @@ const glossario = [
     <div class="progresso" aria-hidden="true"><i></i></div>
   </nav>
 
+  <Filtros />
+
   <div class="guia">
     <div class="conteudo">
 
@@ -303,6 +306,14 @@ const glossario = [
           <li><span class="ico" set:html={ic.grao} /><span class="n">3</span><h3>Compre em grão</h3><p>Compre em grão numa torrefação e peça pra moerem na hora da compra. Guarde bem fechado e tome em poucas semanas.</p><a class="ver" href="#frescor">por que o frescor conta</a></li>
           <li><span class="ico" set:html={ic.moedor} /><span class="n">4</span><h3>Aí sim, um moedor</h3><p>Só aqui entra equipamento. É a compra que mais muda o seu café, e é o começo do outro guia.</p><a class="ver" href="/guias/equipamento#moedores">ver moedores</a></li>
         </ol>
+        <div class="master">
+          <span class="ico grande" set:html={ic.grao} />
+          <div>
+            <span class="sel">dica master</span>
+            <h3>Compre em grão</h3>
+            <p>O grão guarda sabor e aroma, e moer na hora muda tudo. É a compra que mais melhora o seu café, <strong>antes de qualquer equipamento</strong>. Se ainda não tem moedor, peça pra moerem na loja e tome em poucas semanas.</p>
+          </div>
+        </div>
         <p class="nota">Dá pra pular degraus, claro. Mas quem pula direto pro quatro costuma comprar o moedor errado, e quem fica no um nunca faz café bom em casa.</p>
       </section>
 
@@ -524,6 +535,27 @@ const glossario = [
         <header class="cab-sec"><h2>Por que o especial é outra coisa</h2></header>
         <p class="sub">"Especial" não é adjetivo de marketing: é <strong>nota</strong>. Só que o Brasil convive com duas réguas diferentes ao mesmo tempo, e é aí que quase todo mundo se perde.</p>
 
+        <p class="sub sub2">Primeiro, o que você vê na prateleira</p>
+        <div class="escada">
+          <div class="deg d1">
+            <span class="tag">tradicional e extra forte</span>
+            <p>Base da escala de qualidade. Vem com torra bem escura pra esconder defeito do grão. O amargo é do café, não do seu preparo.</p>
+          </div>
+          <div class="deg d2">
+            <span class="tag">superior e gourmet</span>
+            <p>Já melhoram. Dá pra começar por aqui.</p>
+          </div>
+          <div class="deg d3">
+            <span class="tag">robusta fino <em>· degrau opcional</em></span>
+            <p><strong>Corpo bem mais forte</strong> e mais cafeína: é o degrau <strong>ideal pra quem vem do café tradicional</strong> e estranha o especial mais leve. O <strong>Robusta Amazônico de Rondônia</strong> tem indicação geográfica e notas de chocolate e castanha.</p><p class="cuidado">Procure escrito <strong>robusta fino</strong> (ou conilon especial) no pacote. O robusta comum de supermercado não é isso: é ele que dá o amargo.</p>
+          </div>
+          <div class="deg d4">
+            <span class="tag">café especial (arábica)</span>
+            <p>É outra escala, com origem, produtor e notas de sabor no pacote. É onde a coisa fica boa.</p>
+          </div>
+        </div>
+
+        <p class="sub sub2">E as duas réguas por trás dessa escada</p>
         <div class="desenho reguas">
           <svg viewBox="0 0 1160 270" role="img" aria-label="Comparação entre a escala ABIC de 0 a 10 e a escala SCA de 0 a 100">
             <text class="rg-t" x="0" y="26">Régua da ABIC, o selo do café de supermercado, de 0 a 10</text>
@@ -1012,25 +1044,6 @@ const glossario = [
         <p class="nota">Anote três palavras por café, num caderninho ou no app. Em dez cafés você já tem um padrão, e em vinte você já sabe pedir o que gosta pelo nome do processo e da região.</p>
       </section>
 
-      <section id="apps">
-        <header class="cab-sec"><h2>Apps que ajudam de verdade</h2></header>
-        <p class="sub">Nenhum deles é obrigatório, e nenhum faz café por você. Mas dois tipos ajudam muito no começo: o que <strong>conta o tempo</strong> enquanto você prepara, e o que <strong>guarda o que você achou</strong> de cada café. Sem registro, a gente repete o mesmo erro sem perceber.</p>
-        <div class="apps">
-          {apps.map(([grupo, nome, url, tags, desc]) => (
-            <a class="app" href={url} rel="noopener">
-              <span class="ico" set:html={ic.celular} />
-              <div>
-                <div class="grupo">{grupo}</div>
-                <h3>{nome}</h3>
-                <div class="tags">{tags.map((t) => (<span>{t}</span>))}</div>
-                <p>{desc}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-        <p class="nota">Plataforma e preço conferidos na página oficial de cada um em 22/09/2026. Nenhum link aqui é pago nem patrocinado. No <a href="/guias/equipamento#apps">guia de equipamento</a> os quatro primeiros aparecem de novo, pelo lado do preparo, junto da balança e da chaleira.</p>
-      </section>
-
       <section id="acucar">
         <header class="cab-sec"><h2>Posso adoçar? E outras perguntas que ninguém faz alto</h2></header>
         <p class="sub">A parte mais chata do mundo do café especial é a turma que julga. Ignore essa turma. O café é seu.</p>
@@ -1079,7 +1092,7 @@ const glossario = [
 
       <section id="alem">
         <header class="cab-sec"><h2>Pra ir além</h2></header>
-        <p class="sub">Se este guia acendeu alguma coisa, é daqui que eu continuaria. Nenhum link aqui é pago nem patrocinado.</p>
+        <p class="sub">Se este guia acendeu alguma coisa, é daqui que eu continuaria. Notícia de café você não precisa caçar: a cafetinha lê a imprensa do setor (Perfect Daily Grind, Revista Cafeicultura e companhia) a cada quinzena e destila na news. Nenhum link aqui é pago nem patrocinado.</p>
         <div class="apps">
           {alem.map(([nome, url, tags, desc]) => (
             <a class="app" href={url} rel="noopener">
@@ -1093,28 +1106,52 @@ const glossario = [
           ))}
         </div>
 
+        <p class="sub sub2 sub-t">Apps que ajudam de verdade</p>
+        <p class="sub sub2">Nenhum deles é obrigatório, e nenhum faz café por você. Mas dois tipos ajudam muito no começo: o que <strong>conta o tempo</strong> enquanto você prepara, e o que <strong>guarda o que você achou</strong> de cada café. Sem registro, a gente repete o mesmo erro sem perceber.</p>
+        <div class="apps">
+          {apps.map(([grupo, nome, url, tags, desc]) => (
+            <a class="app" href={url} rel="noopener">
+              <span class="ico" set:html={ic.celular} />
+              <div>
+                <div class="grupo">{grupo}</div>
+                <h3>{nome}</h3>
+                <div class="tags">{tags.map((t) => (<span>{t}</span>))}</div>
+                <p>{desc}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        <p class="nota">Plataforma e preço conferidos na página oficial de cada um em 22/09/2026. Nenhum link aqui é pago nem patrocinado.</p>
+
         <p class="sub sub2">E o glossário, pra quando alguém falar difícil:</p>
         <dl class="glos">
           {glossario.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
         </dl>
       </section>
 
-      <div class="par" id="par">
-        <span class="ico" set:html={ic.moedor} />
-        <div>
-          <div class="rot">a outra metade</div>
-          <h2>Café é metade. A outra metade é o equipamento</h2>
-          <p>Você já sabe escolher o café. Falta com o que fazer ele. O <strong>Guia de equipamento</strong> é o par deste aqui: moedor, balança, método, chaleira e pote, com opção pra cada orçamento e onde achar cada item. Os dois se conversam o tempo todo, e você pode entrar por qualquer um dos lados.</p>
-        </div>
-        <a class="botao" href="/guias/equipamento">ir pro guia de equipamento</a>
+      <div class="cab-sec fim-cab" id="fim">
+        <h2>Onde ir agora</h2>
       </div>
-
-      <div class="canal-final" id="canal">
-        <div class="cf-txt">
-          <h2>E quando o café bom ficar barato, eu te aviso</h2>
-          <p>No canal de ofertas a cafetinha acompanha preço de café e de equipamento e só avisa quando o desconto é de verdade, com histórico e a loja de onde vem. Sem spam.</p>
-        </div>
-        <a class="botao" href="https://t.me/cafuacu_ofertas">entrar no canal de ofertas</a>
+      <p class="sub">Três coisas no ar, e nenhuma delas custa nada.</p>
+      <div class="tiles">
+        <a class="tile" href="/guias/equipamento">
+          <span class="etq">o par deste</span>
+          <div class="ilu"><Ilustracao nome="coador" /></div>
+          <strong>Guia de equipamento</strong>
+          <p>Moedor, balança, método, chaleira e pote, com opção pra cada orçamento e onde achar cada item.</p>
+        </a>
+        <a class="tile" href="/newsletter">
+          <span class="etq">quinzenal</span>
+          <div class="ilu"><Ilustracao nome="agenda" /></div>
+          <strong>A newsletter</strong>
+          <p>Notícia, cotação, lançamento, garimpo e agenda do mundo do café, de quinze em quinze dias.</p>
+        </a>
+        <a class="tile" href="https://t.me/cafuacu_ofertas" target="_blank" rel="noopener">
+          <span class="etq">todo dia</span>
+          <div class="ilu"><Ilustracao nome="maos" /></div>
+          <strong>Canal de ofertas</strong>
+          <p>A cafetinha acompanha o preço de café e de equipamento e só avisa quando o desconto é de verdade.</p>
+        </a>
       </div>
 
       <p class="transp"><strong>Transparência.</strong> Alguns links aqui podem ser de afiliado: se você comprar por eles, a Cafuaçu pode receber uma comissão, sem custo extra pra você. Isso não muda a recomendação, e o que a gente não usaria ou não indicaria não entra. Preço, pontuação e safra mudam o tempo todo: confira na hora da compra.</p>
@@ -1151,7 +1188,7 @@ const glossario = [
   (function () {
     if (!document.documentElement.classList.contains("anim")) return;
     if (!("IntersectionObserver" in window)) return;
-    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .par, .transp, .canal-final");
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .tile, .transp, .fim-cab");
     const cont = new Map();
     let disparou = false;
     const obs = new IntersectionObserver((itens) => {
@@ -1274,6 +1311,7 @@ const glossario = [
   .barras li{display:grid;grid-template-columns:104px 1fr;align-items:center;gap:10px;font-size:12px;color:var(--cafe-500)}
   .barras i{display:block;height:7px;border-radius:999px;background:var(--crema-300);overflow:hidden}
   .barras b{display:block;height:100%;background:var(--torra-700);border-radius:999px}
+  .sub-t{font-size:22px;font-weight:600;color:var(--cafe-900);letter-spacing:-.02em;margin:38px 0 8px}
   .app .grupo{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--folha-600);margin-bottom:5px}
   .prod .grau{font-size:26px;font-weight:600;color:var(--torra-700);letter-spacing:-.02em;margin-bottom:10px;font-variant-numeric:tabular-nums}
   .prod .quando{font-size:13.5px;font-weight:600;color:var(--cafe-900);margin-bottom:0}

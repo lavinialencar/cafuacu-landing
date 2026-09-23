@@ -2,6 +2,8 @@
 // /guias/equipamento · página própria (layout largo, sumário fixo no topo com barra de progresso, cartões e ilustrações de traço).
 // TRAVA: enquanto PUBLICADO for false, o build de produção redireciona pra /guias. Liberado por ela em 19/09/2026.
 import Pagina from "../../layouts/Pagina.astro";
+import Filtros from "../../components/Filtros.astro";
+import Ilustracao from "../../components/Ilustracao.astro";
 import "../../styles/paginas/guia.css";
 
 const PUBLICADO = true;
@@ -148,8 +150,7 @@ const secoes = [
   { id: "espresso", curto: "Espresso" },
   { id: "pular", curto: "Pular" },
   { id: "receita", curto: "Receita" },
-  { id: "apps", curto: "Apps" },
-  { id: "par", curto: "O guia do café" },
+  { id: "fim", curto: "Onde ir agora" },
 ];
 
 const ordem = [
@@ -220,13 +221,6 @@ const pular = [
   ["Pote a vácuo genérico e barato", "Costuma perder a vedação em poucos dias. O zip da embalagem serve."],
 ];
 
-const apps = [
-  ["Coffee Board", "https://coffeeboard.com.br", ["grátis", "no navegador"], "Receitas com timer, histórico, estoque de grão fresco e congelado, e nota de acidez, doçura, corpo e amargor."],
-  ["Beanconqueror", "https://beanconqueror.com", ["grátis", "código aberto"], "Guarda grãos e torras, registra cada preparo e liga em balança Bluetooth."],
-  ["Filtru", "https://getfiltru.com", ["só iPhone"], "Guia de preparo com timer, diário de degustação e scanner de pacote de café."],
-  ["Timer.Coffee", "https://www.timer.coffee/", ["grátis", "código aberto"], "Receitas, timers de coado e espresso e diário de preparos."],
-];
-
 const botoes = (it: Item) => (it.links ? it.links : it.sem || !it.busca ? [] : lojas(it.busca).filter((l) => !it.so || it.so.includes(l.id)));
 const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.length;
 ---
@@ -260,6 +254,8 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
     <div class="progresso" aria-hidden="true"><i></i></div>
   </nav>
 
+  <Filtros />
+
   <div class="guia">
     <div class="conteudo">
       <div class="inicio">
@@ -281,32 +277,14 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
 
       <section id="cafe">
         <header class="cab-sec"><h2>Equipamento nenhum salva café ruim</h2></header>
-        <p class="sub">Olhe o pacote. Cada degrau muda o que vai pra sua xícara.</p>
-        <div class="escada">
-          <div class="deg d1">
-            <span class="tag">tradicional e extra forte</span>
-            <p>Base da escala de qualidade. Vem com torra bem escura pra esconder defeito do grão. O amargo é do café, não do seu preparo.</p>
-          </div>
-          <div class="deg d2">
-            <span class="tag">superior e gourmet</span>
-            <p>Já melhoram. Dá pra começar por aqui.</p>
-          </div>
-          <div class="deg d3">
-            <span class="tag">robusta fino <em>· degrau opcional</em></span>
-            <p><strong>Corpo bem mais forte</strong> e mais cafeína: é o degrau <strong>ideal pra quem vem do café tradicional</strong> e estranha o especial mais leve. O <strong>Robusta Amazônico de Rondônia</strong> tem indicação geográfica e notas de chocolate e castanha.</p><p class="cuidado">Procure escrito <strong>robusta fino</strong> (ou conilon especial) no pacote. O robusta comum de supermercado não é isso: é ele que dá o amargo.</p>
-          </div>
-          <div class="deg d4">
-            <span class="tag">café especial (arábica)</span>
-            <p>É outra escala, com origem, produtor e notas de sabor no pacote. É onde a coisa fica boa.</p>
-          </div>
-        </div>
-        <p class="nota">Essa escada é o resumo. A escala inteira, as duas réguas (ABIC e SCA), a torra, o processo e como ler o pacote estão no <a href="/guias/cafe#especial">guia do café</a>, que é o par deste aqui.</p>
+        <p class="sub">Antes de gastar um real: o que mais muda a sua xícara não é o moedor, é <strong>o café que você põe dentro dele</strong>. Compre em grão, de torrefação que imprime a data de torra, e moa na hora.</p>
         <div class="master">
           <span class="ico grande" set:html={ic.grao} />
           <div>
-            <span class="sel">dica master</span>
-            <h3>Compre em grão</h3>
-            <p>O grão guarda sabor e aroma, e moer na hora muda tudo. É a compra que mais melhora o seu café, antes de qualquer equipamento.</p>
+            <span class="sel">o par deste guia</span>
+            <h3>Isso tudo está no guia do café</h3>
+            <p>A escala de qualidade inteira, as duas réguas (ABIC e SCA), torra, processo, como ler o pacote, por que moer na hora e onde comprar o seu primeiro: está tudo lá, ilustrado, e é o que faz este guia aqui valer a pena.</p>
+            <p><a href="/guias/cafe">Ler o guia do café primeiro</a>, ou seguir por aqui e voltar depois.</p>
           </div>
         </div>
       </section>
@@ -451,39 +429,29 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
         </div>
       </section>
 
-      <section id="apps">
-        <header class="cab-sec"><h2>Apps pra acompanhar seu café</h2></header>
-        <p class="sub">Pra registrar preparo, guardar receita, controlar estoque de grão e anotar o que você achou. <a href="/guias/cafe#apps">No guia do café eles aparecem separados por pra que servem</a>, com mais dois: um pra treinar o paladar e um pra achar cafeteria.</p>
-        <div class="apps">
-          {apps.map(([nome, url, tags, desc]) => (
-            <a class="app" href={url}>
-              <span class="ico" set:html={ic.celular} />
-              <div>
-                <h3>{nome}</h3>
-                <div class="tags">{(tags as string[]).map((t) => (<span>{t}</span>))}</div>
-                <p>{desc}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <div class="par" id="par">
-        <span class="ico" set:html={ic.grao} />
-        <div>
-          <div class="rot">a outra metade</div>
-          <h2>Equipamento é metade. A outra metade é o café</h2>
-          <p>O <strong>Guia do café</strong> é o par deste aqui: o que é café especial e por que ele custa mais, as duas réguas de qualidade, torra, processo, como ler o pacote, por que moer na hora e onde comprar o seu primeiro. Os dois se conversam o tempo todo.</p>
-        </div>
-        <a class="botao" href="/guias/cafe">ir pro guia do café</a>
+      <div class="cab-sec fim-cab" id="fim">
+        <h2>Onde ir agora</h2>
       </div>
-
-      <div class="canal-final" id="canal">
-        <div class="cf-txt">
-          <h2>Quer saber quando esses itens ficarem baratos?</h2>
-          <p>A cafetinha acompanha o preço de cada um e só avisa quando o desconto é de verdade, com o histórico de preço e a loja de onde vem. Sem spam.</p>
-        </div>
-        <a class="botao" href="https://t.me/cafuacu_ofertas">entrar no canal de ofertas</a>
+      <p class="sub">Três coisas no ar, e nenhuma delas custa nada.</p>
+      <div class="tiles">
+        <a class="tile" href="/guias/cafe">
+          <span class="etq">o par deste</span>
+          <div class="ilu"><Ilustracao nome="ramo" /></div>
+          <strong>Guia do café</strong>
+          <p>Do pé de café à xícara: por que o especial é outra coisa, e como achar o seu.</p>
+        </a>
+        <a class="tile" href="/newsletter">
+          <span class="etq">quinzenal</span>
+          <div class="ilu"><Ilustracao nome="agenda" /></div>
+          <strong>A newsletter</strong>
+          <p>Notícia, cotação, lançamento, garimpo e agenda do mundo do café, de quinze em quinze dias.</p>
+        </a>
+        <a class="tile" href="https://t.me/cafuacu_ofertas" target="_blank" rel="noopener">
+          <span class="etq">todo dia</span>
+          <div class="ilu"><Ilustracao nome="maos" /></div>
+          <strong>Canal de ofertas</strong>
+          <p>A cafetinha acompanha o preço destes itens e só avisa quando o desconto é de verdade.</p>
+        </a>
       </div>
 
       <p class="transp"><strong>Transparência.</strong> Alguns links aqui podem ser de afiliado: se você comprar por eles, a Cafuaçu pode receber uma comissão, sem custo extra pra você. Isso não muda a recomendação, e o que a gente não usaria ou não indicaria não entra.</p>
@@ -529,7 +497,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   (function () {
     if (!document.documentElement.classList.contains("anim")) return;
     if (!("IntersectionObserver" in window)) return;
-    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .cat-cab, .passos li, .cartao, .prod, .master, .escolha, .pula > *, .receita, .formula, .rec-cols > *, .app, .par, .transp, .canal-final");
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .cat-cab, .passos li, .cartao, .prod, .master, .escolha, .pula > *, .receita, .formula, .rec-cols > *, .tile, .transp, .fim-cab");
     const cont = new Map();
     let disparou = false;
     const obs = new IntersectionObserver((itens) => {
