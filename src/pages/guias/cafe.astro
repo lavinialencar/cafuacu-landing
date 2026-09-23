@@ -366,15 +366,6 @@ const glossario = [
           </ol>
         </div>
 
-        <div class="master">
-          <span class="ico grande" set:html={ic.cereja} />
-          <div>
-            <span class="sel">guarde isso</span>
-            <h3>Café é comida, não é combustível</h3>
-            <p>Um pé de café leva de três a quatro anos pra dar a primeira safra e dá <strong>uma colheita por ano</strong>. Cada cereja é colhida, seca, descascada, classificada e torrada por gente com nome. Quando você paga R$ 60 num pacote de 250 g, é isso que está no preço.</p>
-            <p>E como é fruta, ela pode estar madura ou verde, inteira ou machucada, bem seca ou mofada. <strong>Quase todo defeito do café já aconteceu antes da torra.</strong></p>
-          </div>
-        </div>
       </section>
 
       <section id="especies">
@@ -635,14 +626,14 @@ const glossario = [
 
         <div class="duo">
           <div>
-            <h3><i class="pin pin-sca"></i>A régua da SCA</h3>
-            <p>Um provador certificado, o <strong>Q-Grader</strong>, prova o café numa mesa padronizada e dá nota de 0 a 100 somando dez atributos: fragrância, uniformidade, ausência de defeito, doçura, sabor, acidez, corpo, finalização, harmonia e conceito final.</p>
-            <p><strong>80 pontos ou mais é café especial.</strong> Acima de 85 é excelente, acima de 90 é excepcional e vira leilão. É a régua que o mundo usa, e a que a <a href="https://bsca.com.br/" rel="noopener">BSCA</a> representa por aqui.</p>
-          </div>
-          <div>
             <h3><i class="pin pin-abic"></i>A régua da ABIC</h3>
             <p>O Programa de Qualidade do Café dá uma nota de 0 a 10 e divide o café torrado de mercado em três faixas: <strong>tradicional de 4,5 a 5,9</strong>, <strong>superior de 6,0 a 7,2</strong> e <strong>gourmet de 7,3 a 10</strong>. "Extraforte" não é faixa de qualidade: é torra mais escura dentro do tradicional.</p>
             <p>Ela serve pra separar o café de supermercado <strong>entre si</strong>. Um gourmet é melhor que um tradicional, sem dúvida. Mas <strong>gourmet não quer dizer especial</strong>: são réguas diferentes, e a dela acaba onde a outra começa.</p>
+          </div>
+          <div>
+            <h3><i class="pin pin-sca"></i>A régua da SCA</h3>
+            <p>Um provador certificado, o <strong>Q-Grader</strong>, prova o café numa mesa padronizada e dá nota de 0 a 100 somando dez atributos: fragrância, uniformidade, ausência de defeito, doçura, sabor, acidez, corpo, finalização, harmonia e conceito final.</p>
+            <p><strong>80 pontos ou mais é café especial.</strong> Acima de 85 é excelente, acima de 90 é excepcional e vira leilão. É a régua que o mundo usa, e a que a <a href="https://bsca.com.br/" rel="noopener">BSCA</a> representa por aqui.</p>
           </div>
         </div>
 
@@ -668,6 +659,34 @@ const glossario = [
       <section id="cadeia">
         <header class="cab-sec"><h2>Quem ganha quando você paga mais</h2></header>
         <p class="sub">Tem um lado do café especial que não aparece na xícara e que, pra muita gente, acaba sendo o motivo de ficar: <strong>ele muda o que acontece na lavoura</strong>. Não por bondade, por conta mesmo.</p>
+
+        <div class="desenho largo">
+          <svg viewBox="0 0 1160 286" role="img" aria-label="Os dois modelos lado a lado: commodity paga por saca e empurra o custo pra base; especial paga por nota e exige gente treinada que volte">
+            <g class="fl-tag">
+              <rect x="0" y="14" width="196" height="34" rx="17" fill="var(--cafe-500)"/>
+              <text x="98" y="36" text-anchor="middle" fill="var(--crema-100)">commodity</text>
+            </g>
+            <rect x="0" y="62" width="430" height="74" rx="12" fill="var(--crema-200)"/>
+            <text class="fl-t" x="215" y="92" text-anchor="middle">paga por saca,</text>
+            <text class="fl-t" x="215" y="116" text-anchor="middle">e o que conta é o volume</text>
+            <path d="M452 99 L500 99 M486 88 L500 99 L486 110" class="fl-seta"/>
+            <rect x="516" y="62" width="644" height="74" rx="12" fill="var(--crema-200)"/>
+            <text class="fl-d" x="838" y="92" text-anchor="middle">colheita rápida, mão de obra temporária e barata,</text>
+            <text class="fl-d" x="838" y="116" text-anchor="middle">e o custo do aperto desce pra base da cadeia</text>
+
+            <g class="fl-tag">
+              <rect x="0" y="152" width="196" height="34" rx="17" fill="var(--folha-600)"/>
+              <text x="98" y="174" text-anchor="middle" fill="var(--crema-100)">café especial</text>
+            </g>
+            <rect x="0" y="200" width="430" height="74" rx="12" fill="var(--folha-400)" opacity=".25"/>
+            <text class="fl-t" x="215" y="230" text-anchor="middle">paga por nota,</text>
+            <text class="fl-t" x="215" y="254" text-anchor="middle">e o que conta é a qualidade</text>
+            <path d="M452 237 L500 237 M486 226 L500 237 L486 248" class="fl-seta"/>
+            <rect x="516" y="200" width="644" height="74" rx="12" fill="var(--folha-400)" opacity=".25"/>
+            <text class="fl-d" x="838" y="230" text-anchor="middle">cereja madura, gente treinada que vale a pena trazer de volta,</text>
+            <text class="fl-d" x="838" y="254" text-anchor="middle">relação longa com a torrefação e nome no pacote</text>
+          </svg>
+        </div>
 
         <div class="prods tres">
           <article class="prod semcompra">
@@ -757,17 +776,17 @@ const glossario = [
 
         <p class="sub sub-t">E o ponto onde ele parou</p>
 
-        <div class="desenho rola">
-          <svg viewBox="0 0 640 134" role="img" aria-label="Faixa de torra, da clara à escura, com o que acontece em cada ponto">
+        <div class="desenho largo">
+          <svg viewBox="0 0 1160 104" role="img" aria-label="Faixa de torra, da clara à escura, com o que acontece em cada ponto">
             {[0, 1, 2, 3].map((i) => (
               <g>
-                <rect x={40 + i * 145} y="16" width="140" height="56" fill={["#A9754B", "#7A4A2B", "#4E2C18", "#241209"][i]} rx="8"/>
-                <text class="tr-n" x={110 + i * 145} y="50" text-anchor="middle" fill={i === 0 ? "var(--cafe-900)" : "var(--crema-100)"}>{["clara", "média", "média escura", "escura"][i]}</text>
+                <rect x={i * 294} y="0" width="278" height="54" fill={["#A9754B", "#7A4A2B", "#4E2C18", "#241209"][i]} rx="10"/>
+                <text class="tr-n" x={139 + i * 294} y="33" text-anchor="middle" fill={i === 0 ? "var(--cafe-900)" : "var(--crema-100)"}>{["clara", "média", "média escura", "escura"][i]}</text>
               </g>
             ))}
-            <path d="M40 92 L600 92" stroke="var(--crema-300)" stroke-width="2"/>
-            <text class="tr-e" x="40" y="112">mais origem, mais acidez</text>
-            <text class="tr-e" x="600" y="112" text-anchor="end">mais amargor, mais fumaça</text>
+            <path d="M0 74 L1160 74" stroke="var(--crema-300)" stroke-width="2"/>
+            <text class="tr-e" x="0" y="96">mais origem, mais acidez</text>
+            <text class="tr-e" x="1160" y="96" text-anchor="end">mais amargor, mais fumaça</text>
           </svg>
         </div>
 
@@ -1433,6 +1452,8 @@ const glossario = [
   .desenho.largo .rg-l{font-size:15.5px}
   .desenho.largo .rg-n{font-size:15px}
   .desenho.largo .rg-s{font-size:14.5px}
+  .desenho.largo .tr-n{font-size:16px}
+  .desenho.largo .tr-e{font-size:14px}
   .desenho.largo .rg-zt{font-size:14px}
   .desenho.largo .rg-zt2{font-size:15px}
   .desenho.largo .rg-f{font-size:15px}
@@ -1494,6 +1515,10 @@ const glossario = [
   .barras b{display:block;height:100%;background:var(--torra-700);border-radius:999px}
   .sub-t{font-size:22px;font-weight:600;color:var(--cafe-900);letter-spacing:-.02em;margin:38px 0 8px}
   .fase-e text{font-size:11.5px;font-weight:700;fill:var(--torra-700)}
+  .fl-tag text{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .fl-t{font-size:16px;font-weight:700;fill:var(--cafe-900)}
+  .fl-d{font-size:15px;fill:var(--cafe-700)}
+  .fl-seta{fill:none;stroke:var(--cafe-500);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .prod-head .prod-t{font-size:19px;line-height:1.2;margin:0;font-weight:600}
   .apps{grid-template-columns:repeat(3,1fr)}
   .app .grupo{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--folha-600);margin-bottom:5px}
