@@ -935,22 +935,24 @@ const glossario = [
         <header class="cab-sec"><h2>Por que raios eu tenho que moer na hora</h2></header>
         <p class="sub">Essa é a dúvida número um de quem está começando, e a resposta é bem física: <strong>o grão inteiro é uma embalagem</strong>. Moer é abrir essa embalagem. Depois de aberta, não fecha.</p>
 
-        <div class="desenho rola compacto">
-          <svg viewBox="0 0 640 250" role="img" aria-label="Comparação entre um grão inteiro e o mesmo grão moído, mostrando o aumento da superfície exposta ao ar">
-            <rect x="20" y="20" width="280" height="210" rx="14" fill="var(--crema-200)"/>
-            <ellipse cx="160" cy="105" rx="46" ry="64" fill="var(--crema-300)" stroke="var(--cafe-500)" stroke-width="3"/>
-            <path d="M160 46 C146 76 174 106 160 164" fill="none" stroke="var(--cafe-500)" stroke-width="3.4" stroke-linecap="round"/>
-            <text class="mo-t" x="160" y="200" text-anchor="middle">um grão inteiro</text>
-            <text class="mo-d" x="160" y="220" text-anchor="middle">o aroma fica preso lá dentro</text>
-            <rect x="340" y="20" width="280" height="210" rx="14" fill="var(--crema-200)"/>
-            {Array.from({ length: 46 }).map((_, i) => {
-              const a = (i * 137.5 * Math.PI) / 180;
-              const rr = 6 + Math.sqrt(i) * 12.6;
-              return (<ellipse cx={(480 + rr * Math.cos(a)).toFixed(1)} cy={(105 + rr * Math.sin(a) * 0.72).toFixed(1)} rx={3 + ((i * 7) % 4)} ry={4 + ((i * 5) % 3)} fill="var(--cafe-500)"/>);
-            })}
-            <text class="mo-t" x="480" y="200" text-anchor="middle">o mesmo grão, moído</text>
-            <text class="mo-d" x="480" y="220" text-anchor="middle">tudo isso agora está no ar</text>
-          </svg>
+        <div class="graos">
+          <figure class="grao-c">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <ellipse cx="100" cy="100" rx="52" ry="72" fill="var(--crema-300)" stroke="var(--cafe-500)" stroke-width="3"/>
+              <path d="M100 33 C84 68 116 102 100 167" fill="none" stroke="var(--cafe-500)" stroke-width="3.4" stroke-linecap="round"/>
+            </svg>
+            <figcaption><strong>um grão inteiro</strong><span>o aroma fica preso lá dentro</span></figcaption>
+          </figure>
+          <figure class="grao-c">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              {Array.from({ length: 46 }).map((_, i) => {
+                const a = (i * 137.5 * Math.PI) / 180;
+                const rr = 4 + Math.sqrt(i) * 10.2;
+                return (<ellipse cx={(100 + rr * Math.cos(a)).toFixed(1)} cy={(100 + rr * Math.sin(a)).toFixed(1)} rx={2.6 + ((i * 7) % 3)} ry={3.4 + ((i * 5) % 3)} fill="var(--cafe-500)"/>);
+              })}
+            </svg>
+            <figcaption><strong>o mesmo grão, moído</strong><span>tudo isso agora está no ar</span></figcaption>
+          </figure>
         </div>
 
         <div class="duo">
@@ -1308,7 +1310,7 @@ const glossario = [
   (function () {
     if (!document.documentElement.classList.contains("anim")) return;
     if (!("IntersectionObserver" in window)) return;
-    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .tile, .transp, .fim-cab");
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .grao-c, .tile, .transp, .fim-cab");
     const cont = new Map();
     let disparou = false;
     const obs = new IntersectionObserver((itens) => {
@@ -1379,9 +1381,13 @@ const glossario = [
   .tl-l{font-size:13px;font-weight:700}
   .tl-d{font-size:12.5px;fill:var(--cafe-500)}
   .tl-seta path{fill:none;stroke:var(--cafe-500);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .desenho.compacto svg{max-width:680px;margin:0 auto}
-  .mo-t{font-size:15px;font-weight:700;fill:var(--cafe-900)}
-  .mo-d{font-size:13px;fill:var(--cafe-500)}
+  /* grão inteiro x moído: dois cartões na mesma grade do texto de baixo, pra um cair em cima do outro */
+  .graos{display:grid;grid-template-columns:repeat(2,1fr);gap:34px;margin:26px 0 30px}
+  .grao-c{margin:0;background:var(--crema-200);border-radius:14px;padding:28px 22px 22px;text-align:center}
+  .grao-c svg{display:block;width:100%;max-width:200px;height:auto;margin:0 auto}
+  .grao-c figcaption{margin-top:16px}
+  .grao-c strong{display:block;font-size:16.5px;color:var(--cafe-900)}
+  .grao-c span{display:block;font-size:14.5px;color:var(--cafe-500);margin-top:4px}
   .mg-n{font-size:12.5px;font-weight:700;fill:var(--cafe-900)}
   .mg-m{font-size:12px;fill:var(--cafe-500)}
   .mg-e{font-size:12px;font-weight:600;fill:var(--cafe-500)}
@@ -1508,7 +1514,7 @@ const glossario = [
     .desenho.alt{grid-template-columns:1fr;gap:22px}
   }
   @media (max-width:640px){
-    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.glos{grid-template-columns:1fr}
+    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.glos,.graos{grid-template-columns:1fr}
     .ato{margin-bottom:38px}
     .barras li{grid-template-columns:92px 1fr}
   }
