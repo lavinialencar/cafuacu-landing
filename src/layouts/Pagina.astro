@@ -13,6 +13,7 @@ const { faixa, semVoltar = false, largo = false, compacto = false, ...resto } = 
 const naoEHub = !["", "/", "/index.html", "/index"].includes(Astro.url.pathname);
 ---
 <Base {...resto}>
+  <Fragment slot="head"><slot name="head" /></Fragment>
   <section class={compacto ? "hero compacto" : "hero"}>
     {naoEHub && !semVoltar && <VoltarHub />}
     <div class="hero-in">

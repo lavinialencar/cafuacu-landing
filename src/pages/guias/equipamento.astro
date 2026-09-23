@@ -222,6 +222,23 @@ const pular = [
 
 const botoes = (it: Item) => (it.links ? it.links : it.sem || !it.busca ? [] : lojas(it.busca).filter((l) => !it.so || it.so.includes(l.id)));
 const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.length;
+// Data da última revisão de CONTEÚDO. Muda quando o texto ou o dado muda, não a cada ajuste de CSS.
+const ATUALIZADO = "2026-09-23";
+const ATUALIZADO_BR = ATUALIZADO.split("-").reverse().join("/");
+const dadosDoGuia = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Guia de equipamento",
+  description: "Quer comprar um moedor e não sabe qual? Aqui tem opção pra cada orçamento.",
+  inLanguage: "pt-BR",
+  datePublished: "2026-09-19",
+  dateModified: ATUALIZADO,
+  isAccessibleForFree: true,
+  author: { "@type": "Organization", name: "Cafuaçu", url: "https://cafuacu.com.br" },
+  publisher: { "@type": "Organization", name: "Cafuaçu", url: "https://cafuacu.com.br" },
+  mainEntityOfPage: "https://cafuacu.com.br/guias/equipamento",
+};
+
 ---
 <Pagina
   titulo="Guia de equipamento · Cafuaçu"
@@ -229,11 +246,15 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
   largo
   compacto
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(dadosDoGuia)} />
+  </Fragment>
+
   <Fragment slot="hero">
     <div class="eyebrow">guia</div>
     <h1>Guia de equipamento</h1>
     <p>Quer comprar um moedor e não sabe qual? Aqui tem opção pra cada orçamento.</p>
-    <div class="hero-stats"><span>{categorias.length} categorias</span><span>{nOpcoes} opções</span></div>
+    <div class="hero-stats"><span>{categorias.length} categorias</span><span>{nOpcoes} opções</span><time datetime={ATUALIZADO}>atualizado em {ATUALIZADO_BR}</time></div>
   </Fragment>
 
 
@@ -424,7 +445,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
         </a>
       </div>
 
-      <p class="transp"><strong>Transparência.</strong> Alguns links aqui podem ser de afiliado: se você comprar por eles, a Cafuaçu pode receber uma comissão, sem custo extra pra você. Isso não muda a recomendação, e o que a gente não usaria ou não indicaria não entra.</p>
+      <p class="transp"><strong>Transparência.</strong> Alguns links aqui podem ser de afiliado: se você comprar por eles, a Cafuaçu pode receber uma comissão, sem custo extra pra você. Isso não muda a recomendação, e o que a gente não usaria ou não indicaria não entra. <strong>Última revisão de conteúdo: {ATUALIZADO_BR}.</strong></p>
     </div>
   </div>
 

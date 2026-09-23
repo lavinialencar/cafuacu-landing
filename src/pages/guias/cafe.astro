@@ -259,6 +259,23 @@ const glossario = [
   ["Micro-lote", "Um lote pequeno separado do resto da fazenda, de um talhão, um dia de colheita ou um processo só. É onde costuma estar o café mais caro e mais interessante."],
   ["Peneira", "O tamanho do grão, medido em furos de peneira. 'Peneira 17/18' quer dizer grão graúdo e uniforme, o que ajuda a torra a sair pareja."],
 ];
+// Data da última revisão de CONTEÚDO. Muda quando o texto ou o dado muda, não a cada ajuste de CSS.
+const ATUALIZADO = "2026-09-23";
+const ATUALIZADO_BR = ATUALIZADO.split("-").reverse().join("/");
+const dadosDoGuia = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Guia do café",
+  description: "Do pé de café até a sua xícara: o que é café especial, por que ele é diferente, e como achar o seu sem decorar jargão.",
+  inLanguage: "pt-BR",
+  datePublished: "2026-09-22",
+  dateModified: ATUALIZADO,
+  isAccessibleForFree: true,
+  author: { "@type": "Organization", name: "Cafuaçu", url: "https://cafuacu.com.br" },
+  publisher: { "@type": "Organization", name: "Cafuaçu", url: "https://cafuacu.com.br" },
+  mainEntityOfPage: "https://cafuacu.com.br/guias/cafe",
+};
+
 ---
 <Pagina
   titulo="Guia do café · Cafuaçu"
@@ -266,11 +283,15 @@ const glossario = [
   largo
   compacto
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(dadosDoGuia)} />
+  </Fragment>
+
   <Fragment slot="hero">
     <div class="eyebrow">guia</div>
     <h1>Guia do café</h1>
     <p>Do pé de café até a sua xícara. O que é café especial, por que ele é diferente, e como achar o seu sem decorar jargão.</p>
-    <div class="hero-stats"><span>3 atos</span><span>{secoes.length} seções</span><span>ilustrado</span></div>
+    <div class="hero-stats"><span>3 atos</span><span>{secoes.length} seções</span><span>ilustrado</span><time datetime={ATUALIZADO}>atualizado em {ATUALIZADO_BR}</time></div>
   </Fragment>
 
   <nav class="topo-sum" id="topo-sum" aria-label="Neste guia">
@@ -1307,7 +1328,7 @@ const glossario = [
         </a>
       </div>
 
-      <p class="transp"><strong>Transparência.</strong> Alguns links aqui podem ser de afiliado: se você comprar por eles, a Cafuaçu pode receber uma comissão, sem custo extra pra você. Isso não muda a recomendação, e o que a gente não usaria ou não indicaria não entra. Preço, pontuação e safra mudam o tempo todo: confira na hora da compra.</p>
+      <p class="transp"><strong>Transparência.</strong> Alguns links aqui podem ser de afiliado: se você comprar por eles, a Cafuaçu pode receber uma comissão, sem custo extra pra você. Isso não muda a recomendação, e o que a gente não usaria ou não indicaria não entra. <strong>Última revisão de conteúdo: {ATUALIZADO_BR}.</strong> Preço, pontuação e safra mudam o tempo todo: confira na hora da compra.</p>
 
     </div>
   </div>
