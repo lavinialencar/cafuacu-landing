@@ -166,13 +166,13 @@ const familias = [
   ["Torrado", "#2E1E17", "cacau amargo, pão torrado, fumaça", "vem da torra escura, e passa por cima de tudo que veio antes"],
 ];
 
-const moagens: [string, number, string[]][] = [
-  ["Bem fina", 3, ["Espresso"]],
-  ["Fina", 5, ["Moka,", "AeroPress"]],
-  ["Média fina", 7, ["V60, Origami,", "Kalita"]],
-  ["Média", 9, ["Melitta, Clever,", "Chemex"]],
-  ["Grossa", 13, ["Prensa", "francesa"]],
-  ["Bem grossa", 17, ["Cold brew"]],
+const moagens: [string, number, string[], string][] = [
+  ["Bem fina", 3, ["Espresso"], "açúcar refinado"],
+  ["Fina", 5, ["Moka,", "AeroPress"], "sal fino"],
+  ["Média fina", 7, ["V60, Origami,", "Kalita"], "areia de praia"],
+  ["Média", 9, ["Melitta, Clever,", "Chemex"], "açúcar cristal"],
+  ["Grossa", 13, ["Prensa", "francesa"], "sal grosso"],
+  ["Bem grossa", 17, ["Cold brew"], "orégano seco"],
 ];
 
 const proporcoes = [
@@ -183,9 +183,9 @@ const proporcoes = [
 ];
 
 const temperaturas = [
-  ["Torra clara", "94 a 96 ºC", "quente", "O grão é mais duro e mais fechado. Precisa de mais energia pra entregar o que tem, senão fica azedo."],
-  ["Torra média", "92 a 94 ºC", "o padrão", "O meio do caminho. Se você só for decorar um número, decore 93."],
   ["Torra escura", "88 a 91 ºC", "mais fria", "O grão já está poroso e frágil. Água muito quente puxa o amargor na hora."],
+  ["Torra média", "92 a 94 ºC", "o padrão", "O meio do caminho. Se você só for decorar um número, decore 93."],
+  ["Torra clara", "94 a 96 ºC", "a mais quente", "O grão é mais duro e mais fechado. Precisa de mais energia pra entregar o que tem, senão fica azedo."],
 ];
 
 const sintomas = [
@@ -968,27 +968,28 @@ const glossario = [
           </div>
         </div>
 
-        <p class="sub sub2">E cada método pede um tamanho:</p>
+        <p class="sub sub2">E cada método pede um tamanho. A comparação com o que você já tem na cozinha ensina mais rápido que qualquer número em milímetro:</p>
         <div class="desenho medio">
-          <svg viewBox="0 0 720 228" role="img" aria-label="Régua de moagem, do mais fino ao mais grosso, com os métodos de cada faixa">
-            <rect x="20" y="34" width="680" height="92" rx="12" fill="var(--crema-200)"/>
-            {moagens.map(([nome, tam, met], i) => {
+          <svg viewBox="0 0 720 228" role="img" aria-label="Régua de moagem, do mais fino ao mais grosso, com o método de cada faixa e uma comparação de cozinha">
+            <rect x="20" y="36" width="680" height="98" rx="12" fill="var(--crema-200)"/>
+            {moagens.map(([nome, tam, met, ref], i) => {
               const cx = 76 + i * 112;
               return (
                 <g>
                   <text class="mg-n" x={cx} y="26" text-anchor="middle">{nome}</text>
                   {Array.from({ length: 9 }).map((_, k) => {
                     const a = (k * 137.5 * Math.PI) / 180;
-                    const rr = 4 + Math.sqrt(k) * 9;
-                    return (<circle cx={(cx + rr * Math.cos(a)).toFixed(1)} cy={(80 + rr * Math.sin(a)).toFixed(1)} r={tam / 2.4} fill="var(--cafe-500)"/>);
+                    const rr = 4 + Math.sqrt(k) * 8.4;
+                    return (<circle cx={(cx + rr * Math.cos(a)).toFixed(1)} cy={(76 + rr * Math.sin(a)).toFixed(1)} r={tam / 2.4} fill="var(--cafe-500)"/>);
                   })}
-                  {met.map((linha, j) => (<text class="mg-m" x={cx} y={152 + j * 17} text-anchor="middle">{linha}</text>))}
+                  <text class="mg-r" x={cx} y="124" text-anchor="middle">{ref}</text>
+                  {met.map((linha, j) => (<text class="mg-m" x={cx} y={158 + j * 17} text-anchor="middle">{linha}</text>))}
                 </g>
               );
             })}
-            <path d="M20 186 L700 186" stroke="var(--crema-300)" stroke-width="2"/>
-            <text class="mg-e" x="20" y="204">mais fino, extrai mais rápido</text>
-            <text class="mg-e" x="700" y="204" text-anchor="end">mais grosso, extrai mais devagar</text>
+            <path d="M20 198 L700 198" stroke="var(--crema-300)" stroke-width="2"/>
+            <text class="mg-e" x="20" y="216">mais fino, extrai mais rápido</text>
+            <text class="mg-e" x="700" y="216" text-anchor="end">mais grosso, extrai mais devagar</text>
           </svg>
         </div>
       </section>
@@ -1013,9 +1014,9 @@ const glossario = [
               <text x="488" y="100" text-anchor="middle">96</text>
               <text x="600" y="100" text-anchor="end">100 ºC</text>
             </g>
-            <text class="tl-d" x="40" y="124">sem termômetro: ferva, desligue e espere de um a dois minutos</text>
           </svg>
         </div>
+        <p class="nota-fig">Sem termômetro: ferva, desligue e espere de um a dois minutos.</p>
 
         <ul class="pula">
           <li><span class="ico" set:html={ic.gota} /><div><strong>Água filtrada ou mineral</strong><p>Cloro na água é o assassino silencioso do aroma. Filtro de barro, de torneira ou galão, qualquer um resolve.</p></div></li>
@@ -1057,7 +1058,7 @@ const glossario = [
         </div>
 
         <p class="sub sub2">Quanto de café pra quanta água</p>
-        <div class="tabela">
+        <div class="tabela estreita">
           <div class="th"><span>Água</span><span>Café, na proporção 1:15</span><span>Dá quanto</span></div>
           {proporcoes.map(([a, c, d]) => (<div class="tr"><span><strong>{a}</strong></span><span>{c}</span><span>{d}</span></div>))}
         </div>
@@ -1082,9 +1083,9 @@ const glossario = [
               <text x="829" y="86" text-anchor="middle">2:30</text>
               <text x="1160" y="86" text-anchor="end">3:30</text>
             </g>
-            <text class="tl-d" x="0" y="116">passou muito de 3:30, a moagem está fina demais; acabou antes de 2:00, está grossa demais</text>
           </svg>
         </div>
+        <p class="nota-fig">Passou muito de 3:30, a moagem está fina demais. Acabou antes de 2:00, está grossa demais.</p>
 
         <ol class="passos quatro">
           <li><span class="ico" set:html={ic.gota} /><span class="n">1</span><h3>Molha e espera</h3><p>Despeje o <strong>dobro do peso do café</strong> em água (40 g pra 20 g de pó), só pra molhar tudo. O pó incha e solta bolha: é o CO2 saindo. Espere 30 a 45 segundos.</p></li>
@@ -1390,6 +1391,9 @@ const glossario = [
   .grao-c span{display:block;font-size:14.5px;color:var(--cafe-500);margin-top:4px}
   .mg-n{font-size:12.5px;font-weight:700;fill:var(--cafe-900)}
   .mg-m{font-size:12px;fill:var(--cafe-500)}
+  .mg-r{font-size:10.5px;font-style:italic;fill:var(--torra-700)}
+  .nota-fig{margin:-14px 0 30px;padding-left:14px;border-left:3px solid var(--torra-500);font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
+  .tabela.estreita{max-width:780px}
   .mg-e{font-size:12px;font-weight:600;fill:var(--cafe-500)}
   .rot-txt text{font-size:12.5px;fill:var(--cafe-700)}
   .rot-txt .g{font-size:17px;font-weight:700;fill:var(--cafe-900)}
@@ -1413,6 +1417,7 @@ const glossario = [
   .desenho.medio .mg-n{font-size:11px}
   .desenho.medio .mg-m{font-size:10.5px}
   .desenho.medio .mg-e{font-size:10.5px}
+  .desenho.medio .mg-r{font-size:9.5px}
 
   /* espécies */
   .esp{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;margin-top:8px}
