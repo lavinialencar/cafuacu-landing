@@ -51,6 +51,7 @@ const secoes = [
   { id: "colheita", curto: "Colheita" },
   { id: "processo", curto: "Processo" },
   { id: "especial", curto: "Por que especial" },
+  { id: "cadeia", curto: "A cadeia" },
   { id: "torra", curto: "Torra" },
   { id: "rotulo", curto: "O rótulo" },
   { id: "sabor", curto: "Sabor" },
@@ -261,7 +262,7 @@ const glossario = [
     <div class="eyebrow">guia</div>
     <h1>Guia do café</h1>
     <p>Do pé de café até a sua xícara. O que é café especial, por que ele é diferente, e como achar o seu sem decorar jargão.</p>
-    <div class="hero-stats"><span>3 atos</span><span>{secoes.length} paradas</span><span>ilustrado</span></div>
+    <div class="hero-stats"><span>3 atos</span><span>{secoes.length} seções</span><span>ilustrado</span></div>
   </Fragment>
 
   <nav class="topo-sum" id="topo-sum" aria-label="Neste guia">
@@ -626,6 +627,44 @@ const glossario = [
             <p>E tem o outro lado: o Brasil é o maior produtor do mundo, mas historicamente <strong>exportou o que tinha de melhor</strong> e bebeu o resto, bem torrado e bem adoçado. Não é o seu paladar que é ruim: é o café que você conheceu.</p>
           </div>
         </div>
+      </section>
+
+      <section id="cadeia">
+        <header class="cab-sec"><h2>Quem ganha quando você paga mais</h2></header>
+        <p class="sub">Tem um lado do café especial que não aparece na xícara e que, pra muita gente, acaba sendo o motivo de ficar: <strong>ele muda o que acontece na lavoura</strong>. Não por bondade, por conta mesmo.</p>
+
+        <div class="prods tres">
+          <article class="prod semcompra">
+            <span class="tg tg-bom">o produtor</span>
+            <div class="prod-head"><span class="ico prodico" set:html={ic.mao} /><h4>O preço é por qualidade, não por peso</h4></div>
+            <p>Commodity paga por saca, e quem vende por saca precisa de volume e de colheita rápida. O especial paga por <strong>nota</strong>, e nota exige colher só a cereja madura, passar várias vezes na mesma planta e ter gente treinada que volte no ano seguinte.</p>
+            <p class="contra">O incentivo vira qualidade em vez de pressa. Isso sustenta mão de obra melhor paga e, muitas vezes, o próprio sítio da família.</p>
+          </article>
+          <article class="prod semcompra">
+            <span class="tg">o ambiente</span>
+            <div class="prod-head"><span class="ico prodico" set:html={ic.pe} /><h4>Qualidade combina com sombra e com menos veneno</h4></div>
+            <p>Quem mira pontuação costuma ir pro caminho contrário do volume: <strong>altitude, sombreamento, agrofloresta</strong>, manejo de água na secagem e menos insumo, porque grão forçado não pontua.</p>
+            <p class="contra">Não é automático, e nem todo especial é sustentável. Mas é o único pedaço do mercado onde o incentivo econômico anda junto com o cuidado.</p>
+          </article>
+          <article class="prod semcompra">
+            <span class="tg">você</span>
+            <div class="prod-head"><span class="ico prodico" set:html={ic.pacote} /><h4>O café tem nome, e nome dá pra cobrar</h4></div>
+            <p>Café de supermercado é anônimo por construção: vem misturado de dezenas de origens e ninguém, nem quem torra, sabe dizer de que talhão saiu. O especial escreve <strong>fazenda, região, altitude e variedade</strong> no pacote.</p>
+            <p class="contra">Rastreabilidade não conserta nada sozinha. Ela só faz uma coisa, e é a coisa que faltava: dá endereço pra cobrança.</p>
+          </article>
+        </div>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.x} />
+          <div>
+            <span class="sel">sem romantizar</span>
+            <h3>Especial não é selo de pureza</h3>
+            <p>A cafeicultura é uma das atividades que mais resgata trabalhador em condição análoga à escravidão no Brasil: foram <strong>mais de 3.700 resgatados entre 1996 e 2023</strong>, e em 2023 o café liderou a lista, com 316 pessoas. Já houve fazenda <strong>certificada</strong> flagrada. Comprar especial <strong>não</strong> é garantia de nada disso, e quem disser que é está vendendo.</p>
+            <p>O que dá pra fazer é concreto: preferir quem mostra a cadeia com nome, perguntar na torrefação de quem é o café, e dar preferência a selo que audita (Fairtrade, Rainforest Alliance, orgânico) e a compra direta de produtor. Reportagem e dado em <a href="https://reporterbrasil.org.br/2024/07/cooxupe-trabalho-escravo-cafe/" rel="noopener">Repórter Brasil</a> e no <a href="https://www.gov.br/trabalho-e-emprego/pt-br/noticias-e-conteudo/2024/Julho/mte-resgata-11-trabalhadores-de-condicoes-analogas-a-escravidao-na-colheita-de-cafe-no-sudoeste-da-bahia-1" rel="noopener">Ministério do Trabalho</a>.</p>
+          </div>
+        </div>
+
+        <p class="nota">É por isso que a cafetinha insiste em torrefação pequena e em produtor com nome: não é preciosismo de sabor, é a parte do mercado onde dá pra saber de quem você está comprando.</p>
       </section>
 
       <section id="torra">
