@@ -256,6 +256,8 @@ const glossario = [
   ["Blend", "Mistura de cafés. Nem sempre é ruim: blend bom é receita, blend ruim é disfarce."],
   ["Single origin", "Café de uma origem só, às vezes de um talhão só. É onde o terroir aparece inteiro."],
   ["Extração", "Quanto do café saiu do pó e foi pra água. Pouca dá azedo, muita dá amargo."],
+  ["Micro-lote", "Um lote pequeno separado do resto da fazenda, de um talhão, um dia de colheita ou um processo só. É onde costuma estar o café mais caro e mais interessante."],
+  ["Peneira", "O tamanho do grão, medido em furos de peneira. 'Peneira 17/18' quer dizer grão graúdo e uniforme, o que ajuda a torra a sair pareja."],
 ];
 ---
 <Pagina
@@ -1519,13 +1521,13 @@ const glossario = [
   .tabela .tr strong{color:var(--cafe-900)}
 
   /* glossário */
-  .glos{margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .glos{margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .glos > div{background:var(--crema-200);border-radius:12px;padding:16px 18px}
   .glos dt{font-size:16px;font-weight:700;color:var(--cafe-900);margin-bottom:3px}
   .glos dd{margin:0;font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
 
   @media (max-width:1020px){
-    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.apps,.medidas{grid-template-columns:repeat(2,1fr)}
+    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.apps,.medidas,.glos{grid-template-columns:repeat(2,1fr)}
     .desenho.rot,.desenho:has(.legenda),.roda{grid-template-columns:1fr;gap:26px}
     .desenho.rot svg,.desenho:has(.legenda) svg{max-width:420px;margin:0 auto}
     .duo{grid-template-columns:1fr;gap:24px}
