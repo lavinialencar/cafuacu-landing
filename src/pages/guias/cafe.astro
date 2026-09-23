@@ -751,7 +751,7 @@ const glossario = [
         <p class="sub sub-t">E o ponto onde ele parou</p>
 
         <div class="desenho rola">
-          <svg viewBox="0 0 640 120" role="img" aria-label="Faixa de torra, da clara à escura, com o que acontece em cada ponto">
+          <svg viewBox="0 0 640 134" role="img" aria-label="Faixa de torra, da clara à escura, com o que acontece em cada ponto">
             {[0, 1, 2, 3].map((i) => (
               <g>
                 <rect x={40 + i * 145} y="16" width="140" height="56" fill={["#A9754B", "#7A4A2B", "#4E2C18", "#241209"][i]} rx="8"/>
@@ -1337,7 +1337,7 @@ const glossario = [
   .ato-d{font-size:17px;line-height:1.55;color:var(--cafe-500)}
 
   /* moldura padrão dos desenhos */
-  .desenho{margin:26px 0 8px}
+  .desenho{margin:26px 0 30px}
   .desenho svg{display:block;width:100%;height:auto}
   .desenho.rot,.desenho:has(.legenda){display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:40px;align-items:center}
   .desenho.alt{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:36px;align-items:center}
