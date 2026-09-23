@@ -210,6 +210,7 @@ const orcamentos = [
 const espresso: Item[] = [
   { nome: "Philco 15 bar", tag: "porta de entrada", porque: "A mais citada como máquina de espresso de entrada.", busca: "cafeteira espresso philco 15 bar", so: ["amz", "ml"], links: [ { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/dp/B076HSPQFD?tag=cafuacu-20" }, { id: "ml", nome: "Mercado Livre", href: "https://meli.la/1kMe2Rs" } ] },
   { nome: "Oster Nova PrimaLatte", tag: "com cappuccino", porque: "Um degrau acima da Philco pra quem quer bebida com leite sem esforço: o reservatório vaporiza e faz o cappuccino sozinho. Vendida no Brasil, em 127 V e 220 V.", busca: "cafeteira espresso oster nova primalatte", links: [ { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/dp/B09GG8P1VZ?tag=cafuacu-20" } ] },
+  { nome: "Tramontina Express", tag: "pra quem quer investir", porque: "A Breville vendida no Brasil pela Tramontina, com moedor embutido: resolve máquina e moagem de uma vez. Pra quem já tem uns R$ 4 a 5 mil pra investir. Tem em 127 V e 220 V.", busca: "cafeteira express tramontina", links: [ { id: "amz", nome: "Amazon", href: "https://www.amazon.com.br/dp/B076JLKRMV?tag=cafuacu-20" } ] },
 ];
 
 const pular = [
@@ -387,7 +388,7 @@ const dadosDoGuia = {
       <section id="espresso">
         <header class="cab-sec"><h2>E se eu quiser espresso?</h2></header>
         <p class="sub">Deixe pra depois. Espresso pede mais técnica, e quem começa por ele costuma desistir. Quando chegar a hora:</p>
-        <div class="prods duas">
+        <div class="prods tres">
           {espresso.map((it) => (
             <article class="prod">
               <span class={it.tag.startsWith("custo") ? "tg tg-bom" : "tg"}>{it.tag}</span>
