@@ -247,6 +247,12 @@ const glossario = [
   ["Cupping", "A prova padronizada, com pó, água quente e colher. É como a nota é dada."],
   ["Defeito", "Grão preto, verde, quebrado, brocado ou fermentado. Café especial praticamente não tem."],
   ["Desgaseificação", "O CO2 saindo do grão depois da torra. É por isso que o café novo 'floresce' na água."],
+  ["Primeiro estalo (ponto de estouro)", "O momento em que o grão estala e vira café bebível, perto dos 200 ºC. Toda torra de café especial é decidida a partir daqui."],
+  ["Segundo estalo", "Uns 25 graus depois, o grão estala de novo e o óleo vem pra superfície. É a fronteira da torra escura."],
+  ["Maillard", "A reação entre açúcar e aminoácido que escurece o grão e cria centenas de aromas. É a mesma coisa que doura o pão e a carne na frigideira."],
+  ["Desenvolvimento", "O tempo entre o primeiro estalo e a hora de tirar o grão do fogo. Pouco, o café fica azedo e com gosto de cereal; muito, vira torra."],
+  ["Quebra", "Quanto o lote perdeu de peso na torra, de 12 a 20%. Quase tudo é água indo embora."],
+  ["Perfil de torra", "A curva de tempo e temperatura que o torrador seguiu. É a receita dele, e é por isso que o mesmo grão muda de casa pra casa."],
   ["Blend", "Mistura de cafés. Nem sempre é ruim: blend bom é receita, blend ruim é disfarce."],
   ["Single origin", "Café de uma origem só, às vezes de um talhão só. É onde o terroir aparece inteiro."],
   ["Extração", "Quanto do café saiu do pó e foi pra água. Pouca dá azedo, muita dá amargo."],
@@ -671,6 +677,57 @@ const glossario = [
         <header class="cab-sec"><h2>Torra: quanto mais escura, menos café</h2></header>
         <p class="sub">A torra não coloca sabor no grão. Ela <strong>transforma</strong> o açúcar e o ácido que já estavam lá, e depois começa a queimar. Passou do ponto, o que você sente é a torra, não o café.</p>
 
+        <p class="sub sub-t">O grão cru não tem cheiro de café</p>
+        <p class="sub">Grão verde cheira a capim e feijão cru, e tem de 10 a 12% de água dentro. Tudo que você reconhece como café nasce em <strong>uns doze minutos</strong> de fogo, e nessa ordem:</p>
+
+        <div class="desenho">
+          <svg viewBox="0 0 1160 190" role="img" aria-label="As quatro fases da torra do café, da secagem ao segundo estalo">
+            <rect x="0" y="16" width="298" height="44" rx="8" fill="var(--crema-300)"/>
+            <rect x="301" y="16" width="337" height="44" rx="8" fill="#A9754B"/>
+            <rect x="641" y="16" width="298" height="44" rx="8" fill="#7A4A2B"/>
+            <rect x="942" y="16" width="218" height="44" rx="8" fill="#241209"/>
+            <g class="tl-l">
+              <text x="149" y="44" text-anchor="middle" fill="var(--cafe-700)">secagem</text>
+              <text x="469" y="44" text-anchor="middle" fill="var(--cafe-900)">Maillard</text>
+              <text x="790" y="44" text-anchor="middle" fill="var(--crema-100)">desenvolvimento</text>
+              <text x="1051" y="44" text-anchor="middle" fill="var(--crema-100)">torra escura</text>
+            </g>
+            <g class="tl-n">
+              <text x="0" y="84">grão verde</text>
+              <text x="301" y="84" text-anchor="middle">uns 150 ºC</text>
+              <text x="641" y="84" text-anchor="middle">perto dos 200 ºC</text>
+              <text x="942" y="84" text-anchor="middle">uns 225 ºC</text>
+            </g>
+            <g class="fase-e">
+              <text x="641" y="108" text-anchor="middle">1º estalo</text>
+              <text x="942" y="108" text-anchor="middle">2º estalo</text>
+            </g>
+            <g class="tl-d">
+              <text x="0" y="140">verde vira amarelo palha</text>
+              <text x="301" y="140">açúcar e aminoácido reagem</text>
+              <text x="641" y="140">aqui se decide a xícara</text>
+              <text x="942" y="140">óleo na superfície</text>
+              <text x="0" y="164">cheiro de arroz e pão cru</text>
+              <text x="301" y="164">cheiro de pão tostado</text>
+              <text x="641" y="164">caramelo e chocolate</text>
+              <text x="942" y="164">fumaça</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.fogo} />
+          <div>
+            <span class="sel">é pipoca mesmo</span>
+            <h3>O ponto de estouro</h3>
+            <p>A analogia com a pipoca não é figura de linguagem, é o <strong>mesmo mecanismo</strong>. O calor transforma a água de dentro do grão em vapor, junta o gás carbônico que a torra vai criando, a pressão sobe, e a parede da célula não aguenta: o grão <strong>estala e abre</strong>, com barulho.</p>
+            <p>Esse é o <strong>primeiro estalo</strong>, perto dos 200 ºC, e é o instante em que o grão vira café bebível. Ele incha, e ao mesmo tempo <strong>perde de 12 a 20% do peso</strong>, quase tudo água. Uns 25 graus depois vem o <strong>segundo estalo</strong>: a estrutura quebra de novo e o óleo aparece na casca. Daí pra frente o que você prova é a torra, não o café.</p>
+            <p>Toda a diferença entre um café e outro cabe nos <strong>poucos minutos entre um estalo e o outro</strong>. É por isso que torrar é ofício, e por isso que o mesmo grão muda de torrefação pra torrefação.</p>
+          </div>
+        </div>
+
+        <p class="sub sub-t">E o ponto onde ele parou</p>
+
         <div class="desenho">
           <svg viewBox="0 0 640 120" role="img" aria-label="Faixa de torra, da clara à escura, com o que acontece em cada ponto">
             {[0, 1, 2, 3].map((i) => (
@@ -704,7 +761,7 @@ const glossario = [
           })}
         </div>
 
-        <p class="nota"><strong>Estalo?</strong> Durante a torra o grão estala duas vezes, como pipoca. O primeiro estalo é quando ele vira café bebível. O segundo é quando o óleo vem pra superfície e o sabor de torra domina. Café especial quase sempre para entre um e outro.</p>
+        <p class="nota">Repare: <strong>café especial quase sempre para entre um estalo e o outro</strong>. Passar do segundo é entregar o grão à torra, e é exatamente o que o café de supermercado faz de propósito, pra que o defeito não apareça.</p>
       </section>
 
       <section id="rotulo">
@@ -1351,6 +1408,7 @@ const glossario = [
   .barras i{display:block;height:7px;border-radius:999px;background:var(--crema-300);overflow:hidden}
   .barras b{display:block;height:100%;background:var(--torra-700);border-radius:999px}
   .sub-t{font-size:22px;font-weight:600;color:var(--cafe-900);letter-spacing:-.02em;margin:38px 0 8px}
+  .fase-e text{font-size:11.5px;font-weight:700;fill:var(--torra-700)}
   .app .grupo{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--folha-600);margin-bottom:5px}
   .prod .grau{font-size:26px;font-weight:600;color:var(--torra-700);letter-spacing:-.02em;margin-bottom:10px;font-variant-numeric:tabular-nums}
   .prod .quando{font-size:13.5px;font-weight:600;color:var(--cafe-900);margin-bottom:0}
