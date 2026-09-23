@@ -453,7 +453,7 @@ const nOpcoes = categorias.reduce((n, c) => n + c.itens.length, 0) + espresso.le
 
       <section id="apps">
         <header class="cab-sec"><h2>Apps pra acompanhar seu café</h2></header>
-        <p class="sub">Pra registrar preparo, guardar receita, controlar estoque de grão e anotar o que você achou.</p>
+        <p class="sub">Pra registrar preparo, guardar receita, controlar estoque de grão e anotar o que você achou. <a href="/guias/cafe#apps">No guia do café eles aparecem separados por pra que servem</a>, com mais dois: um pra treinar o paladar e um pra achar cafeteria.</p>
         <div class="apps">
           {apps.map(([nome, url, tags, desc]) => (
             <a class="app" href={url}>

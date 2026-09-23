@@ -25,6 +25,7 @@ const ic: Record<string, string> = {
   lingua: svg('<path d="M14 10h20v14a14 14 0 0 1-14 14h-.5A5.5 5.5 0 0 1 14 32.5z"/><path d="M24 10v22"/>'),
   relogio: svg('<circle cx="24" cy="26" r="15"/><path d="M24 17v9l6 4"/><path d="M18 6h12"/>'),
   moedor: svg('<rect x="17" y="19" width="14" height="21" rx="2"/><path d="M17 27h14M17 34h14"/><path d="M24 19v-9M24 10h11"/><circle cx="37" cy="10" r="2.6"/><path d="M14 40h20"/>'),
+  celular: svg('<rect x="14" y="6" width="20" height="36" rx="4"/><path d="M21 36h6"/>'),
   gota: svg('<path d="M24 7c8 10 12 15 12 22a12 12 0 0 1-24 0c0-7 4-12 12-22z"/>'),
   balanca: svg('<path d="M9 23h30l3 17H6z"/><path d="M14 23c0-6 4-9 10-9s10 3 10 9"/><path d="M24 23l3-6"/><path d="M14 32h6M28 32h6"/>'),
   pote: svg('<rect x="13" y="16" width="22" height="24" rx="3"/><path d="M11 16h26v-5H11z"/><path d="M13 27h22"/>'),
@@ -58,6 +59,7 @@ const secoes = [
   { id: "extracao", curto: "Azedo ou amargo" },
   { id: "guardar", curto: "Guardar" },
   { id: "provar", curto: "Provar" },
+  { id: "apps", curto: "Apps" },
   { id: "acucar", curto: "Açúcar" },
   { id: "comprar", curto: "Onde comprar" },
   { id: "erros", curto: "Erros" },
@@ -209,6 +211,21 @@ const ondeComprar = [
   { nome: "Loja online de café especial", tag: "mais variedade", txt: "Dá pra filtrar por região, processo e pontuação. Confira sempre a data de torra e o prazo de entrega.", dica: "Compre 250 g de dois cafés diferentes, não 1 kg de um só." },
   { nome: "Direto do produtor", tag: "história junto", txt: "Feira, site da fazenda, marketplace de produtor. Preço bom e rastreabilidade total.", dica: "Pergunte a variedade e o processo: quem produz sempre sabe." },
   { nome: "Supermercado", tag: "dá, com cuidado", txt: "Já existe café especial em gôndola. A maioria, porém, é gourmet ABIC, que é outro degrau.", dica: "Procure data de torra no pacote. Se não tiver, não é especial." },
+];
+
+const apps: [string, string, string, string[], string][] = [
+  ["pra preparar e cronometrar", "Timer.Coffee", "https://www.timer.coffee/", ["grátis", "código aberto", "web e app"],
+   "Mais de 40 receitas em 30 métodos, com timer de coado e de espresso e diário de preparo. Se você só quer alguém contando o tempo pra você, comece por ele."],
+  ["pra preparar e cronometrar", "Filtru", "https://getfiltru.com", ["grátis", "só iPhone"],
+   "Guia passo a passo na tela enquanto você prepara (V60, Chemex, AeroPress, prensa, espresso), diário de degustação, leitor de pacote e conexão com balança Bluetooth."],
+  ["pra registrar o que você tomou", "Coffee Board", "https://coffeeboard.com.br", ["grátis", "brasileiro", "no navegador"],
+   "Brasileiro e roda no navegador, então serve em qualquer celular. Histórico de preparo, receita com timer, conversor de moagem e controle de estoque de grão, fresco e congelado, com aviso de quando está acabando."],
+  ["pra registrar o que você tomou", "Beanconqueror", "https://beanconqueror.com", ["grátis", "código aberto", "iPhone e Android"],
+   "O mais completo pra quem quer levar a sério: guarda cada grão, cada torra e cada preparo, com foto, e liga em balança Bluetooth. Exporta tudo, e os seus dados continuam seus."],
+  ["pra treinar o paladar e achar café fora", "Flavor Notes", "https://apps.apple.com/br/app/flavor-notes-coffee-brewing/id6762590488", ["grátis", "só iPhone"],
+   "A roda de sabores lá de cima, interativa, com mais de 70 notas, e um modo de degustação guiada que diz o que reparar e quando. É o que mais ajuda a sair do 'não sinto nada'."],
+  ["pra treinar o paladar e achar café fora", "Kafex", "https://kafex.com.br", ["grátis", "brasileiro", "iPhone, Android e web"],
+   "Guia de cafeteria de café especial por cidade, com curadoria de quem bebe. É o jeito mais rápido de cumprir o degrau 1 lá do começo do guia."],
 ];
 
 const alem = [
@@ -995,6 +1012,25 @@ const glossario = [
         <p class="nota">Anote três palavras por café, num caderninho ou no app. Em dez cafés você já tem um padrão, e em vinte você já sabe pedir o que gosta pelo nome do processo e da região.</p>
       </section>
 
+      <section id="apps">
+        <header class="cab-sec"><h2>Apps que ajudam de verdade</h2></header>
+        <p class="sub">Nenhum deles é obrigatório, e nenhum faz café por você. Mas dois tipos ajudam muito no começo: o que <strong>conta o tempo</strong> enquanto você prepara, e o que <strong>guarda o que você achou</strong> de cada café. Sem registro, a gente repete o mesmo erro sem perceber.</p>
+        <div class="apps">
+          {apps.map(([grupo, nome, url, tags, desc]) => (
+            <a class="app" href={url} rel="noopener">
+              <span class="ico" set:html={ic.celular} />
+              <div>
+                <div class="grupo">{grupo}</div>
+                <h3>{nome}</h3>
+                <div class="tags">{tags.map((t) => (<span>{t}</span>))}</div>
+                <p>{desc}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        <p class="nota">Plataforma e preço conferidos na página oficial de cada um em 22/09/2026. Nenhum link aqui é pago nem patrocinado. No <a href="/guias/equipamento#apps">guia de equipamento</a> os quatro primeiros aparecem de novo, pelo lado do preparo, junto da balança e da chaleira.</p>
+      </section>
+
       <section id="acucar">
         <header class="cab-sec"><h2>Posso adoçar? E outras perguntas que ninguém faz alto</h2></header>
         <p class="sub">A parte mais chata do mundo do café especial é a turma que julga. Ignore essa turma. O café é seu.</p>
@@ -1143,7 +1179,7 @@ const glossario = [
   .ato{border-top:2px solid var(--cafe-900);padding:26px 0 0;margin:0 0 52px}
   .ato-n{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--cafe-900);color:var(--crema-100);padding:5px 12px;border-radius:999px}
   .ato-t{font-size:clamp(30px,4.4vw,46px)!important;margin:14px 0 10px!important;letter-spacing:-.03em}
-  .ato-d{font-size:17px;line-height:1.55;color:var(--cafe-500);max-width:68ch}
+  .ato-d{font-size:17px;line-height:1.55;color:var(--cafe-500)}
 
   /* moldura padrão dos desenhos */
   .desenho{margin:26px 0 8px}
@@ -1238,6 +1274,7 @@ const glossario = [
   .barras li{display:grid;grid-template-columns:104px 1fr;align-items:center;gap:10px;font-size:12px;color:var(--cafe-500)}
   .barras i{display:block;height:7px;border-radius:999px;background:var(--crema-300);overflow:hidden}
   .barras b{display:block;height:100%;background:var(--torra-700);border-radius:999px}
+  .app .grupo{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--folha-600);margin-bottom:5px}
   .prod .grau{font-size:26px;font-weight:600;color:var(--torra-700);letter-spacing:-.02em;margin-bottom:10px;font-variant-numeric:tabular-nums}
   .prod .quando{font-size:13.5px;font-weight:600;color:var(--cafe-900);margin-bottom:0}
   .bolinha{flex:none;width:26px;height:26px;border-radius:999px;border:2px solid var(--crema-300)}
