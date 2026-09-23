@@ -55,6 +55,7 @@ const secoes = [
   { id: "torra", curto: "Torra" },
   { id: "rotulo", curto: "O rótulo" },
   { id: "sabor", curto: "Sabor" },
+  { id: "percurso", curto: "Da fazenda à xícara" },
   { id: "frescor", curto: "Frescor" },
   { id: "moer", curto: "Moer na hora" },
   { id: "agua", curto: "Água" },
@@ -145,16 +146,17 @@ const torras = [
   { id: "escura", nome: "Escura", tag: "a do supermercado", cor: "#241209", oq: "Perto do segundo estalo, grão brilhando de óleo.", copo: "Sabor de torra por cima de tudo. Amargor e fumaça, quase nada da origem.", quando: "É a torra que serve pra esconder defeito do grão." },
 ];
 
+// na ordem em que vale ler, do que mais pesa pro que menos pesa
 const rotulo = [
-  ["Espécie e variedade", "Arábica ou canéfora, e a casta: Bourbon, Catuaí, Arara. É o DNA do grão."],
-  ["Região, fazenda e produtor", "Quanto mais específico, mais rastreável. Fazenda com nome é um bom sinal."],
-  ["Altitude", "Acima de uns 1.000 m o grão amadurece devagar e fica mais doce e mais ácido."],
+  ["Data de torra", "A primeira coisa a procurar, e a mais importante do pacote inteiro. Se só tem validade, desconfie."],
+  ["Peso e moagem", "Prefira em grão. 250 g dura de duas a quatro semanas em casa, que é a janela boa do café."],
+  ["Torra", "Clara, média ou escura. Café especial quase sempre é média ou média clara. Escura demais esconde o grão."],
   ["Processo", "Natural, cereja descascado, lavado, fermentado. É o que mais muda o gosto."],
-  ["Torra", "Clara, média ou escura. Café especial quase sempre é média ou média clara."],
-  ["Pontuação", "80 ou mais na escala da SCA já é especial. 85 é excelente, 90 é excepcional."],
-  ["Data de torra", "A informação mais importante do pacote inteiro. Se só tem validade, desconfie."],
-  ["Notas sensoriais", "O que o provador sentiu. Não é ingrediente, é lembrança de sabor."],
-  ["Peso e moagem", "250 g dura de duas a quatro semanas em casa. Prefira em grão."],
+  ["Espécie e variedade", "Arábica ou canéfora, e a casta: Bourbon, Catuaí, Arara. É o DNA do grão."],
+  ["Notas sensoriais", "O que o provador sentiu. Não é ingrediente, é lembrança de sabor, e ajuda a escolher o estilo."],
+  ["Região, fazenda e produtor", "Quanto mais específico, mais rastreável. Fazenda com nome é um bom sinal."],
+  ["Pontuação", "80 ou mais na escala da SCA já é especial. 85 é excelente, 90 é excepcional. Nem todo pacote traz."],
+  ["Altitude", "Acima de uns 1.000 m o grão amadurece devagar e fica mais doce e mais ácido."],
 ];
 
 const familias = [
@@ -239,25 +241,42 @@ const alem = [
   ["James Hoffmann", "https://www.youtube.com/@jameshoffmann", ["canal", "em inglês"], "O canal que ensinou preparo pra metade do planeta, e autor do atlas de café mais conhecido que existe. Tem legenda automática em português."],
 ];
 
+// os três grandes eventos de café do Brasil, cada um com uma pegada diferente
+const eventos = [
+  { mes: "junho", nome: "São Paulo Coffee Festival", url: "https://www.saopaulocoffeefestival.com.br/", onde: "São Paulo, Bienal do Ibirapuera", pegada: "comunidade", d: "O festival do público. Estande de torrefação e de marca, lançamento de equipamento, barista famoso servindo, fila pra provar. É o lugar pra conhecer muita marca num dia só e sair com a sacola cheia." },
+  { mes: "outubro", nome: "Coffee Week Brasil", url: "https://coffeeweekbrasil.com.br/", onde: "cafeterias de São Paulo", pegada: "circuito", d: "Não tem pavilhão: são dezenas de cafeterias com combo de café e comida a preço fechado por duas semanas, perto do Dia Internacional do Café (1º de outubro). A porta de entrada mais fácil pra quem está começando." },
+  { mes: "novembro", nome: "SIC, Semana Internacional do Café", url: "https://semanainternacionaldocafe.com.br/", onde: "Belo Horizonte, Expominas", pegada: "técnica", d: "O encontro do setor. Produtor, torrador, comprador e pesquisador, com simpósio, cupping, concurso de melhor café do ano e campeonato de barista. Mais negócio e conhecimento do que festa." },
+];
+
+// cada variável é um botão: as duas pontas estragam, o ponto doce fica no meio
+const variaveis = [
+  { ico: "relogio", nome: "Frescor", d: "Quantos dias desde a torra.", esq: "3 dias", esqS: "desigual", dir: "2 meses", dirS: "sem graça", doce: "de 4 a 30 dias", alvo: "frescor", rotulo: "a idade do café" },
+  { ico: "balanca", nome: "Dose", d: "Quantos gramas de café vão no coador.", esq: "pouca", esqS: "ralo", dir: "muita", dirS: "pesado", doce: "20 g", alvo: "receita", rotulo: "por que pesar" },
+  { ico: "moedor", nome: "Moagem", d: "O tamanho do pó. É a variável que mais pesa.", esq: "grossa", esqS: "azedo", dir: "fina", dirS: "amargo", doce: "areia grossa", alvo: "moer", rotulo: "moer na hora" },
+  { ico: "gota", nome: "A água em si", d: "O que tem dentro dela, antes de virar café.", esq: "destilada", esqS: "sem corpo", dir: "da torneira", dirS: "cloro", doce: "filtrada ou mineral", alvo: "agua", rotulo: "qual água usar" },
+  { ico: "xicara", nome: "Quantidade de água", d: "A proporção entre água e café.", esq: "1:12", esqS: "forte", dir: "1:18", dirS: "ralo", doce: "1:15", alvo: "receita", rotulo: "a proporção" },
+  { ico: "fogo", nome: "Temperatura", d: "O quão quente a água chega no café.", esq: "80 ºC", esqS: "azedo", dir: "100 ºC", dirS: "amargo", doce: "92 a 96 ºC", alvo: "receita", rotulo: "a temperatura certa" },
+  { ico: "chaleira", nome: "Despejo", d: "Os ataques de água: quantos, e em que ritmo.", esq: "tudo de uma vez", esqS: "desigual", dir: "gota a gota", dirS: "arrastado", doce: "3 ou 4 ataques", alvo: "receita", rotulo: "o passo a passo" },
+  { ico: "relogio", nome: "Tempo", d: "Quanto a água fica em contato com o café.", esq: "2:00", esqS: "azedo", dir: "4:30", dirS: "amargo", doce: "3:00 a 3:30", alvo: "extracao", rotulo: "azedo ou amargo" },
+  { ico: "coador", nome: "Método", d: "Cada um tira coisas diferentes do mesmo grão.", esq: "coador", esqS: "leve e limpo", dir: "espresso", dirS: "intenso", doce: "o que você gosta", alvo: "receita", rotulo: "a receita" },
+];
+
 const glossario = [
   ["Cereja", "O fruto maduro do cafeeiro. Dentro dele estão os dois grãos."],
-  ["Pergaminho", "A casquinha dura que envolve o grão. Sai antes da torra, no beneficiamento."],
   ["Terroir", "A soma de solo, altitude, clima e mão de obra de um lugar. É o que faz o café de uma região ter cara própria."],
   ["Q-Grader", "Provador com certificação internacional. É quem dá a nota de 0 a 100."],
   ["Cupping", "A prova padronizada, com pó, água quente e colher. É como a nota é dada."],
-  ["Defeito", "Grão preto, verde, quebrado, brocado ou fermentado. Café especial praticamente não tem."],
   ["Desgaseificação", "O CO2 saindo do grão depois da torra. É por isso que o café novo 'floresce' na água."],
-  ["Primeiro estalo (ponto de estouro)", "O momento em que o grão estala e vira café bebível, perto dos 200 ºC. Toda torra de café especial é decidida a partir daqui."],
-  ["Segundo estalo", "Uns 25 graus depois, o grão estala de novo e o óleo vem pra superfície. É a fronteira da torra escura."],
+  ["Ataque", "Cada despejo de água no coado. O primeiro só molha o café e faz o bloom; os seguintes completam a água em etapas. A maioria das receitas usa de três a cinco."],
+  ["Bloom (florada)", "Quando o café infla e solta bolha logo depois do primeiro ataque de água. É o CO2 saindo do pó. Quanto mais fresco o café, mais ele floresce; se não inflar nada, o café já está velho."],
+  ["Crack", "O nome técnico do estalo que o grão dá na torra. O primeiro crack, perto dos 200 ºC, é quando ele vira café bebível; o segundo, uns 25 graus depois, traz o óleo pra superfície e marca a fronteira da torra escura. Café especial quase sempre para entre os dois."],
   ["Maillard", "A reação entre açúcar e aminoácido que escurece o grão e cria centenas de aromas. É a mesma coisa que doura o pão e a carne na frigideira."],
-  ["Desenvolvimento", "O tempo entre o primeiro estalo e a hora de tirar o grão do fogo. Pouco, o café fica azedo e com gosto de cereal; muito, vira torra."],
   ["Bypass", "Passar menos água pelo pó e completar a xícara com água quente depois. Serve pra corrigir um café que saiu forte demais sem ter que refazer tudo."],
+  ["Regulagem", "O ajuste que o barista faz todo dia, antes de abrir, na máquina de espresso: mexe na moagem, na dose e no tempo até a xícara sair no ponto. É diário porque o grão envelhece e o clima e a umidade mudam. Em inglês, dial-in."],
   ["Perfil de torra", "A curva de tempo e temperatura que o torrador seguiu. É a receita dele, e é por isso que o mesmo grão muda de casa pra casa."],
   ["Blend", "Mistura de cafés. Nem sempre é ruim: blend bom é receita, blend ruim é disfarce."],
   ["Single origin", "Café de uma origem só, às vezes de um talhão só. É onde o terroir aparece inteiro."],
-  ["Extração", "Quanto do café saiu do pó e foi pra água. Pouca dá azedo, muita dá amargo."],
   ["Micro-lote", "Um lote pequeno separado do resto da fazenda, de um talhão, um dia de colheita ou um processo só. É onde costuma estar o café mais caro e mais interessante."],
-  ["Peneira", "O tamanho do grão, medido em furos de peneira. 'Peneira 17/18' quer dizer grão graúdo e uniforme, o que ajuda a torra a sair pareja."],
 ];
 // Data da última revisão de CONTEÚDO. Muda quando o texto ou o dado muda, não a cada ajuste de CSS.
 const ATUALIZADO = "2026-09-23";
@@ -306,6 +325,15 @@ const dadosDoGuia = {
   <Filtros />
 
   <div class="guia">
+    <!-- textura de giz de cera, usada pelas setinhas desenhadas à mão -->
+    <svg class="so-defs" width="0" height="0" aria-hidden="true" focusable="false">
+      <filter id="giz" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" result="d"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2" result="m"/>
+        <feComposite in="d" in2="m" operator="in"/>
+      </filter>
+    </svg>
     <div class="conteudo">
 
       <div class="inicio">
@@ -731,7 +759,7 @@ const dadosDoGuia = {
         </div>
 
         <div class="master">
-          <span class="ico grande" set:html={ic.mao} />
+          <span class="ico grande" set:html={ic.x} />
           <div>
             <span class="sel">o que muda de verdade</span>
             <h3>O modelo barato é que fabrica o trabalho escravo</h3>
@@ -835,30 +863,48 @@ const dadosDoGuia = {
 
       <section id="rotulo">
         <header class="cab-sec"><h2>Como ler o pacote em dez segundos</h2></header>
-        <p class="sub">Esta é a parte mais prática do guia inteiro. Um pacote de café especial sempre conta a mesma história, na mesma ordem. Depois que você vê uma vez, vê sempre.</p>
+        <p class="sub">Esta é a parte mais prática do guia inteiro. Um pacote de café especial traz quase sempre os mesmos campos. Os números mostram <strong>a ordem em que vale ler</strong>, do que mais pesa pro que menos pesa. Depois que você vê uma vez, vê sempre.</p>
 
         <div class="desenho rot">
-          <svg viewBox="0 0 320 430" role="img" aria-label="Pacote de café com os nove campos que aparecem no rótulo">
-            <path d="M46 44 h228 a6 6 0 0 1 6 6 v346 a6 6 0 0 1 -6 6 h-228 a6 6 0 0 1 -6 -6 v-346 a6 6 0 0 1 6 -6 z" fill="var(--crema-200)" stroke="var(--cafe-900)" stroke-width="3"/>
-            <path d="M40 44 h240 v-16 h-240 z" fill="var(--cafe-700)"/>
-            <circle cx="252" cy="78" r="13" fill="none" stroke="var(--cafe-500)" stroke-width="2.5"/>
-            <circle cx="252" cy="78" r="4" fill="var(--cafe-500)"/>
-            <text class="rot-min" x="62" y="82">válvula, deixa o CO2 sair</text>
+          <svg viewBox="0 0 340 480" role="img" aria-label="Pacote de café com os nove campos que aparecem no rótulo">
+            <!-- corpo do pacote, abrindo um pouco pra base como um pacote em pé -->
+            <path class="pc-corpo" d="M40 46 H300 L307 432 C308 452 298 462 280 463 H60 C42 462 32 452 33 432 Z"/>
+            <path class="pc-dobra" d="M44 440 C120 428 220 428 296 440"/>
+            <path class="pc-brilho" d="M290 70 L296 400"/>
+            <!-- selagem de cima, serrilhada, com o picote pra rasgar -->
+            <path class="pc-selo" d="M36 16 H304 V44 L300.1 49 L296.1 44 L292.2 49 L288.2 44 L284.3 49 L280.4 44 L276.4 49 L272.5 44 L268.5 49 L264.6 44 L260.6 49 L256.7 44 L252.8 49 L248.8 44 L244.9 49 L240.9 44 L237.0 49 L233.1 44 L229.1 49 L225.2 44 L221.2 49 L217.3 44 L213.4 49 L209.4 44 L205.5 49 L201.5 44 L197.6 49 L193.6 44 L189.7 49 L185.8 44 L181.8 49 L177.9 44 L173.9 49 L170.0 44 L166.1 49 L162.1 44 L158.2 49 L154.2 44 L150.3 49 L146.4 44 L142.4 49 L138.5 44 L134.5 49 L130.6 44 L126.6 49 L122.7 44 L118.8 49 L114.8 44 L110.9 49 L106.9 44 L103.0 49 L99.1 44 L95.1 49 L91.2 44 L87.2 49 L83.3 44 L79.4 49 L75.4 44 L71.5 49 L67.5 44 L63.6 49 L59.6 44 L55.7 49 L51.8 44 L47.8 49 L43.9 44 L39.9 49 L36.0 44 Z"/>
+            <g class="pc-frisos">{Array.from({ length: 33 }, (_, k) => <path d={`M${44 + k * 8} 21 V39`} />)}</g>
+            <path class="pc-picote" d="M33 58 l9 4 -9 4"/>
+            <path class="pc-zip" d="M46 66 H294"/>
+            <!-- válvula -->
+            <circle cx="92" cy="94" r="14" class="pc-valv"/>
+            <circle cx="92" cy="94" r="7" class="pc-valv-in"/>
+            <text class="pc-nota" x="114" y="98">válvula: deixa o CO2 sair</text>
+            <!-- etiqueta -->
+            <rect class="pc-etq" x="52" y="118" width="236" height="306" rx="10"/>
+            <text class="pc-marca" x="170" y="142" text-anchor="middle">CAFUAÇU</text>
+            <text class="pc-sub" x="170" y="155" text-anchor="middle">café especial</text>
             <g class="rot-pin">
-              {[104, 142, 186, 214, 242, 270, 304, 338, 372].map((y, i) => (<g><circle cx="62" cy={y - 5} r="11"/><text x="62" y={y - 1}>{i + 1}</text></g>))}
+              {[365, 452, 304, 278, 182, 402, 208, 330, 252].map((y, i) => (<g><circle cx="72" cy={y - 5} r="11"/><text x="72" y={y - 1}>{i + 1}</text></g>))}
             </g>
             <g class="rot-txt">
-              <text x="84" y="108">ARÁBICA · BOURBON</text>
-              <text class="g" x="84" y="147">Fazenda Santa Luzia</text>
-              <text x="84" y="166">Mantiqueira de Minas, MG · IG</text>
-              <text x="84" y="190">1.250 m de altitude</text>
-              <text x="84" y="218">Cereja descascado</text>
-              <text x="84" y="246">Torra média</text>
-              <text x="84" y="274">86 pontos SCA</text>
-              <text class="d" x="84" y="308">Torrado em 12/09/2026</text>
-              <text x="84" y="342">chocolate, caramelo, laranja</text>
-              <text x="84" y="376">250 g · em grãos</text>
+              <text x="92" y="182">ARÁBICA · BOURBON</text>
+              <text class="g" x="92" y="208">Fazenda Santa Luzia</text>
+              <text x="92" y="224">Mantiqueira de Minas, MG · IG</text>
+              <text x="92" y="252">1.250 m de altitude</text>
+              <text x="92" y="278">Cereja descascado</text>
+              <text x="92" y="304">Torra média</text>
+              <text x="92" y="330">86 pontos SCA</text>
+              <text x="92" y="402">chocolate, caramelo, laranja</text>
             </g>
+            <!-- escala de torra: clara, média, escura -->
+            <g class="pc-torra"><circle cx="176" cy="300" r="4.5"/><circle class="on" cx="189" cy="300" r="4.5"/><circle cx="202" cy="300" r="4.5"/></g>
+            <!-- data de torra carimbada à mão -->
+            <g class="pc-carimbo">
+              <rect x="88" y="346" width="176" height="28" rx="5"/>
+              <text x="176" y="365" text-anchor="middle">TORRADO 12/09/2026</text>
+            </g>
+            <text class="pc-peso" x="92" y="452">250 g · em grãos</text>
           </svg>
           <ol class="legenda">
             {rotulo.map(([t, d]) => (<li><b></b><span><strong>{t}.</strong> {d}</span></li>))}
@@ -929,8 +975,42 @@ const dadosDoGuia = {
       <div class="ato">
         <span class="ato-n">Ato 3</span>
         <h2 class="ato-t">Na sua casa</h2>
-        <p class="ato-d">O café já chegou. Daqui pra frente tudo que você faz só pode piorar o que veio da fazenda, ou preservar. Estas seis ideias preservam.</p>
+        <p class="ato-d">O café já chegou. Daqui pra frente tudo que você faz só pode piorar o que veio da fazenda, ou preservar. Primeiro o mapa de tudo que pesa no copo, depois as ideias que preservam.</p>
       </div>
+
+      <section id="percurso">
+        <header class="cab-sec"><h2>Da fazenda à xícara, tudo é variável</h2></header>
+        <p class="sub">Café bom não é sorte de um passo só. É um <strong>revezamento</strong> que começa no pé de café e termina na sua mão, e cada etapa pode estragar o que a anterior fez de bom. Nenhuma consegue consertar o que a anterior estragou.</p>
+
+        <ol class="passos quatro percurso">
+          <li><span class="ico" set:html={ic.pe} /><span class="n">1</span><h3>A fazenda</h3><p>Variedade, altitude, clima, solo e a colheita no ponto. É aqui que o sabor <strong>nasce</strong>, e o teto da xícara fica definido.</p><a class="ver" href="#terroir">terroir e colheita</a></li>
+          <li><span class="ico" set:html={ic.cereja} /><span class="n">2</span><h3>A seleção</h3><p>O processo, a secagem e a separação dos grãos: tira o defeito, separa por tamanho, guarda direito. É onde o sabor é <strong>protegido</strong>.</p><a class="ver" href="#processo">o processo</a></li>
+          <li><span class="ico" set:html={ic.fogo} /><span class="n">3</span><h3>A torra</h3><p>Um bom perfil de torra, no ponto certo pra aquele grão. É onde o sabor <strong>aparece</strong>, ou some. Grão ótimo mal torrado vira café comum.</p><a class="ver" href="#torra">a torra</a></li>
+          <li><span class="ico" set:html={ic.mao} /><span class="n">4</span><h3>A mão de quem prepara</h3><p>Pode ser um barista ou você, em casa, querendo um café bom. É a última etapa, e a única que <strong>depende de você</strong>.</p><a class="ver" href="#receita">a receita</a></li>
+        </ol>
+
+        <p class="sub-t">E só dentro da xícara, mais nove botões</p>
+        <p class="vars-d">Pensa numa mesa de som. A última etapa parece simples, mas é onde mais coisa mexe ao mesmo tempo: são nove botões, cada ponta de cada um estraga o café, e <strong>o café bom mora no meio</strong>. Mexer num muda o efeito dos outros.</p>
+        <ul class="vars">
+          {variaveis.map((v, i) => (
+            <li style={`--i:${i}`}>
+              <div class="var-cab"><span class="ico" set:html={ic[v.ico]} /><h3>{v.nome}</h3></div>
+              <p>{v.d}</p>
+              <div class="regua" role="img" aria-label={`${v.nome}: ${v.esq} dá ${v.esqS}, ${v.dir} dá ${v.dirS}, o ponto doce é ${v.doce}`}>
+                <div class="trilho"><span class="doce"></span><span class="cursor"></span></div>
+                <div class="pontas">
+                  <span><b>{v.esq}</b>{v.esqS}</span>
+                  <span class="meio">{v.doce}</span>
+                  <span><b>{v.dir}</b>{v.dirS}</span>
+                </div>
+              </div>
+              <a class="ver" href={`#${v.alvo}`}>{v.rotulo}</a>
+            </li>
+          ))}
+        </ul>
+        <p class="pedra"><strong>O verde é o ponto de partida, não a regra.</strong> Nada aqui é escrito em pedra: tem receita ótima com cinco, dez ataques, tem barista que mói mais fino e encurta o tempo de propósito, tem quem use a água mais quente pra torra bem clara. As pontas funcionam, só que quem vai até elas costuma ter <strong>método e muita xícara nas costas</strong>: sabe o que está trocando e por quê. Comece pelo meio, anote o que fez, e com o tempo você também vai se afastar dele pra achar o seu café.</p>
+        <p class="nota">E a <strong>receita</strong> amarra todas elas: é só o nome que se dá a uma combinação dessas nove que funcionou. Parece muita coisa, e é. Por isso um café bem feito vale o que custa: ele é o resultado de dezenas de decisões certas, da fazenda até a sua mão. A boa notícia é que você só precisa acertar a sua parte, e o resto do guia mostra como.</p>
+      </section>
 
       <section id="frescor">
         <header class="cab-sec"><h2>O café tem idade, e ela conta</h2></header>
@@ -940,8 +1020,9 @@ const dadosDoGuia = {
           <svg viewBox="0 0 640 132" role="img" aria-label="Linha do tempo do café depois da torra, com a janela boa entre uma e quatro semanas">
             <text class="tl-d" x="40" y="13">descansando, CO2 saindo</text>
             <g class="tl-seta">
-              <path d="M62 20 C54 28 53 32 56 40"/>
-              <path d="M50 34 L56 42 L63 37"/>
+              <path d="M64 19 C55 26 53 32 56 40"/>
+              <path class="leve" d="M66 21 C58 27 56 33 58 40"/>
+              <path d="M49 34 L56 42 L64 36"/>
             </g>
             <rect x="40" y="46" width="37" height="38" fill="var(--crema-300)" rx="6"/>
             <rect x="79" y="46" width="52" height="38" fill="var(--torra-500)" rx="6"/>
@@ -1116,7 +1197,7 @@ const dadosDoGuia = {
 
         <p class="sub-t">E o relógio: um coado de 300 ml, do começo ao fim</p>
         <div class="desenho largo">
-          <svg viewBox="0 0 1160 148" role="img" aria-label="Linha do tempo de um café coado, do primeiro molhar aos três minutos e meio">
+          <svg viewBox="0 0 1160 148" role="img" aria-label="Linha do tempo de um café coado, do primeiro ataque, com o bloom, aos três minutos e meio">
             <rect x="0" y="16" width="246" height="42" rx="8" fill="var(--torra-500)"/>
             <rect x="249" y="16" width="246" height="42" rx="8" fill="var(--folha-400)"/>
             <rect x="498" y="16" width="328" height="42" rx="8" fill="var(--folha-600)"/>
@@ -1134,12 +1215,18 @@ const dadosDoGuia = {
               <text x="829" y="86" text-anchor="middle">2:30</text>
               <text x="1160" y="86" text-anchor="end">3:30</text>
             </g>
+            <g class="tl-seta grossa">
+              <path d="M152 117 C133 107 124 87 123 65"/>
+              <path class="leve" d="M155 113 C137 104 128 86 127 66"/>
+              <path d="M114 74 L123 63 L132 73"/>
+            </g>
+            <text class="tl-d" x="160" y="126">bloom: o café floresce</text>
           </svg>
         </div>
         <p class="nota-fig">Passou muito de 3:30, a moagem está fina demais. Acabou antes de 2:00, está grossa demais.</p>
 
         <ol class="passos quatro">
-          <li><span class="ico" set:html={ic.gota} /><span class="n">1</span><h3>Molha e espera</h3><p>Despeje o <strong>dobro do peso do café</strong> em água (40 g pra 20 g de pó), só pra molhar tudo. O pó incha e solta bolha: é o CO2 saindo. Espere 30 a 45 segundos.</p></li>
+          <li><span class="ico" set:html={ic.gota} /><span class="n">1</span><h3>Molha e espera</h3><p>O primeiro ataque: despeje até <strong>50 ml</strong> de água, só pra molhar todo o café. Ele incha e solta bolha: é o CO2 saindo. Espere 30 a 45 segundos.</p></li>
           <li><span class="ico" set:html={ic.chaleira} /><span class="n">2</span><h3>Primeiro despejo</h3><p>Em círculos, do centro pra fora, sem encostar no papel. Vá até uns <strong>180 g</strong> no total e deixe baixar.</p></li>
           <li><span class="ico" set:html={ic.balanca} /><span class="n">3</span><h3>Completa</h3><p>Suba até os <strong>300 g</strong> de água. Daqui pra frente você pode despejar com mais folga, a cama de café já está formada.</p></li>
           <li><span class="ico" set:html={ic.relogio} /><span class="n">4</span><h3>Deixa escorrer</h3><p>Tire o coador quando parar de pingar, por volta de <strong>3:00 a 3:30</strong>. Não espere a última gota: ela é a mais amarga.</p></li>
@@ -1297,7 +1384,23 @@ const dadosDoGuia = {
         </div>
         <p class="nota">Plataforma e preço conferidos na página oficial de cada um em 22/09/2026. Nenhum link aqui é pago nem patrocinado.</p>
 
-        <p class="sub sub2">E o glossário, pra quando alguém falar difícil:</p>
+        <p class="sub sub2 sub-t">Os três grandes eventos do ano</p>
+        <p class="sub sub2">Se der pra ir a um só, escolha pela pegada. Os meses são os de costume; a data exata muda todo ano, então confira no site antes de se programar.</p>
+        <div class="eventos">
+          {eventos.map((ev) => (
+            <a class="evento" href={ev.url} rel="noopener">
+              <span class="ev-mes">{ev.mes}</span>
+              <h3>{ev.nome}</h3>
+              <p class="ev-onde">{ev.onde}</p>
+              <span class="ev-peg">pegada {ev.pegada}</span>
+              <p>{ev.d}</p>
+            </a>
+          ))}
+        </div>
+        <p class="pedra"><strong>E não para nesses três.</strong> Quase toda cidade com cafeteria boa tem o seu festival, feira de torrefação, cupping aberto ou campeonato de barista, e muitos são de graça. Vale procurar o da sua cidade: é o jeito mais fácil de provar muita coisa, conversar com quem torra e achar gente que gosta de café como você. A <a href="/newsletter">news da Cafuaçu</a> avisa de alguns pelo Brasil, com a agenda das próximas semanas.</p>
+        <p class="nota">Local e mês conferidos nos sites oficiais em 19/09/2026. Nenhum link aqui é pago nem patrocinado.</p>
+
+        <p class="sub sub2 sub-t">E o glossário, pra quando alguém falar difícil</p>
         <dl class="glos">
           {glossario.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
         </dl>
@@ -1362,7 +1465,7 @@ const dadosDoGuia = {
   (function () {
     if (!document.documentElement.classList.contains("anim")) return;
     if (!("IntersectionObserver" in window)) return;
-    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .grao-c, .medida, .tile, .transp, .fim-cab");
+    const alvos = document.querySelectorAll(".cab-sec, .sub, .abre, .vars li, .vars-d, .escolha-orc, .ato, .desenho, .legenda li, .esp-c, .proc-c, .cer, .duo > *, .passos li, .prod, .master, .pula > *, .app, .tabela .tr, .glos > *, .roda, .grao-c, .medida, .tile, .transp, .fim-cab");
     const cont = new Map();
     let disparou = false;
     const obs = new IntersectionObserver((itens) => {
@@ -1394,6 +1497,8 @@ const dadosDoGuia = {
 
   /* moldura padrão dos desenhos */
   .desenho{margin:26px 0 30px}
+  /* fechando a seção, a folga da própria seção já basta */
+  .desenho:last-child{margin-bottom:0}
   .desenho svg{display:block;width:100%;height:auto}
   .desenho.rot,.desenho:has(.legenda){display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);gap:36px;align-items:center}
   /* sem teto, o SVG estica até a coluna e o bloco fica bem mais alto que a legenda */
@@ -1442,7 +1547,12 @@ const dadosDoGuia = {
   .tl-n{font-size:12.5px;font-weight:600;fill:var(--cafe-500)}
   .tl-l{font-size:13px;font-weight:700}
   .tl-d{font-size:12.5px;fill:var(--cafe-500)}
-  .tl-seta path{fill:none;stroke:var(--cafe-500);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .so-defs{position:absolute;width:0;height:0;overflow:hidden}
+  .tl-seta{filter:url(#giz)}
+  .tl-seta path{fill:none;stroke:var(--cafe-700);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  .tl-seta.grossa path{stroke-width:3.4}
+  .tl-seta path.leve{stroke-width:1.4;opacity:.5}
+  .tl-seta.grossa path.leve{stroke-width:1.8}
   /* grão inteiro x moído: dois cartões na mesma grade do texto de baixo, pra um cair em cima do outro */
   .graos{display:grid;grid-template-columns:repeat(2,1fr);gap:34px;margin:26px 0 30px}
   .grao-c{margin:0;background:var(--crema-200);border-radius:14px;padding:28px 22px 22px;text-align:center}
@@ -1462,9 +1572,27 @@ const dadosDoGuia = {
   .med-d{font-size:14px;line-height:1.45;color:var(--cafe-500)}
   .mg-e{font-size:12px;font-weight:600;fill:var(--cafe-500)}
   .rot-txt text{font-size:12.5px;fill:var(--cafe-700)}
-  .rot-txt .g{font-size:17px;font-weight:700;fill:var(--cafe-900)}
+  .rot-txt .g{font-weight:700;fill:var(--cafe-900)}
   .rot-txt .d{font-size:13.5px;font-weight:700;fill:var(--torra-700)}
-  .rot-min{font-size:10.5px;fill:var(--cafe-500)}
+  .pc-corpo{fill:var(--crema-200);stroke:var(--cafe-900);stroke-width:2.5;stroke-linejoin:round}
+  .pc-dobra{fill:none;stroke:var(--cafe-500);stroke-width:2;opacity:.4}
+  .pc-brilho{stroke:#fff;stroke-width:5;stroke-linecap:round;opacity:.6}
+  .pc-selo{fill:var(--crema-300);stroke:var(--cafe-900);stroke-width:2;stroke-linejoin:round}
+  .pc-frisos path{stroke:var(--cafe-700);stroke-width:1.4;opacity:.25}
+  .pc-picote{fill:none;stroke:var(--cafe-500);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .pc-zip{stroke:var(--cafe-500);stroke-width:3;stroke-dasharray:2 3;opacity:.5}
+  .pc-valv{fill:var(--crema-100);stroke:var(--cafe-700);stroke-width:2}
+  .pc-valv-in{fill:none;stroke:var(--cafe-500);stroke-width:1.5}
+  .pc-nota{font-size:10.5px;fill:var(--cafe-700)}
+  .pc-etq{fill:#fff;stroke:var(--crema-300);stroke-width:1.5}
+  .pc-marca{font-size:12.5px;font-weight:700;letter-spacing:.28em;fill:var(--folha-600)}
+  .pc-sub{font-size:9.5px;letter-spacing:.08em;fill:var(--cafe-500)}
+  .pc-torra circle{fill:none;stroke:var(--torra-700);stroke-width:1.6}
+  .pc-torra .on{fill:var(--torra-700)}
+  .pc-carimbo{filter:url(#giz)}
+  .pc-carimbo rect{fill:none;stroke:var(--cereja);stroke-width:2.4}
+  .pc-carimbo text{font-size:12px;font-weight:700;letter-spacing:.08em;fill:var(--cereja)}
+  .pc-peso{font-size:13px;font-weight:700;fill:var(--cafe-900)}
   .rot-pin circle{fill:var(--torra-500)}
   .rot-pin text{fill:var(--cafe-900);font-size:12px;font-weight:700;text-anchor:middle}
   .rd-l{font-size:10.5px;font-weight:700;letter-spacing:.005em}
@@ -1561,6 +1689,44 @@ const dadosDoGuia = {
   .roda-l strong{color:var(--cafe-900)}
   .roda-l em{display:block;font-style:normal;font-size:13.5px;color:var(--torra-700);margin-top:2px}
 
+  /* percurso da fazenda à xícara */
+  /* setinha de giz de cera entre as etapas, morando no vão entre os cartões; a cor vai do verde da fazenda ao café torrado */
+  .percurso.passos{column-gap:44px}
+  .percurso li:not(:last-child)::after{content:"";position:absolute;right:-44px;top:calc(50% - 16px);width:44px;height:32px;background:center/contain no-repeat;transform:rotate(-3deg);transition:transform .35s ease;pointer-events:none}
+  .percurso li:hover::after{transform:rotate(3deg) translateX(2px)}
+  .percurso li:nth-child(1)::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Cdefs%3E%3Cfilter id='g' x='-15%25' y='-15%25' width='130%25' height='130%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='2.6' result='d'/%3E%3CfeColorMatrix in='n' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2' result='m'/%3E%3CfeComposite in='d' in2='m' operator='in'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url%28%23g%29' fill='none' stroke='%232F5233' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke-width='4.2' d='M5 27c7-8 16-13 27-13 7 0 13 2 19 5'/%3E%3Cpath stroke-width='2' opacity='.55' d='M7 30c8-8 18-12 28-11 6 .5 11 2 15 4'/%3E%3Cpath stroke-width='4.2' d='M41 9.5c4 3 8 6 11 9.5-4 2.5-8 5-12 8.5'/%3E%3C/g%3E%3C/svg%3E")}
+  .percurso li:nth-child(2)::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Cdefs%3E%3Cfilter id='g' x='-15%25' y='-15%25' width='130%25' height='130%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='2.6' result='d'/%3E%3CfeColorMatrix in='n' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2' result='m'/%3E%3CfeComposite in='d' in2='m' operator='in'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url%28%23g%29' fill='none' stroke='%23B5721F' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke-width='4.2' d='M5 27c7-8 16-13 27-13 7 0 13 2 19 5'/%3E%3Cpath stroke-width='2' opacity='.55' d='M7 30c8-8 18-12 28-11 6 .5 11 2 15 4'/%3E%3Cpath stroke-width='4.2' d='M41 9.5c4 3 8 6 11 9.5-4 2.5-8 5-12 8.5'/%3E%3C/g%3E%3C/svg%3E")}
+  .percurso li:nth-child(3)::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Cdefs%3E%3Cfilter id='g' x='-15%25' y='-15%25' width='130%25' height='130%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='2.6' result='d'/%3E%3CfeColorMatrix in='n' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2' result='m'/%3E%3CfeComposite in='d' in2='m' operator='in'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url%28%23g%29' fill='none' stroke='%234A2A12' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke-width='4.2' d='M5 27c7-8 16-13 27-13 7 0 13 2 19 5'/%3E%3Cpath stroke-width='2' opacity='.55' d='M7 30c8-8 18-12 28-11 6 .5 11 2 15 4'/%3E%3Cpath stroke-width='4.2' d='M41 9.5c4 3 8 6 11 9.5-4 2.5-8 5-12 8.5'/%3E%3C/g%3E%3C/svg%3E")}
+  .vars-d{font-size:16px;line-height:1.55;color:var(--cafe-500);margin:0 0 18px;max-width:760px}
+  .vars{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .vars li{background:var(--crema-200);border-radius:12px;padding:18px 18px 16px;display:flex;flex-direction:column}
+  .var-cab{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .vars .ico{flex:none;width:30px;height:30px;color:var(--torra-700)}
+  .vars h3{font-size:16.5px;margin:0}
+  .vars p{font-size:14.5px;line-height:1.5;color:var(--cafe-500);margin:0 0 16px}
+  /* o botão: trilho que vai do erro de um lado ao erro do outro, com o ponto doce no meio */
+  .regua{margin:auto 0 14px}
+  .trilho{position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--torra-500),var(--crema-300) 30%,var(--crema-300) 70%,var(--cafe-500))}
+  .trilho .doce{position:absolute;left:34%;right:34%;top:-3px;bottom:-3px;border-radius:999px;background:var(--folha-400);opacity:.9}
+  .trilho .cursor{position:absolute;top:50%;left:50%;width:20px;height:20px;border-radius:999px;background:var(--crema-100);border:3px solid var(--folha-600);box-shadow:0 2px 5px rgba(26,15,11,.22);transform:translate(-50%,-50%)}
+  .vars li.vis .cursor{animation:ajusta .7s cubic-bezier(.2,.7,.3,1) calc(200ms + var(--i) * 40ms) both}
+  @keyframes ajusta{from{left:42%;opacity:0}to{left:50%;opacity:1}}
+  @media (prefers-reduced-motion:reduce){.vars li.vis .cursor{animation:none}}
+  .pontas{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin-top:10px;font-size:12.5px;line-height:1.3;color:var(--cafe-500)}
+  .pontas b{display:block;font-weight:700;color:var(--cafe-700)}
+  .pontas span:last-child{text-align:right}
+  .pontas .meio{align-self:start;background:var(--folha-600);color:var(--crema-100);font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .vars .ver{margin-top:auto}
+  .eventos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .evento{display:flex;flex-direction:column;align-items:flex-start;background:var(--crema-200);border-radius:12px;padding:20px 20px 18px;color:inherit;text-decoration:none;border:1px solid transparent;transition:border-color .2s ease}
+  .evento:hover{border-color:var(--torra-500)}
+  .ev-mes{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--crema-100);background:var(--cafe-900);padding:5px 11px;border-radius:999px;margin-bottom:14px}
+  .evento h3{font-size:19px;line-height:1.2;margin:0 0 4px}
+  .ev-onde{font-size:13.5px;color:var(--cafe-500);margin:0 0 12px}
+  .ev-peg{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--folha-600);border:1.5px solid var(--folha-400);padding:3px 9px;border-radius:999px;margin-bottom:10px}
+  .evento p:last-child{font-size:14.5px;line-height:1.5;color:var(--cafe-500);margin:0}
+  .pedra{margin:22px 0 0;padding:14px 18px;border-left:4px solid var(--folha-400);background:var(--crema-200);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;color:var(--cafe-700)}
+
   /* tabela de sintomas */
   .tabela{margin-top:22px;border:1px solid var(--crema-300);border-radius:12px;overflow:hidden}
   .tabela .th,.tabela .tr{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:18px;padding:14px 18px}
@@ -1576,7 +1742,9 @@ const dadosDoGuia = {
   .glos dd{margin:0;font-size:14.5px;line-height:1.5;color:var(--cafe-500)}
 
   @media (max-width:1020px){
-    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.apps,.medidas,.glos{grid-template-columns:repeat(2,1fr)}
+    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.apps,.medidas,.glos,.vars{grid-template-columns:repeat(2,1fr)}
+    .eventos{grid-template-columns:1fr}
+    .percurso li:nth-child(2)::after{display:none}
     .desenho.rot,.desenho:has(.legenda),.roda{grid-template-columns:1fr;gap:26px}
     .desenho.rot svg,.desenho:has(.legenda) svg{max-width:420px;margin:0 auto}
     .duo{grid-template-columns:1fr;gap:24px}
@@ -1594,7 +1762,10 @@ const dadosDoGuia = {
     .desenho.alt{grid-template-columns:1fr;gap:22px}
   }
   @media (max-width:640px){
-    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.glos,.graos,.apps,.medidas{grid-template-columns:1fr}
+    .esp,.proc,.colheita,.prods.quatro,.passos.quatro,.glos,.graos,.apps,.medidas,.vars{grid-template-columns:1fr}
+    .percurso.passos{row-gap:44px}
+    .percurso li:not(:last-child)::after{display:block;right:auto;left:calc(50% - 22px);top:auto;bottom:-40px;transform:rotate(90deg)}
+    .percurso li:hover::after{transform:rotate(96deg)}
     .ato{margin-bottom:38px}
     .barras li{grid-template-columns:92px 1fr}
   }
