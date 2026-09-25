@@ -46,6 +46,7 @@ a:hover{color:var(--cafe-900)}
 .corpo-in{max-width:640px;margin:0 auto;padding:44px 28px}
 .corpo-in.largo{max-width:1180px;padding:44px 28px 64px}
 .corpo .cab{text-align:center;margin-bottom:26px;display:flex;flex-direction:column;gap:8px}
+.corpo .linhas + .cab{margin-top:72px}
 .corpo .cab .eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--folha-600)}
 .corpo .cab h2{font-size:22px}
 
