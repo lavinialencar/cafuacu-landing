@@ -56,6 +56,7 @@ const secoes = [
   { id: "rotulo", curto: "O rótulo" },
   { id: "sabor", curto: "Sabor" },
   { id: "percurso", curto: "Da fazenda à xícara" },
+  { id: "bebidas", curto: "Coado, espresso, cold brew" },
   { id: "frescor", curto: "Frescor" },
   { id: "moer", curto: "Moer na hora" },
   { id: "agua", curto: "Água" },
@@ -177,6 +178,24 @@ const moagens: [string, number, string[], string][] = [
   ["Bem grossa", 17, ["Cold brew"], "orégano seco"],
 ];
 
+// coado, espresso e cold brew. Cafeína: USDA FoodData Central (espresso 63 mg em 30 ml; coado ~40 mg/100 ml
+// na receita americana, mais na proporção 1:15 do guia), Starbucks (cold brew 205 mg em 473 ml), EFSA (limites).
+const bebidas = [
+  { id: "coado", nome: "Coado", tag: "a gravidade", d: "A água quente passa pelo pó e escorre pelo filtro. É o café de todo dia, e o que mais deixa a origem aparecer.",
+    ficha: [["Água", "quente, 90 a 96 °C"], ["Força", "gravidade"], ["Tempo", "3 a 4 minutos"], ["Moagem", "média"], ["Na xícara", "limpo, leve, fruta e flor"]] },
+  { id: "espresso", nome: "Espresso", tag: "a pressão", d: "Uma máquina empurra água quente pelo pó compactado, com força de 9 atmosferas. Sai pouco, denso e com creme em cima.",
+    ficha: [["Água", "quente, 90 a 94 °C"], ["Força", "pressão de 9 bar"], ["Tempo", "25 a 30 segundos"], ["Moagem", "bem fina"], ["Na xícara", "concentrado, corpo grande, crema"]] },
+  { id: "cold", nome: "Cold brew", tag: "a paciência", d: "O pó fica de molho em água fria por horas e depois é coado. Não é café quente que esfriou: é outra bebida.",
+    ficha: [["Água", "fria ou ambiente"], ["Força", "tempo"], ["Tempo", "12 a 24 horas, na geladeira"], ["Moagem", "bem grossa"], ["Na xícara", "doce, macio, pouca acidez"]] },
+];
+// [bebida, porção, mg por porção, mg por 100 ml]
+const cafeina: [string, string, number, number][] = [
+  ["Espresso", "1 dose, 30 ml", 65, 215],
+  ["Coado", "1 xícara, 200 ml", 120, 60],
+  ["Cold brew", "1 copo, 300 ml", 200, 65],
+];
+const cafMaxPorcao = 200, cafMax100 = 215;
+
 const proporcoes = [
   ["200 ml", "13 g", "uma xícara cheia"],
   ["300 ml", "20 g", "uma grande ou duas pequenas"],
@@ -220,8 +239,8 @@ const ondeComprar = [
 const apps: [string, string, string, string[], string][] = [
   ["pra preparar e cronometrar", "Timer.Coffee", "https://www.timer.coffee/", ["grátis", "código aberto", "web e app"],
    "Mais de 40 receitas em 30 métodos, com timer de coado e de espresso e diário de preparo. Se você só quer alguém contando o tempo pra você, comece por ele."],
-  ["pra preparar e cronometrar", "Filtru", "https://getfiltru.com", ["grátis", "só iPhone"],
-   "Guia passo a passo na tela enquanto você prepara (V60, Chemex, AeroPress, prensa, espresso), diário de degustação, leitor de pacote e conexão com balança Bluetooth."],
+  ["pra preparar e cronometrar", "FourSix", "https://apps.apple.com/br/app/foursix-coffee-timer/id1519905670", ["grátis", "só iPhone", "em inglês"],
+   "Monta um coado pelo método 4:6, do campeão mundial Tetsu Kasuya, a partir de três perguntas: mais doce ou mais ácido, mais forte ou mais leve, e o tamanho. Depois o timer diz quanto despejar e quando."],
   ["pra registrar o que você tomou", "Coffee Board", "https://coffeeboard.com.br", ["grátis", "brasileiro", "no navegador"],
    "Brasileiro e roda no navegador, então serve em qualquer celular. Histórico de preparo, receita com timer, conversor de moagem e controle de estoque de grão, fresco e congelado, com aviso de quando está acabando."],
   ["pra registrar o que você tomou", "Beanconqueror", "https://beanconqueror.com", ["grátis", "código aberto", "iPhone e Android"],
@@ -279,7 +298,7 @@ const glossario = [
   ["Micro-lote", "Um lote pequeno separado do resto da fazenda, de um talhão, um dia de colheita ou um processo só. É onde costuma estar o café mais caro e mais interessante."],
 ];
 // Data da última revisão de CONTEÚDO. Muda quando o texto ou o dado muda, não a cada ajuste de CSS.
-const ATUALIZADO = "2026-09-23";
+const ATUALIZADO = "2026-09-24";
 const ATUALIZADO_BR = ATUALIZADO.split("-").reverse().join("/");
 const dadosDoGuia = {
   "@context": "https://schema.org",
@@ -1011,6 +1030,114 @@ const dadosDoGuia = {
         </ul>
         <p class="pedra"><strong>O verde é o ponto de partida, não a regra.</strong> Nada aqui é escrito em pedra: tem receita ótima com cinco, dez ataques, tem barista que mói mais fino e encurta o tempo de propósito, tem quem use a água mais quente pra torra bem clara. As pontas funcionam, só que quem vai até elas costuma ter <strong>método e muita xícara nas costas</strong>: sabe o que está trocando e por quê. Comece pelo meio, anote o que fez, e com o tempo você também vai se afastar dele pra achar o seu café.</p>
         <p class="nota">E a <strong>receita</strong> amarra todas elas: é só o nome que se dá a uma combinação dessas nove que funcionou. Parece muita coisa, e é. Por isso um café bem feito vale o que custa: ele é o resultado de dezenas de decisões certas, da fazenda até a sua mão. A boa notícia é que você só precisa acertar a sua parte, e o resto do guia mostra como.</p>
+      </section>
+
+      <section id="bebidas">
+        <header class="cab-sec"><h2>Coado, espresso e cold brew: o mesmo grão, três cafés</h2></header>
+        <p class="sub">Os três começam no mesmo pó. O que muda é <strong>como a água encontra o café</strong>: pela gravidade, pela pressão ou pela paciência. E isso muda o sabor, o corpo e até a cafeína.</p>
+
+        <div class="bebidas">
+          {bebidas.map((b, i) => (
+            <article class="beb" style={`--i:${i}`}>
+              <div class="beb-fig" aria-hidden="true">
+                {b.id === "coado" && (
+                  <svg viewBox="0 0 240 190">
+                    <path d="M150 34c-4 8 4 12 0 20M166 30c-4 8 4 12 0 20" fill="none" stroke="var(--crema-300)" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M66 30h108l-34 52h-40z" fill="var(--crema-100)" stroke="var(--cafe-700)" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M78 38h84l-26 38h-32z" fill="var(--cafe-700)"/>
+                    <path d="M78 38h84l-4 6H82z" fill="var(--torra-500)"/>
+                    <path d="M100 82h40v8h-40z" fill="var(--cafe-700)"/>
+                    <path d="M120 92c-3 5-3 8 0 10 3-2 3-5 0-10z" fill="var(--cafe-500)"/>
+                    <path d="M120 110c-2 4-2 6 0 7 2-1 2-3 0-7z" fill="var(--cafe-500)"/>
+                    <path d="M82 104h76l-6 70H88z" fill="var(--crema-100)" stroke="var(--cafe-700)" stroke-width="3" stroke-linejoin="round" opacity=".95"/>
+                    <path d="M86 136h68l-3 36H89z" fill="var(--torra-700)" opacity=".85"/>
+                  </svg>
+                )}
+                {b.id === "espresso" && (
+                  <svg viewBox="0 0 240 190">
+                    <rect x="54" y="14" width="132" height="26" rx="6" fill="var(--cafe-700)"/>
+                    <rect x="84" y="40" width="72" height="16" rx="4" fill="var(--cafe-500)"/>
+                    <path d="M156 46h44" stroke="var(--cafe-700)" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M108 56v10M132 56v10" stroke="var(--cafe-700)" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M108 68v58M132 68v58" stroke="var(--torra-700)" stroke-width="3.5" stroke-linecap="round"/>
+                    <circle cx="202" cy="92" r="20" fill="var(--crema-100)" stroke="var(--cafe-700)" stroke-width="3"/>
+                    <path d="M202 92l10-9" stroke="var(--cereja)" stroke-width="3" stroke-linecap="round"/>
+                    <text x="202" y="126" text-anchor="middle" class="beb-l">9 bar</text>
+                    <path d="M86 128h68v18a24 24 0 0 1-24 24h-20a24 24 0 0 1-24-24z" fill="var(--crema-100)" stroke="var(--cafe-700)" stroke-width="3"/>
+                    <path d="M154 134h6a8 8 0 0 1 0 16h-6" fill="none" stroke="var(--cafe-700)" stroke-width="3"/>
+                    <path d="M89 132h62v6H89z" fill="var(--torra-500)"/>
+                    <path d="M89 138h62v8a20 20 0 0 1-20 20h-22a20 20 0 0 1-20-20z" fill="var(--torra-700)"/>
+                    <path d="M70 178h100" stroke="var(--cafe-700)" stroke-width="3" stroke-linecap="round"/>
+                  </svg>
+                )}
+                {b.id === "cold" && (
+                  <svg viewBox="0 0 240 190">
+                    <path d="M186 22a18 18 0 1 0 14 28 14 14 0 0 1-14-28z" fill="var(--torra-500)"/>
+                    <text x="190" y="76" text-anchor="middle" class="beb-l">12 h</text>
+                    <rect x="72" y="16" width="84" height="14" rx="4" fill="var(--cafe-700)"/>
+                    <path d="M68 34h92v130a12 12 0 0 1-12 12H80a12 12 0 0 1-12-12z" fill="var(--crema-100)" stroke="var(--cafe-700)" stroke-width="3"/>
+                    <path d="M72 70h84v94a8 8 0 0 1-8 8H80a8 8 0 0 1-8-8z" fill="var(--torra-700)" opacity=".85"/>
+                    <path d="M72 70h84v10H72z" fill="var(--cafe-700)"/>
+                    <rect x="84" y="92" width="24" height="22" rx="4" transform="rotate(-10 96 103)" fill="var(--crema-100)" opacity=".75"/>
+                    <rect x="118" y="108" width="22" height="20" rx="4" transform="rotate(12 129 118)" fill="var(--crema-100)" opacity=".75"/>
+                    <rect x="94" y="132" width="20" height="18" rx="4" transform="rotate(6 104 141)" fill="var(--crema-100)" opacity=".75"/>
+                    <path d="M76 160h76" stroke="var(--cafe-900)" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 7"/>
+                  </svg>
+                )}
+              </div>
+              <span class="tg">{b.tag}</span>
+              <h3>{b.nome}</h3>
+              <p>{b.d}</p>
+              <dl class="beb-ficha">
+                {b.ficha.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
+              </dl>
+            </article>
+          ))}
+        </div>
+
+        <h3 class="sub-t">E a cafeína? A pegadinha é o tamanho do copo</h3>
+        <p class="sub">O espresso é o mais <strong>concentrado</strong>, gole por gole. Mas ele é minúsculo. Na porção que cada um toma de verdade, a conta vira.</p>
+        <div class="caf">
+          <div class="caf-p" role="img" aria-label={`Cafeína por porção: ${cafeina.map(([n, p, mg]) => `${n}, ${p}, cerca de ${mg} mg`).join("; ")}`}>
+            <h4>Na porção de costume</h4>
+            {cafeina.map(([n, p, mg]) => (
+              <div class="caf-r">
+                <span class="caf-n"><strong>{n}</strong><em>{p}</em></span>
+                <span class="caf-b"><i style={`width:${(mg / cafMaxPorcao) * 100}%`}></i></span>
+                <span class="caf-v">~{mg} mg</span>
+              </div>
+            ))}
+          </div>
+          <div class="caf-p" role="img" aria-label={`Cafeína em cada 100 ml: ${cafeina.map(([n, , , c]) => `${n}, cerca de ${c} mg`).join("; ")}`}>
+            <h4>Em cada 100 ml</h4>
+            {cafeina.map(([n, , , c]) => (
+              <div class="caf-r">
+                <span class="caf-n"><strong>{n}</strong></span>
+                <span class="caf-b"><i class="alt" style={`width:${(c / cafMax100) * 100}%`}></i></span>
+                <span class="caf-v">~{c} mg</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p class="nota-fig">Números de referência, com café arábica. Variam muito com a receita: um coado mais forte ou um cold brew mais concentrado passam fácil disso.</p>
+
+        <div class="master">
+          <span class="ico grande" set:html={ic.xicara} />
+          <div>
+            <span class="sel">o mito</span>
+            <h3>O espresso é o mais forte, mas não é o que tem mais cafeína</h3>
+            <p>“Forte” no espresso é <strong>sabor e corpo</strong>, não cafeína. Ele tem umas três vezes mais cafeína por mililitro que o coado, só que você toma 30 ml. Uma xícara de coado costuma ter o dobro de uma dose.</p>
+            <p>O cold brew é o contrário do que parece: água fria extrai menos cafeína por grama, mas a receita usa muito mais café e fica horas de molho. O copo grande com gelo costuma ser o campeão dos três. É também por isso que ele parece <strong>mais doce e menos ácido</strong>: a água fria puxa menos dos ácidos e dos amargos.</p>
+          </div>
+        </div>
+
+        <ul class="pula">
+          <li><span class="ico" set:html={ic.grao} /><div><strong>A espécie pesa mais que o método</strong><p>Robusta e conilon têm quase o dobro da cafeína do arábica. Um espresso de blend com robusta muda a conta toda. <a href="#especies">as espécies</a></p></div></li>
+          <li><span class="ico" set:html={ic.fogo} /><div><strong>A torra quase não muda nada</strong><p>Torra escura não tem “mais cafeína”. Medindo no peso, a diferença entre clara e escura é pequena. O amargor vem da torra, não da cafeína.</p></div></li>
+          <li><span class="ico" set:html={ic.xicara} /><div><strong>Quanto é muito</strong><p>Para adultos saudáveis, até <b>400 mg por dia</b> é considerado seguro (EFSA e FDA). Na gravidez e na amamentação, até <b>200 mg</b>. Dá umas três xícaras de coado.</p></div></li>
+          <li><span class="ico" set:html={ic.relogio} /><div><strong>E o descafeinado</strong><p>Não é zero: fica em torno de 2 a 5 mg por xícara. O especial descafeinado existe e é bom, procure o processo por água (Swiss Water) ou CO2.</p></div></li>
+        </ul>
+        <p class="nota">O coado e o cold brew você faz com quase nada. O espresso pede máquina e moedor bom. <a href="/guias/equipamento#metodos">Os métodos e as máquinas estão no guia de equipamento</a>.</p>
       </section>
 
       <section id="frescor">
@@ -1745,6 +1872,37 @@ const dadosDoGuia = {
   .evento p:last-child{font-size:14.5px;line-height:1.5;color:var(--cafe-500);margin:0}
   .pedra{margin:22px 0 0;padding:14px 18px;border-left:4px solid var(--folha-400);background:var(--crema-200);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;color:var(--cafe-700)}
 
+  /* coado, espresso e cold brew */
+  .bebidas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:24px}
+  .beb{background:var(--crema-200);border:1px solid var(--crema-300);border-radius:12px;padding:18px 18px 20px;display:flex;flex-direction:column}
+  .beb-fig{background:var(--crema-100);border-radius:10px;margin-bottom:16px;padding:8px}
+  .beb-fig svg{display:block;width:100%;height:auto;max-height:180px}
+  .beb-l{font-family:var(--ff);font-size:15px;font-weight:600;fill:var(--cafe-700)}
+  .beb .tg{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--crema-300);color:var(--cafe-700);padding:4px 10px;border-radius:999px}
+  .beb h3{font-size:24px;margin:10px 0 6px;color:var(--cafe-900)}
+  .beb > p{font-size:15px;line-height:1.5;color:var(--cafe-500);margin-bottom:14px}
+  .beb-ficha{margin:auto 0 0;border-top:1px solid var(--crema-300)}
+  .beb-ficha div{display:grid;grid-template-columns:86px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--crema-300)}
+  .beb-ficha div:last-child{border-bottom:0;padding-bottom:0}
+  .beb-ficha dt{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--cafe-500);padding-top:2px}
+  .beb-ficha dd{margin:0;font-size:14.5px;line-height:1.4;color:var(--cafe-900)}
+  .caf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:22px 0 30px}
+  .caf-p{background:var(--crema-200);border-radius:12px;padding:20px 20px 12px}
+  .caf-p h4{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cafe-500);margin:0 0 12px}
+  .caf-r{display:grid;grid-template-columns:118px 1fr 70px;gap:12px;align-items:center;padding:8px 0}
+  .caf-n strong{display:block;font-size:15.5px;color:var(--cafe-900)}
+  .caf-n em{display:block;font-style:normal;font-size:12.5px;color:var(--cafe-500)}
+  .caf-b{height:16px;background:var(--crema-300);border-radius:999px;overflow:hidden}
+  .caf-b i{display:block;height:100%;background:var(--torra-700);border-radius:999px}
+  .caf-b i.alt{background:var(--torra-500)}
+  .caf-v{font-size:15px;font-weight:600;color:var(--cafe-900);text-align:right;font-variant-numeric:tabular-nums}
+  @media (max-width:860px){
+    .bebidas{grid-template-columns:1fr}
+    .caf{grid-template-columns:1fr}
+  }
+  @media (max-width:420px){
+    .caf-r{grid-template-columns:96px 1fr 62px;gap:8px}
+  }
   /* tabela de sintomas */
   .tabela{margin-top:22px;border:1px solid var(--crema-300);border-radius:12px;overflow:hidden}
   .tabela .th,.tabela .tr{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:18px;padding:14px 18px}
