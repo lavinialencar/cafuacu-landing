@@ -1,9 +1,10 @@
 ---
-// /guias · índice dos guias. Só aparece o que estiver com estado "publicado".
+// /guias · índice dos guias. Publicado vira link; rascunho aparece como "em breve", sem página.
 import Pagina from "../../layouts/Pagina.astro";
 import { getCollection } from "astro:content";
 const todos = (await getCollection("guias")).sort((a, b) => a.data.ordem - b.data.ordem);
 const publicados = todos.filter((g) => g.data.estado === "publicado");
+const chegando = todos.filter((g) => g.data.estado !== "publicado");
 ---
 <Pagina titulo="Guias de café especial · Cafuaçu" descricao="Guias de café especial pra quem está começando: o que é café especial, como escolher, preparar e qual equipamento comprar." faixa="democratizando o acesso ao café especial ☕">
   <Fragment slot="hero">
@@ -13,8 +14,8 @@ const publicados = todos.filter((g) => g.data.estado === "publicado");
   </Fragment>
 
   <div class="cab">
-    <div class="eyebrow">{publicados.length ? "pra ler agora" : "chegando"}</div>
-    <h2>{publicados.length ? "Escolhe um guia" : "Os primeiros guias estão a caminho"}</h2>
+    <div class="eyebrow">pra ler agora</div>
+    <h2>Escolhe um guia</h2>
   </div>
   {publicados.length ? (
     <ul class="linhas">
@@ -27,17 +28,24 @@ const publicados = todos.filter((g) => g.data.estado === "publicado");
         </li>
       ))}
     </ul>
-  ) : (
-    <ul class="linhas">
-      {todos.map((g) => (
-        <li>
-          <div class="linha inativo">
-            <span class="txt"><strong>{g.data.titulo}</strong><span class="d">{g.data.resumo}</span></span>
-            <span class="etq breve">em breve</span>
-          </div>
-        </li>
-      ))}
-    </ul>
+  ) : null}
+  {chegando.length > 0 && (
+    <>
+      <div class="cab">
+        <div class="eyebrow">chegando</div>
+        <h2>{publicados.length ? "E os próximos" : "Os primeiros guias estão a caminho"}</h2>
+      </div>
+      <ul class="linhas">
+        {chegando.map((g) => (
+          <li>
+            <div class="linha inativo">
+              <span class="txt"><strong>{g.data.titulo}</strong><span class="d">{g.data.resumo}</span></span>
+              <span class="etq breve">em breve</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
   )}
 
   <Fragment slot="fecho">
