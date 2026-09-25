@@ -203,6 +203,16 @@ const proporcoes = [
   ["1 litro", "66 g", "a jarra da casa, quatro a cinco"],
 ];
 
+// ponto de partida por método; depois ajusta no gosto
+// [método, proporção de partida, faixa, na prática]
+const porMetodo = [
+  ["Coado", "1:15", "de 1:14 a 1:17", "20 g de café pra 300 ml de água, 3 a 4 minutos. É a tabela aí de cima."],
+  ["Prensa francesa", "1:16", "de 1:15 a 1:17", "30 g pra 500 ml, moagem grossa, 4 minutos de infusão antes de descer o êmbolo."],
+  ["AeroPress", "1:15", "de 1:14 a 1:16", "15 g pra 225 ml. Aguenta bem variar, então é bom pra testar."],
+  ["Espresso", "1:2", "de 1:1,5 a 1:2,5", "Aqui a conta é com a bebida pronta: 18 g de pó viram uns 36 g na xícara, em 25 a 30 segundos."],
+  ["Cold brew", "1:8", "concentrado", "100 g pra 800 ml de água fria, 12 a 24 horas na geladeira. Na hora de servir, meio a meio com água ou leite."],
+];
+
 const temperaturas = [
   ["Torra escura", "88 a 91 °C", "mais fria", "O grão já está poroso e frágil. Água muito quente puxa o amargor na hora."],
   ["Torra média", "92 a 94 °C", "o padrão", "O meio do caminho. Se você só for decorar um número, decore 93."],
@@ -298,7 +308,7 @@ const glossario = [
   ["Micro-lote", "Um lote pequeno separado do resto da fazenda, de um talhão, um dia de colheita ou um processo só. É onde costuma estar o café mais caro e mais interessante."],
 ];
 // Data da última revisão de CONTEÚDO. Muda quando o texto ou o dado muda, não a cada ajuste de CSS.
-const ATUALIZADO = "2026-09-24";
+const ATUALIZADO = "2026-09-25";
 const ATUALIZADO_BR = ATUALIZADO.split("-").reverse().join("/");
 const dadosDoGuia = {
   "@context": "https://schema.org",
@@ -1312,7 +1322,7 @@ const dadosDoGuia = {
           </div>
         </div>
 
-        <h3 class="sub-t">Quanto de café pra quanta água</h3>
+        <h3 class="sub-t">No coado, quanto café pra quanta água</h3>
         <div class="medidas">
           {proporcoes.map(([agua, cafe, rende]) => (
             <div class="medida">
@@ -1321,6 +1331,13 @@ const dadosDoGuia = {
               <span class="med-d">{rende}</span>
             </div>
           ))}
+        </div>
+
+        <h3 class="sub-t">E em cada método, onde começar</h3>
+        <!-- Pontos de partida de uso comum (Barista Hustle, receitas de campeonato e de fabricante); faixa, não regra. -->
+        <div class="tabela metodos" role="table" aria-label="Proporção de partida por método">
+          <div class="th" role="row"><span role="columnheader">Método</span><span role="columnheader">Proporção</span><span role="columnheader">Na prática</span></div>
+          {porMetodo.map(([m, p, f, d]) => (<div class="tr" role="row"><span role="cell"><strong>{m}</strong></span><span role="cell" class="prop" data-rot="Proporção">{p}<small>{f}</small></span><span role="cell" data-rot="Na prática">{d}</span></div>))}
         </div>
 
         <h3 class="sub-t">E o relógio: um coado de 300 ml, do começo ao fim</h3>
@@ -1910,6 +1927,9 @@ const dadosDoGuia = {
   .tabela .tr{font-size:14.5px;line-height:1.5;color:var(--cafe-500);border-top:1px solid var(--crema-300)}
   .tabela .tr:nth-child(odd){background:var(--crema-200)}
   .tabela .tr strong{color:var(--cafe-900)}
+  .tabela.metodos .th,.tabela.metodos .tr{grid-template-columns:.9fr .8fr 2fr;align-items:center}
+  .tabela .prop{font-size:22px;font-weight:700;color:var(--torra-700);letter-spacing:.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+  .tabela .prop small{display:block;margin-top:4px;font-size:12.5px;font-weight:500;letter-spacing:0;color:var(--cafe-500)}
 
   /* glossário */
   .glos{margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -1934,6 +1954,8 @@ const dadosDoGuia = {
     .desenho.largo::after{display:block}
     .tabela .th{display:none}
     .tabela .tr{grid-template-columns:1fr;gap:6px;padding:16px 18px}
+    .tabela.metodos .tr{grid-template-columns:1fr}
+    .tabela .prop::before{font-size:14.5px;letter-spacing:0}
     .tabela [data-rot]::before{content:attr(data-rot) ": ";font-weight:700;color:var(--cafe-700)}
   }
   /* o aviso de arrastar só aparece quando o desenho de fato passa da coluna (coluna = tela menos 56px de margem) */
