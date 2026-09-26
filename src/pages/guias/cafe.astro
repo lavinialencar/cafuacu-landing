@@ -152,12 +152,12 @@ const rotulo = [
   ["Data de torra", "A primeira coisa a procurar, e a mais importante do pacote inteiro. Se só tem validade, desconfie."],
   ["Peso e moagem", "Prefira em grão. 250 g dura de duas a quatro semanas em casa, que é a janela boa do café."],
   ["Torra", "Clara, média ou escura. Café especial quase sempre é média ou média clara. Escura demais esconde o grão."],
-  ["Processo", "Natural, cereja descascado, lavado, fermentado. É o que mais muda o gosto."],
-  ["Espécie e variedade", "Arábica ou canéfora, e a casta: Bourbon, Catuaí, Arara. É o DNA do grão."],
-  ["Notas sensoriais", "O que o provador sentiu. Não é ingrediente, é lembrança de sabor, e ajuda a escolher o estilo."],
-  ["Região, fazenda e produtor", "Quanto mais específico, mais rastreável. Fazenda com nome é um bom sinal."],
+  ["Processo", "Natural, cereja descascado, lavado, fermentado. É o que mais muda o gosto: o mesmo pé, metade natural e metade fermentado, dá dois cafés que nem parecem parentes."],
+  ["Região, fazenda e produtor", "Cada região tem uma cara previsível: Cerrado puxa pro corpo e pro chocolate, Mantiqueira pra acidez e fruta. Fazenda com nome é bom sinal, e produtor que você já provou vira atalho com o tempo."],
+  ["Notas sensoriais", "O que o provador sentiu. Não é ingrediente, é lembrança de sabor. Pra quem está começando, é a pista mais direta do estilo."],
+  ["Espécie e variedade", "Arábica ou canéfora, e a casta: Bourbon, Catuaí, Arara. Pesa menos do que parece: um Bourbon natural lembra mais um Catuaí natural do que um Bourbon lavado."],
   ["Pontuação", "80 ou mais na escala da SCA já é especial. 85 é excelente, 90 é excepcional. Nem todo pacote traz."],
-  ["Altitude", "Acima de uns 1.000 m o grão amadurece devagar e fica mais doce e mais ácido."],
+  ["Altitude", "Acima de uns 1.000 m o grão amadurece devagar e fica mais doce e mais ácido. Só diz algo junto da região: 1.200 m no Cerrado não é 1.200 m na Mantiqueira."],
 ];
 
 const familias = [
@@ -948,7 +948,7 @@ const dadosDoGuia = {
             <text class="pc-marca" x="170" y="142" text-anchor="middle">CAFUAÇU</text>
             <text class="pc-sub" x="170" y="158" text-anchor="middle">café especial</text>
             <g class="rot-pin">
-              {[365, 452, 304, 278, 182, 402, 208, 330, 252].map((y, i) => (<g><circle cx="72" cy={y - 5} r="11"/><text x="72" y={y - 1}>{i + 1}</text></g>))}
+              {[365, 452, 304, 278, 208, 402, 182, 330, 252].map((y, i) => (<g><circle cx="72" cy={y - 5} r="11"/><text x="72" y={y - 1}>{i + 1}</text></g>))}
             </g>
             <g class="rot-txt">
               <text x="92" y="182">ARÁBICA · BOURBON</text>
