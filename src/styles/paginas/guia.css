@@ -267,11 +267,14 @@ html{scroll-padding-top:104px}
 
 /* versão impressa: sem menu, sem animação, com as cores do desenho e sem cortar cartão no meio */
 /* fontes: toggle no fim do guia */
-.fontes{margin:48px 0 8px;border-top:1px solid var(--crema-300);border-bottom:1px solid var(--crema-300)}
-.fontes summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:18px 0}
+.fontes{margin:0 0 64px;background:var(--crema-200);border:1px solid var(--crema-300);border-radius:16px;padding:0 24px}
+.fontes summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:20px 0;border-radius:16px}
 .fontes summary::-webkit-details-marker{display:none}
-.fontes summary::before{content:"+";font-weight:700;color:var(--torra-500);width:14px}
+.fontes summary:focus{outline:none}
+.fontes summary:focus-visible{outline:2px solid var(--torra-500);outline-offset:4px}
+.fontes summary::before{content:"+";flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--crema-300);color:var(--cafe-700);font-weight:700;font-size:18px;line-height:1}
 .fontes[open] summary::before{content:"−"}
+.fontes[open] summary{border-bottom:1px solid var(--crema-300);margin-bottom:16px}
 .fontes summary span{font-size:22px;font-weight:700;color:var(--cafe-700)}
 .fontes summary small{font-size:14.5px;color:var(--cafe-500)}
 .fo-g{margin:4px 0 18px}
@@ -280,7 +283,7 @@ html{scroll-padding-top:104px}
 .fo-g li{padding:7px 0;border-top:1px dashed var(--crema-300);display:flex;flex-direction:column;gap:2px}
 .fo-g a{color:var(--cafe-700);font-weight:600}
 .fo-g li span{font-size:14.5px;color:var(--cafe-500)}
-.fontes > .nota{margin:0 0 18px}
+.fontes > .nota{margin:0 0 20px}
 
 @media print{
   @page{
