@@ -76,6 +76,10 @@
     #recado{font-size:13.5px;line-height:1.45;min-height:1.15em;margin:10px 2px 0}
     #recado.erro{color:#A32F12}
     #recado.ok{color:var(--folha-600);font-weight:600}
+    .isca{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+    .cf-turnstile{margin:10px 2px 0}
+    .consentimento{font-size:12px;line-height:1.45;color:var(--cafe-500);margin:10px 2px 0}
+    .consentimento a{color:inherit}
     /* ---------- o momento do sucesso ---------- */
     .pronto{
       position:relative;text-align:center;padding:6px 2px 2px;

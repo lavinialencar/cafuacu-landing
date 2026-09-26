@@ -46,3 +46,28 @@ cafuacu-site/
 ## Publicação
 
 Cada push na `main` publica no Cloudflare Pages. Configuração do projeto lá: build command `npm run build`, diretório de saída `dist`. A variável `BREVO_API_KEY` (Secret) fica em Settings > Variables and Secrets. Detalhes e histórico das decisões em `docs/arquitetura.md`.
+
+## Segurança
+
+- **Cabeçalhos**: `public/_headers` (CSP, HSTS, X-Frame-Options e companhia). O `npm run build` roda `scripts/csp.mjs`, que troca o marcador do `script-src` pelos sha256 de cada `<script>` inline do `dist` e falha o build se algum script ficar fora da CSP. Script externo novo (analytics, widget) precisa entrar no `script-src` do `_headers`.
+- **Inscrição** (`functions/api/inscrever.js`): aceita só a origem do site, só JSON, até 2 KB; tem campo isca contra robô; responde igual pra e-mail novo e pra quem já assina; loga uma linha JSON por pedido, sem e-mail e sem IP. `npm test` confere tudo isso sem rede.
+
+### Passo a passo no Cloudflare (feito por ela)
+
+**1. Turnstile (anti-robô do formulário).** Fica desligado até as duas chaves existirem.
+
+1. No painel da Cloudflare: **Turnstile > Add widget**. Nome: `cafuacu newsletter`. Hostnames: `cafuacu.com.br`, `www.cafuacu.com.br` e o domínio `.pages.dev` do projeto (pra funcionar nos previews). Widget mode: **Managed**. Criar.
+2. Copiar a **Site Key** e a **Secret Key**.
+3. **Workers & Pages > projeto do site > Settings > Variables and Secrets**, em Production (e em Preview, se quiser testar lá):
+   - `PUBLIC_TURNSTILE_SITE_KEY` = Site Key, tipo **Text** (é pública e entra no HTML na hora do build).
+   - `TURNSTILE_SECRET_KEY` = Secret Key, tipo **Secret**.
+4. Publicar de novo (**Deployments > Retry deployment** no último, ou o próximo push), porque a Site Key só entra no site num build novo.
+
+Criar as duas juntas. Só o Secret sem a Site Key faz toda inscrição falhar (o formulário não manda token).
+
+**2. Limite de tentativas por IP.** Escolher um:
+
+- **KV (recomendado, grátis, 5 tentativas a cada 10 minutos por IP):** **Storage & Databases > KV > Create namespace** (`cafuacu-rate-limit`). Depois, no projeto do Pages, **Settings > Bindings > Add > KV namespace**, nome da variável `RATE_LIMIT_KV`, apontando pro namespace criado. Publicar de novo. O IP é guardado só como hash e some sozinho em 10 minutos.
+- **Regra no WAF:** no domínio `cafuacu.com.br`, **Security > WAF > Rate limiting rules > Create rule**. Expressão: `(http.request.uri.path eq "/api/inscrever" and http.request.method eq "POST")`. Contar por **IP**. Ideal: 5 pedidos em 10 minutos, ação **Block** por 10 minutos. No plano Free a janela e o bloqueio só vão até 10 segundos; aí usar 3 pedidos em 10 segundos, bloqueio de 10 segundos, e preferir o KV acima pro limite longo.
+
+Se um dia existir um binding de Rate Limiting chamado `RATE_LIMITER`, a função usa ele no lugar do KV.

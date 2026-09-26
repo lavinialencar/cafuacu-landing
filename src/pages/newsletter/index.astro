@@ -6,12 +6,15 @@ import Ilustracao from "../../components/Ilustracao.astro";
 import VoltarHub from "../../components/VoltarHub.astro";
 import "../../styles/paginas/newsletter.css";
 import proxima from "../../data/proxima-edicao.json";
+// Turnstile só liga quando a chave pública existe no build (ver README).
+const turnstileChave = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 <Base
   titulo="Newsletter de café especial, grátis e quinzenal · Cafuaçu News"
   descricao="A newsletter de café da Cafuaçu: notícias, cotação da saca, lançamentos, garimpo com preço conferido e agenda de eventos de café, a cada duas semanas, de graça."
 >
   <Fragment slot="head">
+    {turnstileChave && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
     <script is:inline>
       try{ if(!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim"); }catch(e){}
     </script>
@@ -155,9 +158,15 @@ import proxima from "../../data/proxima-edicao.json";
             <path d="M2.2 21.2h19" stroke="#6B4A38" stroke-width="1.7" stroke-linecap="round"/>
           </svg>
           <input id="email" name="email" type="email" inputmode="email" autocomplete="email"
-                 placeholder="voce@email.com" required>
+                 placeholder="voce@email.com" maxlength="200" required>
           <button id="enviar" type="submit">quero receber</button>
         </div>
+        <div class="isca" aria-hidden="true">
+          <label for="site">deixe em branco</label>
+          <input id="site" name="site" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        {turnstileChave && <div class="cf-turnstile" data-sitekey={turnstileChave} data-appearance="interaction-only" data-language="pt-br"></div>}
+        <p class="consentimento">Ao assinar, você concorda com a <a href="/privacidade">política de privacidade</a>.</p>
         <p id="recado" role="status" aria-live="polite"></p>
       </form>
 

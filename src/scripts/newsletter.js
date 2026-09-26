@@ -44,7 +44,18 @@
     const pronto = document.getElementById("pronto");
     if (!form) return;
 
+    const isca = document.getElementById("site");
     const PADRAO = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
+
+    // Turnstile (so existe quando a chave publica foi configurada no build).
+    // O widget poe o token num campo escondido do form; cada token vale uma vez so.
+    function tokenTurnstile() {
+      const t = form.querySelector('[name="cf-turnstile-response"]');
+      return t ? t.value : "";
+    }
+    function reiniciarTurnstile() {
+      try { if (window.turnstile && form.querySelector(".cf-turnstile")) window.turnstile.reset(); } catch (e) {}
+    }
     const TEXTO_BOTAO = "quero receber";
 
     function avisar(texto, tipo) {
@@ -77,14 +88,14 @@
         const r = await fetch(ENDERECO_INSCRICAO, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(Object.assign({ email: email }, lerUtm())),
+          body: JSON.stringify(Object.assign({ email: email, site: isca ? isca.value : "", turnstile: tokenTurnstile() }, lerUtm())),
         });
 
         if (!r.ok) throw new Error("resposta " + r.status);
 
-        const dados = await r.json().catch(() => ({}));
-        mostrarSucesso(email, dados.status);
+        mostrarSucesso(email);
       } catch (err) {
+        reiniciarTurnstile();
         botao.disabled = false;
         botao.textContent = TEXTO_BOTAO;
         avisar("Deu ruim aqui do nosso lado. Tenta de novo em instantes, ou escreve pra contato@cafuacu.com.br", "erro");
@@ -98,18 +109,12 @@
     const proTitulo = document.getElementById("proTitulo");
     const proFrase = document.getElementById("proFrase");
 
-    // "active" é gente que já estava confirmada (reinscrição de quem já
-    // assina). Não chega e-mail novo nenhum nesse caso, então o aviso não
-    // pode dizer "abre e confirma" — quem já assina ficaria esperando à toa.
-    function mostrarSucesso(email, status) {
+    // Sempre a mesma mensagem, seja e-mail novo ou de quem ja assina:
+    // o site nao revela quem esta na lista.
+    function mostrarSucesso(email) {
       eco.textContent = email;
-      if (status === "active") {
-        proTitulo.textContent = "Você já é assinante";
-        proFrase.innerHTML = 'Esse e-mail já está confirmado na lista. Não precisa fazer nada, é só esperar a próxima edição.';
-      } else {
-        proTitulo.textContent = "Falta um clique";
-        proFrase.innerHTML = 'Acabou de sair um e-mail de <b>Cafuaçu</b> pra aí. Abre, confirma, e você entra na lista.';
-      }
+      proTitulo.textContent = "Falta um clique";
+      proFrase.innerHTML = 'Se esse e-mail ainda n\u00e3o estiver na lista, acabou de sair um e-mail de <b>Cafua\u00e7u</b> pra a\u00ed. Abre, confirma, e voc\u00ea entra.';
       form.hidden = true;
       pronto.hidden = false;
       pronto.focus();
@@ -134,6 +139,7 @@
     voltar.addEventListener("click", function () {
       pronto.hidden = true;
       form.hidden = false;
+      reiniciarTurnstile();
       botao.disabled = false;
       botao.textContent = TEXTO_BOTAO;
       avisar("");
