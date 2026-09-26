@@ -1586,6 +1586,7 @@ const dadosDoGuia = {
 
       <details class="fontes" id="fontes">
         <summary><span>Fontes</span><small>de onde saiu cada número e cada afirmação deste guia</small></summary>
+        <div class="fo-cols">
         {fontes.map(([grupo, itens]) => (
           <div class="fo-g">
             <h3>{grupo}</h3>
@@ -1594,6 +1595,7 @@ const dadosDoGuia = {
             </ul>
           </div>
         ))}
+        </div>
         <p class="nota">Links conferidos em 26/09/2026. Nenhum é pago nem patrocinado.</p>
       </details>
 

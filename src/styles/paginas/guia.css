@@ -277,7 +277,10 @@ html{scroll-padding-top:104px}
 .fontes[open] summary{border-bottom:1px solid var(--crema-300);margin-bottom:16px}
 .fontes summary span{font-size:22px;font-weight:700;color:var(--cafe-700)}
 .fontes summary small{font-size:14.5px;color:var(--cafe-500)}
-.fo-g{margin:4px 0 18px}
+.fo-cols{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;align-items:start}
+.fo-g:first-child{grid-row:span 2}
+@media (max-width:700px){.fo-cols{grid-template-columns:1fr}.fo-g:first-child{grid-row:auto}}
+.fo-g{margin:0 0 18px}
 .fo-g h3{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--cafe-500);margin-bottom:6px}
 .fo-g ul{list-style:none;padding:0;margin:0}
 .fo-g li{padding:7px 0;border-top:1px dashed var(--crema-300);display:flex;flex-direction:column;gap:2px}
