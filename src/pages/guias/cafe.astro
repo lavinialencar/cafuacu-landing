@@ -270,6 +270,28 @@ const alem = [
   ["James Hoffmann", "https://www.youtube.com/@jameshoffmann", ["canal", "em inglês"], "O canal que ensinou preparo pra metade do planeta, e autor do atlas de café mais conhecido que existe. Tem legenda automática em português."],
 ];
 
+// fontes do guia, reunidas no toggle do fim; link só de página conferida
+const fontes: [string, [string, string, string][]][] = [
+  ["Qualidade e regra do café", [
+    ["BSCA, Associação Brasileira de Cafés Especiais", "https://bsca.com.br/", "a régua da SCA no Brasil, 80 pontos ou mais"],
+    ["SCA, Specialty Coffee Association", "https://sca.coffee/", "o protocolo de prova e pontuação"],
+    ["ABIC, Programa de Qualidade do Café", "https://www.abic.com.br/", "as faixas tradicional, superior e gourmet"],
+    ["Instrução Normativa 16/2010 do Ministério da Agricultura", "https://www.agrolink.com.br/noticias/regulamentacao-do-cafe-reforca-selo-de-pureza-abic_126166.html", "o limite de 1% de impureza no café torrado"],
+    ["INPI, indicações geográficas", "https://www.gov.br/inpi/pt-br/servicos/indicacoes-geograficas", "as regiões de café com IG registrada"],
+  ]],
+  ["Saúde e cafeína", [
+    ["Food Research International, ocratoxina em grão com defeito", "https://www.sciencedirect.com/science/article/abs/pii/S0963996913006868", "grão preto e ardido concentram fungo e toxina"],
+    ["Revisão científica sobre café e trato digestivo (2022)", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8778943/", "o que o café faz no estômago e no intestino"],
+    ["USDA FoodData Central", "https://fdc.nal.usda.gov/", "cafeína do espresso e do coado"],
+    ["EFSA, cafeína", "https://www.efsa.europa.eu/en/topics/topic/caffeine", "os limites seguros por dia"],
+  ]],
+  ["Quem planta o café", [
+    ["Repórter Brasil", "https://reporterbrasil.org.br/2024/07/cooxupe-trabalho-escravo-cafe/", "trabalho escravo na cadeia do café"],
+    ["Jornal da USP", "https://jornal.usp.br/radio-usp/trabalho-escravo-na-cafeicultura-pesquisa-revela-elos-ocultos-na-cadeia-produtiva-do-brasil/", "os elos ocultos da cadeia produtiva"],
+    ["Ministério do Trabalho", "https://www.gov.br/trabalho-e-emprego/pt-br/noticias-e-conteudo/2024/Julho/mte-resgata-11-trabalhadores-de-condicoes-analogas-a-escravidao-na-colheita-de-cafe-no-sudoeste-da-bahia-1", "resgate na colheita, Bahia, 2024"],
+  ]],
+];
+
 // os três grandes eventos de café do Brasil, cada um com uma pegada diferente
 const eventos = [
   { mes: "junho", nome: "São Paulo Coffee Festival", url: "https://www.saopaulocoffeefestival.com.br/", onde: "São Paulo, Bienal do Ibirapuera", pegada: "comunidade", d: "O festival do público. Estande de torrefação e de marca, lançamento de equipamento, barista famoso servindo, fila pra provar. É o lugar pra conhecer muita marca num dia só e sair com a sacola cheia." },
@@ -1563,6 +1585,19 @@ const dadosDoGuia = {
         </dl>
       </section>
 
+      <details class="fontes" id="fontes">
+        <summary><span>Fontes</span><small>de onde saiu cada número e cada afirmação deste guia</small></summary>
+        {fontes.map(([grupo, itens]) => (
+          <div class="fo-g">
+            <h3>{grupo}</h3>
+            <ul>
+              {itens.map(([nome, url, oq]) => (<li><a href={url} rel="noopener">{nome}</a><span>{oq}</span></li>))}
+            </ul>
+          </div>
+        ))}
+        <p class="nota">Links conferidos em 26/09/2026. Nenhum é pago nem patrocinado.</p>
+      </details>
+
       <div class="cab-sec fim-cab" id="fim">
         <h2>Onde ir agora</h2>
       </div>
@@ -1606,6 +1641,8 @@ const dadosDoGuia = {
 
 <script>
   document.getElementById("imprimir-guia")?.addEventListener("click", () => window.print());
+  // no papel o toggle de fontes sai aberto
+  addEventListener("beforeprint", () => { document.getElementById("fontes")?.setAttribute("open", ""); });
   // Sumário do topo: destaca a seção da tela e mostra o progresso da leitura.
   const nav = document.getElementById("topo-sum")!;
   const chips = Array.from(nav.querySelectorAll<HTMLAnchorElement>(".ts-chips a[data-alvo]"));

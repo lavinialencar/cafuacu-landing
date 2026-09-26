@@ -266,6 +266,22 @@ html{scroll-padding-top:104px}
 @media (max-width:640px){.imprimir{flex-direction:column;align-items:flex-start}}
 
 /* versão impressa: sem menu, sem animação, com as cores do desenho e sem cortar cartão no meio */
+/* fontes: toggle no fim do guia */
+.fontes{margin:48px 0 8px;border-top:1px solid var(--crema-300);border-bottom:1px solid var(--crema-300)}
+.fontes summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:18px 0}
+.fontes summary::-webkit-details-marker{display:none}
+.fontes summary::before{content:"+";font-weight:700;color:var(--torra-500);width:14px}
+.fontes[open] summary::before{content:"−"}
+.fontes summary span{font-size:22px;font-weight:700;color:var(--cafe-700)}
+.fontes summary small{font-size:14.5px;color:var(--cafe-500)}
+.fo-g{margin:4px 0 18px}
+.fo-g h3{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--cafe-500);margin-bottom:6px}
+.fo-g ul{list-style:none;padding:0;margin:0}
+.fo-g li{padding:7px 0;border-top:1px dashed var(--crema-300);display:flex;flex-direction:column;gap:2px}
+.fo-g a{color:var(--cafe-700);font-weight:600}
+.fo-g li span{font-size:14.5px;color:var(--cafe-500)}
+.fontes > .nota{margin:0 0 18px}
+
 @media print{
   @page{
     size:A4;margin:11mm 11mm 15mm;
