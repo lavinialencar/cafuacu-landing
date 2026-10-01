@@ -1,5 +1,15 @@
 [
   {
+    "num": 2,
+    "titulo": "Edição #2",
+    "etiqueta": "",
+    "data": "03/10/2026",
+    "data_iso": "2026-10-03",
+    "assunto": "O café caiu 21%. O especial, só 10%. Por quê?",
+    "resumo": "A queda chegou no mercado, o ranking das cafeterias, a receita campeã com medidas e um garimpo conferido.",
+    "href": "/edicoes/2026-10-03/"
+  },
+  {
     "num": 1,
     "titulo": "Edição #1",
     "etiqueta": "",
