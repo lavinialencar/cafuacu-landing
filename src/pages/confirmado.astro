@@ -13,7 +13,17 @@ import Ilustracao from "../components/Ilustracao.astro";
   <Fragment slot="hero">
     <div class="eyebrow">inscrição confirmada</div>
     <h1>Confirmado.<br />Você está na lista.</h1>
-    <p>A próxima edição chega <strong style="color:var(--torra-500)">{proxima.texto}</strong>, e depois é de quinze em quinze dias.</p>
+    <p>A próxima edição chega <strong data-proxima style="color:var(--torra-500)">{proxima.texto}</strong>, e depois é de quinze em quinze dias.</p>
+    <script is:inline>
+  // A news sai de 15 em 15 dias, sábado às 7h (Belém). Calcula a próxima sozinho; o texto do JSON é só a reserva sem JavaScript.
+  (function () {
+    var ancora = Date.parse("2026-10-03T07:00:00-03:00"), q = 14 * 864e5, agora = Date.now();
+    var prox = agora < ancora ? ancora : ancora + Math.ceil((agora - ancora + 1) / q) * q;
+    var d = new Date(prox - 3 * 36e5); // Belém é UTC-3 o ano todo
+    var t = "sábado, " + String(d.getUTCDate()).padStart(2, "0") + "/" + String(d.getUTCMonth() + 1).padStart(2, "0");
+    document.querySelectorAll("[data-proxima]").forEach(function (e) { e.textContent = t; });
+  })();
+</script>
   </Fragment>
 
   <Filtros />

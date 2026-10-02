@@ -147,7 +147,17 @@ const turnstileChave = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <p style="color:var(--crema-300);font-size:15px;margin:0 0 34px">Toda quinzena, sem enrolação.</p>
 
     <div class="cartao">
-      <div class="selo">próxima edição · {proxima.texto}</div>
+      <div class="selo">próxima edição · <span data-proxima>{proxima.texto}</span></div>
+      <script is:inline>
+  // A news sai de 15 em 15 dias, sábado às 7h (Belém). Calcula a próxima sozinho; o texto do JSON é só a reserva sem JavaScript.
+  (function () {
+    var ancora = Date.parse("2026-10-03T07:00:00-03:00"), q = 14 * 864e5, agora = Date.now();
+    var prox = agora < ancora ? ancora : ancora + Math.ceil((agora - ancora + 1) / q) * q;
+    var d = new Date(prox - 3 * 36e5); // Belém é UTC-3 o ano todo
+    var t = "sábado, " + String(d.getUTCDate()).padStart(2, "0") + "/" + String(d.getUTCMonth() + 1).padStart(2, "0");
+    document.querySelectorAll("[data-proxima]").forEach(function (e) { e.textContent = t; });
+  })();
+</script>
 
       <form id="assinar" novalidate>
         <label class="rotulo" for="email">seu e-mail</label>
